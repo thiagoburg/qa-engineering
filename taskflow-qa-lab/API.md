@@ -24,7 +24,7 @@ Send `Content-Type: application/json` on JSON requests.
 Create an account:
 
 ```json
-{"email":"qa@example.test","password":"Practice-only-456!"}
+{"email":"qa@example.com","password":"Practice-only-456!"}
 ```
 
 Create a task:
@@ -45,9 +45,10 @@ Errors use `{ "error": "A short user-facing message." }`. Common statuses are `4
 
 ## Authentication configuration
 
-The Worker requires `SUPABASE_URL` and `SUPABASE_PUBLISHABLE_KEY`. Use `.dev.vars.example` for local setup and keep real project values in the ignored `.dev.vars` file or Cloudflare environment variables. Never use a Supabase secret or service-role key in this app. For invented `.example.test` accounts to sign in immediately, disable email confirmation in the Supabase Auth provider settings; if confirmation remains enabled, registration returns `202` and the interface asks the user to confirm their email.
+The Worker requires `SUPABASE_URL` and `SUPABASE_PUBLISHABLE_KEY`. Use `.dev.vars.example` for local setup and keep real project values in the ignored `.dev.vars` file or Cloudflare environment variables. Never use a Supabase secret or service-role key in this app. Use invented, syntactically valid example addresses such as `qa@example.com`. For training accounts to sign in immediately, disable email confirmation in the Supabase Auth email provider settings; if confirmation remains enabled, registration returns `202` and the interface asks the user to confirm their email.
 
 ## Practice safety
 
 Use invented data. Postman collections and screenshots must not contain real credentials or personal information. The local database reset affects only Wrangler's local D1 state.
+
 
