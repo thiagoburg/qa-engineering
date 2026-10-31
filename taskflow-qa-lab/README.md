@@ -13,11 +13,13 @@ From this folder:
 
 ```powershell
 npm install
+Copy-Item .dev.vars.example .dev.vars
+# Add SUPABASE_URL and SUPABASE_PUBLISHABLE_KEY to .dev.vars
 npm run db:migrate:local
 npm run dev
 ```
 
-Open the local address printed by Wrangler (normally `http://localhost:8787`). The local D1 database is separate from the Cloudflare database. Create an invented training account; do not enter real credentials or personal information.
+Create a Supabase project and use its URL and publishable key in `.dev.vars`. Supabase Auth manages account credentials; TaskFlow D1 stores the account ID/email mapping and tasks. Open the local address printed by Wrangler (normally `http://localhost:8787`). The local D1 database is separate from the Cloudflare databases. Use invented training accounts; do not enter real credentials or personal information.
 
 To delete local training rows while keeping the schema, run:
 
@@ -34,7 +36,7 @@ npm run typecheck
 npm test
 ```
 
-The Playwright suite launches a local Worker and uses the local D1 binding. It does not deploy or contact a production database.
+The Playwright suite launches a local Worker, local D1 binding, and a test-only mock of the Supabase Auth API. It does not require Supabase credentials, deploy, or contact a production database. The mock is used only by the test stack.
 
 ## API and product behavior
 
@@ -42,6 +44,7 @@ See [PRODUCT_SPEC.md](PRODUCT_SPEC.md). Migrations are versioned under `migratio
 
 ## Deployment status
 
-Deployment is intentionally not configured with live credentials. Before publishing, check the Cloudflare account and Worker CPU limits: OWASP's current PBKDF2-HMAC-SHA-256 recommendation is 600,000 iterations, while Workers Free allows 10 ms CPU per request. Do not lower the password work factor just to fit a limit; use a paid CPU allowance or another reviewed architecture if the deployed hash exceeds the free limit. This project must remain for invented training data only.
+Deployment is intentionally not configured with live Supabase credentials. Before publishing, configure the Supabase Auth project URL and publishable key in Cloudflare for both production and Previews. This project must remain for invented training data only.
 
 See [DEPLOYMENT.md](DEPLOYMENT.md) for the eventual deployment checklist and environment separation requirements.
+
