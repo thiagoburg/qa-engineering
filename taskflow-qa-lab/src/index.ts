@@ -303,7 +303,10 @@ async function handleApi(request: Request, env: Env): Promise<Response> {
   const path = url.pathname;
   const method = request.method;
 
-  if (path === "/api/health" && method === "GET") return json({ status: "ok" });
+  if (path === "/api/health" && method === "GET") {
+    await env.DB.prepare("SELECT 1 AS ok").first();
+    return json({ status: "ok" });
+  }
   if (path === "/api/auth/register" && method === "POST") return register(request, env);
   if (path === "/api/auth/login" && method === "POST") return login(request, env);
   if (path === "/api/auth/logout" && method === "POST") return logout(request, env);
@@ -344,3 +347,4 @@ export default {
     });
   },
 };
+
