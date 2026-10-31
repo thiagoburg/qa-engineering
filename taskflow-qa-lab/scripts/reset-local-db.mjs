@@ -19,7 +19,7 @@ if (!existsSync(configPath) || !existsSync(sqlPath)) {
 }
 
 const config = readFileSync(configPath, "utf8");
-if (!config.includes('"database_name": "taskflow-local"') || !config.includes('"binding": "DB"')) {
+if (!config.includes('"database_name": "taskflow-qa-lab-production"') || !config.includes('"binding": "DB"')) {
   console.error("Safety stop: the expected local database binding was not found.");
   process.exit(1);
 }
@@ -37,3 +37,4 @@ if (result.error) {
   process.exit(1);
 }
 process.exit(result.status ?? 1);
+
