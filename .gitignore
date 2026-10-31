@@ -1,0 +1,22 @@
+# Node and Cloudflare local state
+node_modules/
+.wrangler/
+.dev.vars
+.dev.vars.*
+!.dev.vars.example
+
+# Test output
+taskflow-qa-lab/playwright-report/
+taskflow-qa-lab/test-results/
+taskflow-qa-lab/blob-report/
+
+# Python environments used only if added for auxiliary tooling
+.venv/
+__pycache__/
+*.py[cod]
+
+# Editor and operating system files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

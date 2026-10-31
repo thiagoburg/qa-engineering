@@ -1,0 +1,265 @@
+const authView = document.querySelector("#auth-view");
+const taskView = document.querySelector("#task-view");
+const loginTab = document.querySelector("#login-tab");
+const registerTab = document.querySelector("#register-tab");
+const loginForm = document.querySelector("#login-panel");
+const registerForm = document.querySelector("#register-panel");
+const taskForm = document.querySelector("#task-form");
+const taskList = document.querySelector("#task-list");
+const emptyState = document.querySelector("#empty-state");
+const stats = document.querySelector("#task-stats");
+const accountLabel = document.querySelector("#account-label");
+const listMessage = document.querySelector("#list-message");
+let activeFilter = "all";
+
+async function api(path, options = {}) {
+  const response = await fetch(path, {
+    ...options,
+    headers: { ...(options.body ? { "Content-Type": "application/json" } : {}), ...options.headers },
+    credentials: "same-origin",
+  });
+  if (response.status === 204) return null;
+  const body = await response.json().catch(() => ({}));
+  if (!response.ok) throw new Error(body.error || `Request failed (${response.status}).`);
+  return body;
+}
+
+function setMessage(id, message = "") {
+  document.querySelector(`#${id}`).textContent = message;
+}
+
+function showAuth() {
+  taskView.hidden = true;
+  authView.hidden = false;
+  loginForm.querySelector("input").focus();
+}
+
+async function showTasks(user) {
+  authView.hidden = true;
+  taskView.hidden = false;
+  accountLabel.textContent = user.email;
+  await refreshTasks();
+}
+
+function makeTaskElement(task) {
+  const item = document.createElement("li");
+  item.className = `task-item${task.completed ? " is-complete" : ""}`;
+  item.dataset.taskId = task.id;
+
+  const checkbox = document.createElement("input");
+  checkbox.type = "checkbox";
+  checkbox.checked = task.completed;
+  checkbox.setAttribute("aria-label", `Mark ${task.title} as ${task.completed ? "active" : "completed"}`);
+  checkbox.addEventListener("change", async () => {
+    try {
+      await api(`/api/tasks/${task.id}`, { method: "PATCH", body: JSON.stringify({ completed: checkbox.checked }) });
+      await refreshTasks();
+    } catch (error) {
+      setMessage("list-message", error.message);
+      checkbox.checked = !checkbox.checked;
+    }
+  });
+
+  const content = document.createElement("div");
+  content.className = "task-content";
+  const title = document.createElement("span");
+  title.className = "task-title";
+  title.textContent = task.title;
+  content.append(title);
+  if (task.description) {
+    const description = document.createElement("p");
+    description.className = "task-description";
+    description.textContent = task.description;
+    content.append(description);
+  }
+
+  const actions = document.createElement("div");
+  actions.className = "task-actions";
+  const edit = document.createElement("button");
+  edit.type = "button";
+  edit.className = "button button-secondary";
+  edit.textContent = "Edit";
+  edit.setAttribute("aria-label", `Edit ${task.title}`);
+  edit.addEventListener("click", () => startEdit(item, task));
+  const remove = document.createElement("button");
+  remove.type = "button";
+  remove.className = "button text-button";
+  remove.textContent = "Delete";
+  remove.setAttribute("aria-label", `Delete ${task.title}`);
+  remove.addEventListener("click", async () => {
+    if (!window.confirm(`Delete “${task.title}”?`)) return;
+    try {
+      await api(`/api/tasks/${task.id}`, { method: "DELETE" });
+      await refreshTasks();
+      setMessage("list-message", "Task deleted.");
+    } catch (error) {
+      setMessage("list-message", error.message);
+    }
+  });
+  actions.append(edit, remove);
+  item.append(checkbox, content, actions);
+  return item;
+}
+
+function startEdit(item, task) {
+  const content = item.querySelector(".task-content");
+  const actions = item.querySelector(".task-actions");
+  const form = document.createElement("form");
+  form.className = "form-stack";
+  const titleLabel = document.createElement("label");
+  titleLabel.textContent = "Task title";
+  const titleInput = document.createElement("input");
+  titleInput.name = "title";
+  titleInput.maxLength = 120;
+  titleInput.required = true;
+  titleInput.value = task.title;
+  titleLabel.htmlFor = `edit-title-${task.id}`;
+  titleInput.id = titleLabel.htmlFor;
+  const descriptionLabel = document.createElement("label");
+  descriptionLabel.textContent = "Description";
+  descriptionLabel.htmlFor = `edit-description-${task.id}`;
+  const descriptionInput = document.createElement("textarea");
+  descriptionInput.id = descriptionLabel.htmlFor;
+  descriptionInput.name = "description";
+  descriptionInput.maxLength = 1000;
+  descriptionInput.rows = 2;
+  descriptionInput.value = task.description;
+  const message = document.createElement("p");
+  message.className = "form-message";
+  message.setAttribute("role", "alert");
+  const save = document.createElement("button");
+  save.type = "submit";
+  save.className = "button button-primary";
+  save.textContent = "Save";
+  const cancel = document.createElement("button");
+  cancel.type = "button";
+  cancel.className = "button button-secondary";
+  cancel.textContent = "Cancel";
+  cancel.addEventListener("click", () => refreshTasks());
+  const editActions = document.createElement("div");
+  editActions.className = "task-actions";
+  editActions.append(save, cancel);
+  form.append(titleLabel, titleInput, descriptionLabel, descriptionInput, message, editActions);
+  content.replaceChildren(form);
+  actions.hidden = true;
+  titleInput.focus();
+
+  form.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    try {
+      await api(`/api/tasks/${task.id}`, {
+        method: "PATCH",
+        body: JSON.stringify({ title: titleInput.value, description: descriptionInput.value }),
+      });
+      await refreshTasks();
+      setMessage("list-message", "Task updated.");
+    } catch (error) {
+      message.textContent = error.message;
+    }
+  });
+}
+
+async function refreshTasks() {
+  listMessage.textContent = "";
+  const [{ tasks }, taskStats] = await Promise.all([
+    api(`/api/tasks?status=${activeFilter}`),
+    api("/api/tasks/stats"),
+  ]);
+  taskList.replaceChildren(...tasks.map(makeTaskElement));
+  emptyState.classList.toggle("is-visible", tasks.length === 0);
+  stats.textContent = `${taskStats.active} active · ${taskStats.completed} completed · ${taskStats.total} total`;
+}
+
+function selectAuthTab(tab) {
+  const loginSelected = tab === "login";
+  loginTab.classList.toggle("is-active", loginSelected);
+  registerTab.classList.toggle("is-active", !loginSelected);
+  loginTab.setAttribute("aria-pressed", String(loginSelected));
+  registerTab.setAttribute("aria-pressed", String(!loginSelected));
+  loginForm.hidden = !loginSelected;
+  registerForm.hidden = loginSelected;
+  setMessage("login-message");
+  setMessage("register-message");
+  (loginSelected ? loginForm : registerForm).querySelector("input").focus();
+}
+
+loginTab.addEventListener("click", () => selectAuthTab("login"));
+registerTab.addEventListener("click", () => selectAuthTab("register"));
+
+loginForm.addEventListener("submit", async (event) => {
+  event.preventDefault();
+  setMessage("login-message");
+  const form = new FormData(loginForm);
+  try {
+    const { user } = await api("/api/auth/login", {
+      method: "POST",
+      body: JSON.stringify({ email: form.get("email"), password: form.get("password") }),
+    });
+    loginForm.reset();
+    await showTasks(user);
+  } catch (error) {
+    setMessage("login-message", error.message);
+  }
+});
+
+registerForm.addEventListener("submit", async (event) => {
+  event.preventDefault();
+  setMessage("register-message");
+  const form = new FormData(registerForm);
+  try {
+    const { user } = await api("/api/auth/register", {
+      method: "POST",
+      body: JSON.stringify({ email: form.get("email"), password: form.get("password") }),
+    });
+    registerForm.reset();
+    await showTasks(user);
+  } catch (error) {
+    setMessage("register-message", error.message);
+  }
+});
+
+document.querySelector("#logout-button").addEventListener("click", async () => {
+  await api("/api/auth/logout", { method: "POST" });
+  showAuth();
+  selectAuthTab("login");
+});
+
+taskForm.addEventListener("submit", async (event) => {
+  event.preventDefault();
+  setMessage("task-message");
+  const form = new FormData(taskForm);
+  try {
+    await api("/api/tasks", {
+      method: "POST",
+      body: JSON.stringify({ title: form.get("title"), description: form.get("description") }),
+    });
+    taskForm.reset();
+    await refreshTasks();
+    document.querySelector("#task-title").focus();
+  } catch (error) {
+    setMessage("task-message", error.message);
+  }
+});
+
+document.querySelectorAll("[data-filter]").forEach((button) => {
+  button.addEventListener("click", async () => {
+    activeFilter = button.dataset.filter;
+    document.querySelectorAll("[data-filter]").forEach((filter) => {
+      const selected = filter === button;
+      filter.classList.toggle("is-active", selected);
+      filter.setAttribute("aria-pressed", String(selected));
+    });
+    try {
+      await refreshTasks();
+    } catch (error) {
+      setMessage("list-message", error.message);
+    }
+  });
+});
+
+try {
+  const { user } = await api("/api/auth/me");
+  await showTasks(user);
+} catch {
+  showAuth();
+}
