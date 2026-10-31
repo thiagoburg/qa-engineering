@@ -1,6 +1,6 @@
 # Deployment Readiness
 
-Deployment comes after local verification. Do not publish a Worker until the public repository exists, the Cloudflare account is connected, and a separate preview D1 database is available.
+The public repository and Cloudflare account are connected. Separate preview and production D1 databases have been created and their IDs are recorded in `wrangler.jsonc`. The preview schema is applied. The preview Worker has been uploaded, but its URL is not reachable until a `workers.dev` account subdomain is registered in the Cloudflare dashboard.
 
 ## Required separation
 
@@ -16,9 +16,10 @@ The application uses 600,000 PBKDF2-HMAC-SHA-256 iterations, matching the curren
 
 ## Release checklist
 
-1. Create the production and preview D1 databases and record their IDs in the deployment environment; do not commit credentials.
-2. Configure Cloudflare Workers Builds for `main`, with a distinct preview binding and branch previews.
-3. Apply migrations to each intended database using the correct environment.
-4. Verify registration, sign-in, sign-out, task CRUD, validation, filtering, persistence, API responses, and account isolation on the preview URL.
+1. Register an account `workers.dev` subdomain in the Cloudflare dashboard so the preview URL resolves.
+2. Verify registration and sign-in CPU time, then run the browser/API checks and account-isolation exercise against preview.
+3. Configure Cloudflare Workers Builds for `main`, using the production D1 binding for production deployments and the preview binding for branch previews.
+4. Apply the migration to production using the production environment only after preview verification.
 5. Confirm the Playwright workflow is green before merging to `main`.
 6. Verify the public production URL and document the live build. Do not include test passwords or personal data in evidence.
+
