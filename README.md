@@ -1,0 +1,35 @@
+# QA Engineer Roadmap
+
+A practical, milestone-based path from beginner to junior QA Engineer, with a small web application for hands-on practice.
+
+## Start here
+
+1. Read [the roadmap](ROADMAP.md) and [project brief](PROJECT_BRIEF.md).
+2. Begin with [Foundations 1: Your QA workspace](foundations/01-your-qa-workspace.md).
+3. Follow each lesson's assignment and save your work in `submissions/` under the relevant stage.
+4. Ask for a review in the project chat before moving past a mastery checkpoint.
+
+## Learning stages
+
+| Stage | Focus | Status |
+| --- | --- | --- |
+| Foundations | Your workspace, command line, Git, web basics, browser tools, and HTTP | In progress |
+| Manual QA | Test design, execution, exploratory testing, APIs, data, and defects | Planned |
+| Automation QA | TypeScript, Playwright Test, reliable browser/API checks, and CI | Planned |
+| Job Preparation | Portfolio, CV, interviews, and remote-team practice | Planned |
+
+## TaskFlow QA Lab
+
+TaskFlow is a deliberately small task manager used to practise QA. Its behavior is defined in [the product specification](taskflow-qa-lab/PRODUCT_SPEC.md). Run it locally with `npm install`, `npm run db:migrate:local`, and `npm run dev` from `taskflow-qa-lab/`.
+
+Use invented email addresses and passwords in this public learning project. Do not enter real credentials or personal information.
+
+Reusable [test plan, test case, execution, and bug report templates](templates/) are provided for assignments.
+
+## Portfolio integrity
+
+Do not present AI-assisted application code or lesson content as work you completed independently. Record your contribution and assistance in [the portfolio provenance guide](portfolio/PROVENANCE.md). Learner submissions belong in the stage-specific `submissions/` directory.
+
+## Current checkpoint
+
+The first Foundations milestone and a guided Manual QA lesson are ready. The remaining lesson sequence is outlined in [ROADMAP.md](ROADMAP.md); later lessons will be added when their practice application milestone is ready.
