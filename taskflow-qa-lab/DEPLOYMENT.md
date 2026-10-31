@@ -1,14 +1,13 @@
 # Deployment Readiness
 
-TaskFlow uses Cloudflare Workers and D1 for the app and task data. Supabase Auth manages account passwords and access tokens. The Cloudflare Preview and separate preview/production D1 databases exist; production remains unpublished until Supabase credentials are configured and the preview flow passes.
+TaskFlow uses Cloudflare Workers and D1 for the app and task data. Supabase Auth manages account passwords and access tokens. The Preview Worker is deployed at `https://taskflow-qa-lab-preview.taskflow-qa-lab.workers.dev`, uses the isolated preview D1 database, and has the Supabase project URL and publishable key configured. Its public health endpoint returns `200 {"status":"ok"}`. Production is not deployed.
 
 ## Supabase Auth setup
 
-1. Create a Supabase project on the Free plan and copy its project URL and publishable key.
-2. In Auth settings, enable Email and disable email confirmation for this dummy-data training app. If confirmation stays enabled, registration returns `202` and users must confirm through the configured email provider before sign-in.
-3. For local development, copy `.dev.vars.example` to `.dev.vars` and enter the project URL and publishable key. `.dev.vars` is ignored by Git.
-4. For Cloudflare, configure `SUPABASE_URL` and `SUPABASE_PUBLISHABLE_KEY` as Worker environment variables for both production and Previews. Do not add a Supabase secret or service-role key to this project.
-5. Keep using invented `example.test` addresses and passwords. Do not enter real personal information.
+1. The Supabase Free project is already created, and its project URL and publishable key are configured locally in ignored `.dev.vars` and on the Cloudflare Preview Worker. Never commit these values or use a Supabase secret or service-role key in this app.
+2. Email sign-up is enabled. Confirm Email is currently enabled, so registration requires email confirmation and has not yet been verified end to end. For this dummy-data training app, disable Confirm Email under Authentication → Sign In / Providers → Email. If confirmation remains enabled, registration returns `202` and users must confirm through the email provider before sign-in.
+3. Use invented, syntactically valid example addresses such as `qa@example.com` and practice-only passwords. Do not enter real personal information. The hosted project's built-in email service has restrictive delivery limits; custom SMTP is needed for sending confirmation email to arbitrary addresses.
+4. Production credentials and deployment remain unconfigured until Preview authentication and product flows have been verified.
 
 Supabase's Free plan currently lists 50,000 monthly active users and pauses projects after a week of inactivity. This is adequate for a learning prototype but means a Preview may need to be resumed after inactivity. See [Supabase pricing](https://supabase.com/pricing).
 
@@ -31,4 +30,5 @@ Supabase's Free plan currently lists 50,000 monthly active users and pauses proj
 6. Test registration, sign-in, sign-out, task CRUD, validation, filtering, persistence, API responses, and account isolation on a Worker Preview.
 7. Apply the D1 migration to production only after Preview verification and immediately before enabling the first production code deployment. Then configure the Supabase project URL and publishable key for production.
 8. Enable deployment from `main`, verify the public production URL, and document the live build. Do not include credentials or personal data in evidence.
+
 
