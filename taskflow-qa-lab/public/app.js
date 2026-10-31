@@ -207,12 +207,16 @@ registerForm.addEventListener("submit", async (event) => {
   setMessage("register-message");
   const form = new FormData(registerForm);
   try {
-    const { user } = await api("/api/auth/register", {
+    const result = await api("/api/auth/register", {
       method: "POST",
       body: JSON.stringify({ email: form.get("email"), password: form.get("password") }),
     });
     registerForm.reset();
-    await showTasks(user);
+    if (result.confirmationRequired) {
+      setMessage("register-message", "Check your email to confirm the account, then sign in.");
+      return;
+    }
+    await showTasks(result.user);
   } catch (error) {
     setMessage("register-message", error.message);
   }
@@ -263,3 +267,4 @@ try {
 } catch {
   showAuth();
 }
+
