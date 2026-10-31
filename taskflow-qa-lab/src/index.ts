@@ -1,13 +1,8 @@
 interface Env {
   DB: D1Database;
   ASSETS: Fetcher;
-}
-
-interface UserRow {
-  id: string;
-  email: string;
-  password_hash: string;
-  password_salt: string;
+  SUPABASE_URL?: string;
+  SUPABASE_PUBLISHABLE_KEY?: string;
 }
 
 interface SessionUser {
@@ -26,9 +21,9 @@ interface TaskRow {
 
 const SESSION_COOKIE = "taskflow_session";
 const SESSION_SECONDS = 60 * 60 * 24 * 7;
-const PASSWORD_ITERATIONS = 600_000;
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const DUMMY_SALT = new TextEncoder().encode("TaskFlow-QA-Lab-dummy-salt");
+
+class AuthServiceError extends Error {}
 
 function json(data: unknown, status = 200, headers = new Headers()): Response {
   headers.set("Content-Type", "application/json; charset=utf-8");
@@ -52,49 +47,6 @@ function error(message: string, status: number): Response {
   return json({ error: message }, status);
 }
 
-function encodeBase64(bytes: Uint8Array): string {
-  let binary = "";
-  for (const byte of bytes) binary += String.fromCharCode(byte);
-  return btoa(binary);
-}
-
-function decodeBase64(value: string): Uint8Array {
-  return Uint8Array.from(atob(value), (character) => character.charCodeAt(0));
-}
-
-function randomToken(): string {
-  const bytes = crypto.getRandomValues(new Uint8Array(32));
-  return encodeBase64(bytes).replaceAll("+", "-").replaceAll("/", "_").replaceAll("=", "");
-}
-
-async function sha256(value: string): Promise<string> {
-  const digest = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(value));
-  return encodeBase64(new Uint8Array(digest));
-}
-
-async function derivePassword(password: string, salt: Uint8Array): Promise<Uint8Array> {
-  const key = await crypto.subtle.importKey(
-    "raw",
-    new TextEncoder().encode(password),
-    "PBKDF2",
-    false,
-    ["deriveBits"],
-  );
-  const result = await crypto.subtle.deriveBits(
-    { name: "PBKDF2", hash: "SHA-256", salt: salt.slice().buffer as ArrayBuffer, iterations: PASSWORD_ITERATIONS },
-    key,
-    256,
-  );
-  return new Uint8Array(result);
-}
-
-function sameBytes(left: Uint8Array, right: Uint8Array): boolean {
-  if (left.length !== right.length) return false;
-  let difference = 0;
-  for (let index = 0; index < left.length; index += 1) difference |= left[index]! ^ right[index]!;
-  return difference === 0;
-}
-
 function cookieValue(request: Request): string | null {
   const cookieHeader = request.headers.get("Cookie") ?? "";
   for (const item of cookieHeader.split(";")) {
@@ -107,6 +59,78 @@ function cookieValue(request: Request): string | null {
 function cookieHeader(request: Request, value: string, maxAge: number): string {
   const secure = new URL(request.url).protocol === "https:" ? "; Secure" : "";
   return `${SESSION_COOKIE}=${value}; Path=/; HttpOnly; SameSite=Lax; Max-Age=${maxAge}${secure}`;
+}
+
+async function supabaseRequest(
+  env: Env,
+  path: string,
+  options: { method?: string; body?: unknown; accessToken?: string } = {},
+): Promise<Response> {
+  const baseUrl = env.SUPABASE_URL?.trim().replace(/\/+$/, "");
+  const publishableKey = env.SUPABASE_PUBLISHABLE_KEY?.trim();
+  if (!baseUrl || !publishableKey) throw new AuthServiceError("Authentication service is not configured.");
+
+  const headers = new Headers({ apikey: publishableKey });
+  if (options.body !== undefined) headers.set("Content-Type", "application/json");
+  if (options.accessToken) headers.set("Authorization", `Bearer ${options.accessToken}`);
+  try {
+    return await fetch(`${baseUrl}/auth/v1${path}`, {
+      method: options.method ?? "GET",
+      headers,
+      body: options.body === undefined ? undefined : JSON.stringify(options.body),
+    });
+  } catch {
+    throw new AuthServiceError("Authentication service is unavailable.");
+  }
+}
+
+async function responseJson(response: Response): Promise<Record<string, unknown>> {
+  try {
+    const value: unknown = await response.json();
+    return value !== null && typeof value === "object" && !Array.isArray(value)
+      ? (value as Record<string, unknown>)
+      : {};
+  } catch {
+    return {};
+  }
+}
+
+function authFailure(response: Response, body: Record<string, unknown>, action: "register" | "login"): Response {
+  if (action === "login" && [400, 401, 403, 422].includes(response.status)) {
+    return error("Email or password is incorrect.", 401);
+  }
+  const providerMessage = [body.msg, body.message, body.error_description, body.error]
+    .filter((value): value is string => typeof value === "string")
+    .join(" ");
+  if (action === "register" && /already registered|already exists|user_already_exists/i.test(providerMessage)) {
+    return error("An account with that email already exists.", 409);
+  }
+  if (response.status === 429) return error("Too many attempts. Try again later.", 429);
+  if (response.status >= 500) return error("Authentication service is unavailable.", 503);
+  return error(action === "register" ? "Account could not be created. Check the email and password." : "Email or password is incorrect.", action === "register" ? 400 : 401);
+}
+
+function sessionCookie(request: Request, body: Record<string, unknown>): string | null {
+  if (typeof body.access_token !== "string" || !body.access_token) return null;
+  const expiresIn = typeof body.expires_in === "number" ? body.expires_in : 3600;
+  const maxAge = Math.max(1, Math.min(SESSION_SECONDS, Math.floor(expiresIn)));
+  return cookieHeader(request, body.access_token, maxAge);
+}
+
+function sessionUser(value: unknown): SessionUser | null {
+  if (value === null || typeof value !== "object") return null;
+  const user = value as Record<string, unknown>;
+  return typeof user.id === "string" && typeof user.email === "string"
+    ? { id: user.id, email: user.email }
+    : null;
+}
+
+async function saveUser(env: Env, user: SessionUser): Promise<void> {
+  await env.DB.prepare(
+    "INSERT INTO users (id, email) VALUES (?, ?) ON CONFLICT(id) DO UPDATE SET email = excluded.email",
+  )
+    .bind(user.id, user.email)
+    .run();
 }
 
 async function parseJson(request: Request): Promise<Record<string, unknown> | null> {
@@ -130,14 +154,10 @@ function validEmail(value: unknown): value is string {
 async function currentUser(request: Request, env: Env): Promise<SessionUser | null> {
   const token = cookieValue(request);
   if (!token) return null;
-  const tokenHash = await sha256(token);
-  return env.DB.prepare(
-    `SELECT users.id, users.email
-       FROM sessions JOIN users ON users.id = sessions.user_id
-      WHERE sessions.token_hash = ? AND sessions.expires_at > strftime('%Y-%m-%dT%H:%M:%fZ', 'now')`,
-  )
-    .bind(tokenHash)
-    .first<SessionUser>();
+  const response = await supabaseRequest(env, "/user", { accessToken: token });
+  if (response.status === 401 || response.status === 403) return null;
+  if (!response.ok) throw new AuthServiceError("Authentication service is unavailable.");
+  return sessionUser(await responseJson(response));
 }
 
 async function register(request: Request, env: Env): Promise<Response> {
@@ -152,30 +172,19 @@ async function register(request: Request, env: Env): Promise<Response> {
     return error("Password must be between 12 and 256 bytes.", 400);
   }
 
-  const salt = crypto.getRandomValues(new Uint8Array(16));
-  const passwordHash = await derivePassword(password, salt);
-  const userId = crypto.randomUUID();
-  try {
-    await env.DB.prepare(
-      "INSERT INTO users (id, email, password_hash, password_salt) VALUES (?, ?, ?, ?)",
-    )
-      .bind(userId, email, encodeBase64(passwordHash), encodeBase64(salt))
-      .run();
-  } catch {
-    const duplicate = await env.DB.prepare("SELECT 1 AS found FROM users WHERE email = ?").bind(email).first();
-    if (duplicate) return error("An account with that email already exists.", 409);
-    throw new Error("Account could not be created.");
+  const response = await supabaseRequest(env, "/signup", { method: "POST", body: { email, password } });
+  const result = await responseJson(response);
+  if (!response.ok) return authFailure(response, result, "register");
+
+  const user = sessionUser(result.user);
+  if (!user) return error("Authentication service returned an invalid account.", 502);
+  const cookie = sessionCookie(request, result);
+  if (!cookie) {
+    return json({ confirmationRequired: true }, 202);
   }
 
-  const token = randomToken();
-  const tokenHash = await sha256(token);
-  const expiresAt = new Date(Date.now() + SESSION_SECONDS * 1000).toISOString();
-  await env.DB.prepare("INSERT INTO sessions (token_hash, user_id, expires_at) VALUES (?, ?, ?)")
-    .bind(tokenHash, userId, expiresAt)
-    .run();
-
-  const headers = new Headers({ "Set-Cookie": cookieHeader(request, token, SESSION_SECONDS) });
-  return json({ user: { id: userId, email } }, 201, headers);
+  await saveUser(env, user);
+  return json({ user }, 201, new Headers({ "Set-Cookie": cookie }));
 }
 
 async function login(request: Request, env: Env): Promise<Response> {
@@ -184,30 +193,29 @@ async function login(request: Request, env: Env): Promise<Response> {
     return error("Enter your email address and password.", 400);
   }
 
-  const user = await env.DB.prepare("SELECT id, email, password_hash, password_salt FROM users WHERE email = ?")
-    .bind(body.email.trim().toLowerCase())
-    .first<UserRow>();
-  const salt = user ? decodeBase64(user.password_salt) : DUMMY_SALT;
-  const submittedHash = await derivePassword(body.password, salt);
-  const passwordMatches = user
-    ? sameBytes(submittedHash, decodeBase64(user.password_hash))
-    : false;
-  if (!user || !passwordMatches) return error("Email or password is incorrect.", 401);
+  const response = await supabaseRequest(env, "/token?grant_type=password", {
+    method: "POST",
+    body: { email: body.email.trim().toLowerCase(), password: body.password },
+  });
+  const result = await responseJson(response);
+  if (!response.ok) return authFailure(response, result, "login");
 
-  const token = randomToken();
-  const tokenHash = await sha256(token);
-  const expiresAt = new Date(Date.now() + SESSION_SECONDS * 1000).toISOString();
-  await env.DB.prepare("INSERT INTO sessions (token_hash, user_id, expires_at) VALUES (?, ?, ?)")
-    .bind(tokenHash, user.id, expiresAt)
-    .run();
-  const headers = new Headers({ "Set-Cookie": cookieHeader(request, token, SESSION_SECONDS) });
-  return json({ user: { id: user.id, email: user.email } }, 200, headers);
+  const user = sessionUser(result.user);
+  const cookie = sessionCookie(request, result);
+  if (!user || !cookie) return error("Authentication service returned an invalid session.", 502);
+
+  await saveUser(env, user);
+  return json({ user }, 200, new Headers({ "Set-Cookie": cookie }));
 }
 
 async function logout(request: Request, env: Env): Promise<Response> {
   const token = cookieValue(request);
   if (token) {
-    await env.DB.prepare("DELETE FROM sessions WHERE token_hash = ?").bind(await sha256(token)).run();
+    try {
+      await supabaseRequest(env, "/logout", { method: "POST", accessToken: token });
+    } catch {
+      // Always clear the browser cookie, even if the auth service is unavailable.
+    }
   }
   const headers = new Headers({ "Set-Cookie": cookieHeader(request, "", 0) });
   return json({ ok: true }, 200, headers);
@@ -333,7 +341,8 @@ export default {
     if (url.pathname.startsWith("/api/")) {
       try {
         return await handleApi(request, env);
-      } catch {
+      } catch (cause) {
+        if (cause instanceof AuthServiceError) return error(cause.message, 503);
         return error("Something went wrong. Please try again.", 500);
       }
     }
@@ -347,4 +356,5 @@ export default {
     });
   },
 };
+
 
