@@ -3,6 +3,10 @@
   "name": "taskflow-qa-lab",
   "main": "src/index.ts",
   "compatibility_date": "2026-10-30",
+  "vars": {
+    "SUPABASE_URL": "https://yjhabgqboalukhzezwpc.supabase.co",
+    "SUPABASE_PUBLISHABLE_KEY": "sb_publishable__LbKF7TRC9QCq6UwHr3Log_7wVJ6gdC"
+  },
   "assets": {
     "directory": "./public",
     "binding": "ASSETS",
@@ -40,6 +44,7 @@
     }
   }
 }
+
 
 
 
