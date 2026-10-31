@@ -34,7 +34,7 @@ The first command prints your current location, the second lists its contents, a
 
 ## Assignment
 
-Create `submissions/foundations/workspace-check.md`. Write the folder path, list the three project folders you identified, and explain in one sentence why you check the current path before a file-changing command.
+**Tools:** Windows PowerShell and File Explorer. **Deliverable:** `submissions/foundations/workspace-check.md`. Write the folder path, list the three project folders you identified, and explain in one sentence why you check the current path before a file-changing command. **Submission location:** `submissions/foundations/`.
 
 ## Definition of Done
 

@@ -30,7 +30,7 @@ In TaskFlow, opening the task list should create a `GET /api/tasks` request. The
 
 ## Assignment
 
-Create `submissions/foundations/taskflow-request.md`. Include the page/feature, request method and path, response status, one observed JSON field, and one sentence describing what the evidence tells you. Use only values you observed.
+**Tools:** TaskFlow local app, browser Developer Tools, and a Markdown editor. **Deliverable:** `submissions/foundations/taskflow-request.md`. Include the page/feature, request method and path, response status, one observed JSON field, and one sentence describing what the evidence tells you. Use only values you observed. **Submission location:** `submissions/foundations/`.
 
 ## Definition of Done
 

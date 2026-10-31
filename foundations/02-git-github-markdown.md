@@ -39,7 +39,7 @@ This is readable as plain text and renders as a heading and three bullets on Git
 
 ## Assignment
 
-Write a short test note about one visible behavior in TaskFlow. Include the page, action, expected result, actual result, and evidence you would capture. If you have not run the app yet, label the note `Example only` and do not invent an observed result.
+**Tools:** Git, GitHub, a text/Markdown editor, and TaskFlow when available. **Deliverable:** a short test note about one visible behavior. Include the page, action, expected result, actual result, and evidence you would capture. If you have not run the app yet, label the note `Example only` and do not invent an observed result. **Submission location:** `submissions/foundations/first-test-note.md`.
 
 ## Definition of Done
 
