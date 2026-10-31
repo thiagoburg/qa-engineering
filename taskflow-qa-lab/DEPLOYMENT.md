@@ -1,6 +1,6 @@
 # Deployment Readiness
 
-TaskFlow uses Cloudflare Workers and D1 for the app and task data. Supabase Auth manages account passwords and access tokens. The Preview Worker is deployed at `https://taskflow-qa-lab-preview.taskflow-qa-lab.workers.dev`, uses the isolated preview D1 database, and has the Supabase project URL and publishable key configured. Its public health endpoint returns `200 {"status":"ok"}`. Production is not deployed.
+TaskFlow uses Cloudflare Workers and D1 for the app and task data. Supabase Auth manages account passwords and access tokens. Preview is live at `https://taskflow-qa-lab-preview.taskflow-qa-lab.workers.dev`; production is live at `https://taskflow-qa-lab.taskflow-qa-lab.workers.dev`. Each environment has its own D1 database. Both health endpoints return `200 {"status":"ok"}`.
 
 ## Supabase Auth setup
 
@@ -8,7 +8,7 @@ TaskFlow uses Cloudflare Workers and D1 for the app and task data. Supabase Auth
 2. Email sign-up is enabled and Confirm Email is disabled for practice accounts. This lets invented accounts sign in without a mailbox. Use only dummy data; if the project is ever used with real personal data, enable email confirmation and configure appropriate email delivery first.
 3. Use invented, syntactically valid example addresses such as `qa@example.com` and practice-only passwords. Do not enter real personal information. The hosted project's built-in email service has restrictive delivery limits; custom SMTP is needed for sending confirmation email to arbitrary addresses.
 4. On October 31, 2026, live Preview API checks passed for registration, current user, login/logout, invalid input, task create/edit/complete/delete, filtering, statistics, persistence across sign-in, and account isolation. Temporary task rows were deleted. Test Auth identities use reserved example addresses and have no usable mailbox.
-5. Production credentials and deployment remain unconfigured. Cloudflare Workers Builds is not connected yet; the current Preview was deployed directly with Wrangler. Configure Git integration only after any remaining Preview UI review.
+5. Production's two D1 migrations have been applied, and the Worker has been deployed and health-checked. Cloudflare Workers Builds is connected to `thiagoburg/qa-engineering` with `taskflow-qa-lab` as the root directory, `main` as the production branch, `npx wrangler deploy` as the deploy command, and `npx wrangler preview` as the Preview command. Preview builds are enabled. The first automated build starts on the next repository push.
 
 Supabase's Free plan currently lists 50,000 monthly active users and pauses projects after a week of inactivity. This is adequate for a learning prototype but means a Preview may need to be resumed after inactivity. See [Supabase pricing](https://supabase.com/pricing).
 
@@ -21,16 +21,13 @@ Supabase's Free plan currently lists 50,000 monthly active users and pauses proj
 - The stable app and training releases must not share user/task data. Use invented practice accounts only; the app has no production support or user-data retention guarantee.
 - Keep GitHub Actions responsible for tests and artifacts. Use Cloudflare Workers Builds for deployment.
 
-## Release checklist
+## Release status
 
-1. Configure Supabase Auth and its Worker variables for local development and Cloudflare Previews.
-2. Apply D1 migrations to Preview with `npm run db:migrate:preview`; verify the schema before publishing Preview builds.
-3. Confirm the GitHub Actions workflow is green.
-4. Connect the `taskflow-qa-lab` Worker to `thiagoburg/qa-engineering` with Cloudflare Workers Builds. Set the repository root directory to `taskflow-qa-lab`, production branch to `main`, production command to `npx wrangler deploy`, and Preview command to `npx wrangler preview`. Keep automatic production deployment disabled until Preview verification is complete.
-5. Enable Preview builds and confirm they use the isolated `previews.d1_databases` binding. Configure the Supabase project URL and publishable key for Preview.
-6. Test registration, sign-in, sign-out, task CRUD, validation, filtering, persistence, API responses, and account isolation on a Worker Preview.
-7. Apply the D1 migration to production only after Preview verification and immediately before enabling the first production code deployment. Then configure the Supabase project URL and publishable key for production.
-8. Enable deployment from `main`, verify the public production URL, and document the live build. Do not include credentials or personal data in evidence.
+- Preview API checks passed on October 31, 2026 for auth, validation, task workflows, filtering, statistics, persistence, and account isolation. Temporary task rows were removed.
+- Production D1 migrations are applied, and production health is verified. Production user workflows have not been exercised; continue those checks on Preview.
+- GitHub Actions tests the code and retains failure artifacts. Cloudflare Workers Builds deploys commits from `main` and creates Preview builds for branches and pull requests.
+- Do not use real personal data. The public app is a practice environment, not a production service with user-data support.
+
 
 
 

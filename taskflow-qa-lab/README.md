@@ -44,9 +44,10 @@ See [PRODUCT_SPEC.md](PRODUCT_SPEC.md). Migrations are versioned under `migratio
 
 ## Deployment status
 
-The Preview Worker is live at `https://taskflow-qa-lab-preview.taskflow-qa-lab.workers.dev` and uses its separate preview D1 database. The Supabase project URL and publishable key are configured for local development and Preview. Live API checks for auth, validation, task workflows, persistence, and account isolation passed with dummy data. See [DEPLOYMENT.md](DEPLOYMENT.md) for the verification notes and remaining production setup. This project is for invented training data only.
+The Preview Worker is live at `https://taskflow-qa-lab-preview.taskflow-qa-lab.workers.dev`; production is live at `https://taskflow-qa-lab.taskflow-qa-lab.workers.dev`. Each has a separate D1 database. Preview API checks for auth, validation, task workflows, persistence, and account isolation passed with dummy data. Cloudflare Workers Builds is connected to deploy `main`; GitHub Actions runs the test suite. See [DEPLOYMENT.md](DEPLOYMENT.md) for verification details. This project is for invented training data only.
 
 See [DEPLOYMENT.md](DEPLOYMENT.md) for the eventual deployment checklist and environment separation requirements.
+
 
 
 
