@@ -14,9 +14,10 @@ export default defineConfig({
     ...devices["Desktop Chrome"],
   },
   webServer: {
-    command: "npm run db:migrate:local && npm run dev -- --ip 127.0.0.1",
+    command: "npm run db:migrate:local && npm run test:server",
     url: "http://127.0.0.1:8787/api/health",
     reuseExistingServer: !process.env.CI,
     timeout: 120_000,
   },
 });
+
