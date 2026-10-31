@@ -11,9 +11,23 @@
   "d1_databases": [
     {
       "binding": "DB",
-      "database_name": "taskflow-local",
-      "database_id": "00000000-0000-0000-0000-000000000001",
+      "database_name": "taskflow-qa-lab-production",
+      "database_id": "05c42613-8289-448b-804f-61b87afab1b4",
       "migrations_dir": "migrations"
     }
-  ]
+  ],
+  "env": {
+    "preview": {
+      "name": "taskflow-qa-lab-preview",
+      "d1_databases": [
+        {
+          "binding": "DB",
+          "database_name": "taskflow-qa-lab-preview",
+          "database_id": "40578af1-2afb-44c7-99e8-5da6b3127582",
+          "migrations_dir": "migrations"
+        }
+      ]
+    }
+  }
 }
+
