@@ -1,6 +1,6 @@
 # Deployment Readiness
 
-The public repository and Cloudflare account are connected. Separate preview and production D1 databases have been created and their IDs are recorded in `wrangler.jsonc`. The preview schema is applied. The preview Worker has been uploaded, but its URL is not reachable until a `workers.dev` account subdomain is registered in the Cloudflare dashboard.
+The public repository and Cloudflare account are connected. Separate preview and production D1 databases have been created and their IDs are recorded in `wrangler.jsonc`. The preview schema is applied. A Worker Preview is reachable on `workers.dev`, and its health check can query the preview D1 database. Registration and sign-in currently fail on the Free plan while using the configured password hash; production deployment is blocked until authentication works within the selected plan or the authentication architecture changes.
 
 ## Required separation
 
@@ -16,10 +16,11 @@ The application uses 600,000 PBKDF2-HMAC-SHA-256 iterations, matching the curren
 
 ## Release checklist
 
-1. Register an account `workers.dev` subdomain in the Cloudflare dashboard so the preview URL resolves.
-2. Verify registration and sign-in CPU time, then run the browser/API checks and account-isolation exercise against preview.
-3. Configure Cloudflare Workers Builds for `main`, using the production D1 binding for production deployments and the preview binding for branch previews.
-4. Apply the migration to production using the production environment only after preview verification.
+1. Resolve the authentication runtime failure without weakening the password hash: use an approved CPU allowance or a suitable authentication architecture.
+2. Run registration, sign-in, sign-out, task CRUD, validation, filtering, persistence, API responses, and account-isolation checks on preview.
+3. Connect the Worker to this GitHub repository with Cloudflare Workers Builds, using `main` for production and the isolated `previews` D1 binding for branch previews.
+4. Apply the migration to production only after preview verification.
 5. Confirm the Playwright workflow is green before merging to `main`.
 6. Verify the public production URL and document the live build. Do not include test passwords or personal data in evidence.
+
 
