@@ -44,7 +44,8 @@ See [PRODUCT_SPEC.md](PRODUCT_SPEC.md). Migrations are versioned under `migratio
 
 ## Deployment status
 
-Deployment is intentionally not configured with live Supabase credentials. Before publishing, configure the Supabase Auth project URL and publishable key in Cloudflare for both production and Previews. This project must remain for invented training data only.
+The Preview Worker is live at `https://taskflow-qa-lab-preview.taskflow-qa-lab.workers.dev` and uses its separate preview D1 database. The Supabase project URL and publishable key are configured for local development and Preview. Sign-up still needs end-to-end verification because Supabase email confirmation is enabled; see [DEPLOYMENT.md](DEPLOYMENT.md) for the remaining setup and production checklist. This project is for invented training data only.
 
 See [DEPLOYMENT.md](DEPLOYMENT.md) for the eventual deployment checklist and environment separation requirements.
+
 
