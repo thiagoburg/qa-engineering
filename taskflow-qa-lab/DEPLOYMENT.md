@@ -5,9 +5,10 @@ TaskFlow uses Cloudflare Workers and D1 for the app and task data. Supabase Auth
 ## Supabase Auth setup
 
 1. The Supabase Free project is already created, and its project URL and publishable key are configured locally in ignored `.dev.vars` and on the Cloudflare Preview Worker. Never commit these values or use a Supabase secret or service-role key in this app.
-2. Email sign-up is enabled. Confirm Email is currently enabled, so registration requires email confirmation and has not yet been verified end to end. For this dummy-data training app, disable Confirm Email under Authentication → Sign In / Providers → Email. If confirmation remains enabled, registration returns `202` and users must confirm through the email provider before sign-in.
+2. Email sign-up is enabled and Confirm Email is disabled for practice accounts. This lets invented accounts sign in without a mailbox. Use only dummy data; if the project is ever used with real personal data, enable email confirmation and configure appropriate email delivery first.
 3. Use invented, syntactically valid example addresses such as `qa@example.com` and practice-only passwords. Do not enter real personal information. The hosted project's built-in email service has restrictive delivery limits; custom SMTP is needed for sending confirmation email to arbitrary addresses.
-4. Production credentials and deployment remain unconfigured until Preview authentication and product flows have been verified.
+4. On October 31, 2026, live Preview API checks passed for registration, current user, login/logout, invalid input, task create/edit/complete/delete, filtering, statistics, persistence across sign-in, and account isolation. Temporary task rows were deleted. Test Auth identities use reserved example addresses and have no usable mailbox.
+5. Production credentials and deployment remain unconfigured. Cloudflare Workers Builds is not connected yet; the current Preview was deployed directly with Wrangler. Configure Git integration only after any remaining Preview UI review.
 
 Supabase's Free plan currently lists 50,000 monthly active users and pauses projects after a week of inactivity. This is adequate for a learning prototype but means a Preview may need to be resumed after inactivity. See [Supabase pricing](https://supabase.com/pricing).
 
@@ -30,5 +31,6 @@ Supabase's Free plan currently lists 50,000 monthly active users and pauses proj
 6. Test registration, sign-in, sign-out, task CRUD, validation, filtering, persistence, API responses, and account isolation on a Worker Preview.
 7. Apply the D1 migration to production only after Preview verification and immediately before enabling the first production code deployment. Then configure the Supabase project URL and publishable key for production.
 8. Enable deployment from `main`, verify the public production URL, and document the live build. Do not include credentials or personal data in evidence.
+
 
 
