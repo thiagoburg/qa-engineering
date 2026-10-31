@@ -19,7 +19,7 @@ TaskFlow QA Lab is a small task-management web application. Its product specific
 ## Technical direction
 
 - Static, accessible web interface with a same-origin JSON API.
-- Cloudflare Worker and D1 database; local development first.
+- Cloudflare Worker and D1 database for the app and task data; Supabase Auth manages credentials and access tokens. Local development first.
 - TypeScript for the Worker and Playwright Test automation.
 - GitHub Actions runs tests; Cloudflare Git integration owns deployment after local verification.
 - Local-only database reset command. Never point a training reset at a remote database.
@@ -31,3 +31,4 @@ Keep learner submissions separate from AI-assisted project code. Record provenan
 ## Success
 
 The learner can independently analyze requirements, design and execute risk-based manual and automated tests, report defects with evidence, validate APIs/data, communicate release risk, and present honest portfolio evidence in English.
+
