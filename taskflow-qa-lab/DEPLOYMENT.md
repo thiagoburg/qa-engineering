@@ -8,7 +8,7 @@ TaskFlow uses Cloudflare Workers and D1 for the app and task data. Supabase Auth
 2. Email sign-up is enabled and Confirm Email is disabled for practice accounts. This lets invented accounts sign in without a mailbox. Use only dummy data; if the project is ever used with real personal data, enable email confirmation and configure appropriate email delivery first.
 3. Use invented, syntactically valid example addresses such as `qa@example.com` and practice-only passwords. Do not enter real personal information. The hosted project's built-in email service has restrictive delivery limits; custom SMTP is needed for sending confirmation email to arbitrary addresses.
 4. On October 31, 2026, live Preview API checks passed for registration, current user, login/logout, invalid input, task create/edit/complete/delete, filtering, statistics, persistence across sign-in, and account isolation. Temporary task rows were deleted. Test Auth identities use reserved example addresses and have no usable mailbox.
-5. Production's two D1 migrations have been applied, and the Worker has been deployed and health-checked. Cloudflare Workers Builds is connected to `thiagoburg/qa-engineering` with `taskflow-qa-lab` as the root directory, `main` as the production branch, `npx wrangler deploy` as the deploy command, and `npx wrangler preview` as the Preview command. Preview builds are enabled. The first automated build starts on the next repository push.
+5. Production's two D1 migrations have been applied, and the Worker has been deployed and health-checked. Cloudflare Workers Builds is connected to `thiagoburg/qa-engineering` with `taskflow-qa-lab` as the root directory, `main` as the production branch, `npx wrangler deploy` as the deploy command, and `npx wrangler preview` as the Preview command. Preview builds are enabled. The first `main` push after connection triggered a new production deployment, and its health check passed.
 
 Supabase's Free plan currently lists 50,000 monthly active users and pauses projects after a week of inactivity. This is adequate for a learning prototype but means a Preview may need to be resumed after inactivity. See [Supabase pricing](https://supabase.com/pricing).
 
@@ -27,6 +27,7 @@ Supabase's Free plan currently lists 50,000 monthly active users and pauses proj
 - Production D1 migrations are applied, and production health is verified. Production user workflows have not been exercised; continue those checks on Preview.
 - GitHub Actions tests the code and retains failure artifacts. Cloudflare Workers Builds deploys commits from `main` and creates Preview builds for branches and pull requests.
 - Do not use real personal data. The public app is a practice environment, not a production service with user-data support.
+
 
 
 
