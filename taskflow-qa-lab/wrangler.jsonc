@@ -16,18 +16,16 @@
       "migrations_dir": "migrations"
     }
   ],
-  "env": {
-    "preview": {
-      "name": "taskflow-qa-lab-preview",
-      "d1_databases": [
-        {
-          "binding": "DB",
-          "database_name": "taskflow-qa-lab-preview",
-          "database_id": "40578af1-2afb-44c7-99e8-5da6b3127582",
-          "migrations_dir": "migrations"
-        }
-      ]
-    }
+  "previews": {
+    "d1_databases": [
+      {
+        "binding": "DB",
+        "database_name": "taskflow-qa-lab-preview",
+        "database_id": "40578af1-2afb-44c7-99e8-5da6b3127582",
+        "migrations_dir": "migrations"
+      }
+    ]
   }
 }
+
 
