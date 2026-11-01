@@ -1,6 +1,6 @@
 # QA Engineering Project — Context Handoff
 
-This file is a handoff for future chats or agents working in this repository. In the learner's local Syncthing workspace, also read the root-level `master-prompt-qa-engineering.md`, which contains the original requirements; that prompt is local-only and is not part of the public GitHub repository. The current checkout is `C:\Users\thiago\Syncthing\qa-engineerring`; the public GitHub repository is [`thiagoburg/qa-engineering`](https://github.com/thiagoburg/qa-engineering).
+This file is a handoff for future chats or agents working in this repository. Read the root-level `master-prompt-qa-engineering.md` for the original requirements. The master prompt is now included in the public repository; the selected decisions in this handoff and the roadmap supersede any conflicting initial candidate in that prompt. The current checkout is `C:\Users\thiago\Syncthing\qa-engineerring`; the public GitHub repository is [`thiagoburg/qa-engineering`](https://github.com/thiagoburg/qa-engineering).
 
 ## Purpose
 
@@ -69,12 +69,12 @@ Both health endpoints returned `{"status":"ok"}` in the previous setup session. 
 
 ## Git and branch safety
 
-At the last verified sync:
+At the last verified sync before the backup materials were published:
 
-- `main` and `origin/main` are both at `7de53b60f63c9d0bb0d7b091622e43fcb89a6915` (`Complete QA roadmap curriculum`). This is the stable, learner-facing baseline.
+- `main` and `origin/main` were at `536ceaccaa7daf9e055f5ab19f8f95ce55850534` (`Add project context handoff`). This is the stable, learner-facing baseline; check the current `main` ref after later commits.
 - `training/taskflow-release-01` and its remote are both at `e1c2bb6612b229bed4b1e45db1fe1661e20e7dfc` (`Add isolated Manual QA training release`).
 - GitHub Actions run [`41242821692`](https://github.com/thiagoburg/qa-engineering/actions/runs/41242821692) for the curriculum commit completed successfully.
-- The working checkout was returned to `main`. `master-prompt-qa-engineering.md` is an untracked local file by design; no other local changes were expected.
+- The working checkout was returned to `main`. The master prompt and Obsidian vault settings are now published for backup. `.dev.vars`, `.wrangler`, `node_modules`, and generated test artifacts remain excluded because they are local configuration/state or reproducible output.
 
 The training branch contains one intentionally introduced behavior mismatch for the Manual QA capstone. Its details are deliberately absent from learner instructions and this handoff. Do not merge it into `main` or deploy it to production. The learner should use that branch only when reaching the capstone, against fresh local D1. Preserve its reproducibility; if correcting it for review, use a separate fix branch. If the learner asks for feedback before submitting their own findings, do not spoil the exercise defect.
 

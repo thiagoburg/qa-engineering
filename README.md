@@ -9,6 +9,8 @@ A practical, milestone-based path from beginner to junior QA Engineer, with a sm
 3. Follow each lesson's assignment and save your work in `submissions/` under the relevant stage.
 4. Ask for a review in the project chat before moving past a mastery checkpoint. Lessons are ready-to-use, but checkpoints are passed only after practical evidence is reviewed.
 
+For a fresh clone or local recovery, follow [Backup and Recovery](BACKUP_AND_RECOVERY.md). The original requirements are in [the master prompt](master-prompt-qa-engineering.md), and [the context handoff](PROJECT_CONTEXT_HANDOFF.md) records project decisions and status.
+
 ## Learning stages
 
 | Stage | Focus | Status |
