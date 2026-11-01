@@ -11,9 +11,9 @@ node_modules/
 .trash/
 
 # Test output
-taskflow-qa/playwright-report/
-taskflow-qa/test-results/
-taskflow-qa/blob-report/
+taskflow-app/playwright-report/
+taskflow-app/test-results/
+taskflow-app/blob-report/
 
 # Python environments used only if added for auxiliary tooling
 .venv/

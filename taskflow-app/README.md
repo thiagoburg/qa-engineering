@@ -1,0 +1,144 @@
+# TaskFlow QA Lab
+
+A small task manager used for manual and automated QA practice.
+
+## Requirements
+
+- Node.js 20 or later
+- npm
+
+## Run locally
+
+From this folder:
+
+```powershell
+npm install
+Copy-Item .dev.vars.example .dev.vars
+# Add SUPABASE_URL and SUPABASE_PUBLISHABLE_KEY to .dev.vars
+npm run db:migrate:local
+npm run dev
+```
+
+Create a Supabase project and use its URL and publishable key in `.dev.vars`. Supabase Auth manages account credentials; TaskFlow D1 stores the account ID/email mapping and tasks. Open the local address printed by Wrangler (normally `http://localhost:8787`). The local D1 database is separate from the Cloudflare databases. Use invented training accounts; do not enter real credentials or personal information.
+
+To delete local training rows while keeping the schema, run:
+
+```powershell
+npm run db:reset:local
+```
+
+The reset command is hard-coded to Wrangler's local database mode and does not accept a remote database or extra flags.
+
+## Run checks
+
+```powershell
+npm run typecheck
+npm test
+```
+
+The Playwright suite launches a local Worker, local D1 binding, and a test-only mock of the Supabase Auth API. It does not require Supabase credentials, deploy, or contact a production database. The mock is used only by the test stack.
+
+## API and product behavior
+
+See [PRODUCT_SPEC.md](PRODUCT_SPEC.md). Migrations are versioned under `migrations/`.
+
+## Deployment status
+
+The Preview Worker is live at `https://taskflow-qa-lab-preview.taskflow-qa-lab.workers.dev`; production is live at `https://taskflow-qa-lab.taskflow-qa-lab.workers.dev`. Each has a separate D1 database. Preview API checks for auth, validation, task workflows, persistence, and account isolation passed with dummy data. Cloudflare Workers Builds is connected to deploy `main`; GitHub Actions runs the test suite. See the Deployment section below for environment details. This project is for invented training data only.
+
+---
+
+## API Reference
+
+The API is same-origin, JSON-based, and defined by [PRODUCT_SPEC.md](PRODUCT_SPEC.md). Protected routes require the HTTP-only access-token cookie set during registration or sign-in. Supabase Auth verifies the token; D1 stores only the Supabase user ID and email mapping. No CORS access is enabled.
+
+## Endpoints
+
+| Method | Path | Auth | Success |
+| --- | --- | --- | --- |
+| GET | `/api/health` | No | `200 {"status":"ok"}` |
+| POST | `/api/auth/register` | No | `201 {"user":{"id":"…","email":"…"}}`; or `202 {"confirmationRequired":true}` |
+| POST | `/api/auth/login` | No | `200 {"user":{"id":"…","email":"…"}}` |
+| POST | `/api/auth/logout` | No | `200 {"ok":true}` |
+| GET | `/api/auth/me` | Yes | `200 {"user":{"id":"…","email":"…"}}` |
+| GET | `/api/tasks?status=all\|active\|completed` | Yes | `200 {"tasks":[…]}` |
+| POST | `/api/tasks` | Yes | `201 {"task":…}` |
+| PATCH | `/api/tasks/:id` | Yes | `200 {"task":…}` |
+| DELETE | `/api/tasks/:id` | Yes | `204` with no body |
+| GET | `/api/tasks/stats` | Yes | `200 {"total":0,"completed":0,"active":0}` |
+
+## Request examples
+
+Send `Content-Type: application/json` on JSON requests.
+
+Create an account:
+
+```json
+{"email":"qa@example.com","password":"Practice-only-456!"}
+```
+
+Create a task:
+
+```json
+{"title":"Check task filtering","description":"Verify active and completed views."}
+```
+
+Update a task:
+
+```json
+{"completed":true}
+```
+
+## Errors
+
+Errors use `{ "error": "A short user-facing message." }`. Common statuses are `400` for invalid input, `401` for missing/invalid authentication, `404` for a missing task or API route, and `409` for an already registered email. Do not include passwords, session tokens, SQL details, or stack traces in a response.
+
+## Authentication configuration
+
+The Worker requires `SUPABASE_URL` and `SUPABASE_PUBLISHABLE_KEY`. These are public client configuration values defined in `wrangler.jsonc`; local `.dev.vars` may override them and is ignored by Git. Never use a Supabase secret or service-role key in this app. Use invented, syntactically valid example addresses such as `qa@example.com`. For training accounts to sign in immediately, disable email confirmation in the Supabase Auth email provider settings; if confirmation remains enabled, registration returns `202` and the interface asks the user to confirm their email.
+
+## Practice safety
+
+Use invented data. Postman collections and screenshots must not contain real credentials or personal information. The local database reset affects only Wrangler's local D1 state.
+
+---
+
+## Deployment and Environment Notes
+
+TaskFlow uses Cloudflare Workers and D1 for the app and task data. Supabase Auth manages account passwords and access tokens. Preview is live at `https://taskflow-qa-lab-preview.taskflow-qa-lab.workers.dev`; production is live at `https://taskflow-qa-lab.taskflow-qa-lab.workers.dev`. Each environment has its own D1 database. Both health endpoints return `200 {"status":"ok"}`.
+
+## Supabase Auth setup
+
+1. The Supabase Free project is already created. Its project URL and publishable key are public configuration values in `wrangler.jsonc`; local `.dev.vars` may override them and is ignored by Git. Never add a Supabase secret or service-role key to this app or repository.
+2. Email sign-up is enabled and Confirm Email is disabled for practice accounts. This lets invented accounts sign in without a mailbox. Use only dummy data; if the project is ever used with real personal data, enable email confirmation and configure appropriate email delivery first.
+3. Use invented, syntactically valid example addresses such as `qa@example.com` and practice-only passwords. Do not enter real personal information. The hosted project's built-in email service has restrictive delivery limits; custom SMTP is needed for sending confirmation email to arbitrary addresses.
+4. On October 31, 2026, live Preview API checks passed for registration, current user, login/logout, invalid input, task create/edit/complete/delete, filtering, statistics, persistence across sign-in, and account isolation. Temporary task rows were deleted. Test Auth identities use reserved example addresses and have no usable mailbox.
+5. Production's two D1 migrations have been applied, and the Worker has been deployed and health-checked. Cloudflare Workers Builds is connected to `thiagoburg/qa-engineering`. Its configured root directory was `taskflow-qa-lab`; change that setting to `taskflow-app` before the next deployment. The integration uses `main` as the production branch, `npx wrangler deploy` as the deploy command, and `npx wrangler preview` as the Preview command. Preview builds are enabled. The first `main` push after connection triggered a production deployment, and its health check passed.
+
+Supabase's Free plan currently lists 50,000 monthly active users and pauses projects after a week of inactivity. This is adequate for a learning prototype but means a Preview may need to be resumed after inactivity. See [Supabase pricing](https://supabase.com/pricing).
+
+## Cloudflare environments
+
+- `main` is the only production deployment branch and binds the production D1 database.
+- Worker Previews use the separate preview D1 database configured under `previews` in `wrangler.jsonc`.
+- The `preview` Wrangler environment exists so `wrangler d1 migrations apply DB --remote --env preview` targets only the preview database.
+- The local reset command is hard-coded to `--local`; it cannot target either Cloudflare database.
+- The stable app and training releases must not share user/task data. Use invented practice accounts only; the app has no production support or user-data retention guarantee.
+- Keep GitHub Actions responsible for tests and artifacts. Use Cloudflare Workers Builds for deployment.
+
+## Release status
+
+- Preview API checks passed on October 31, 2026 for auth, validation, task workflows, filtering, statistics, persistence, and account isolation. Temporary task rows were removed.
+- Production D1 migrations are applied, and production health is verified. Production user workflows have not been exercised; continue those checks on Preview.
+- GitHub Actions tests the code and retains failure artifacts. Cloudflare Workers Builds deploys commits from `main` and creates Preview builds for branches and pull requests.
+- Do not use real personal data. The public app is a practice environment, not a production service with user-data support.
+
+---
+
+## Training Releases
+
+The current `main` release is the stable baseline and contains no intentionally introduced defects. Use local D1 for learner runs; do not use the public Preview or production database for exercises.
+
+The independent Manual QA capstone uses the separate Git branch `training/taskflow-release-01`. It contains one controlled behavior mismatch against `PRODUCT_SPEC.md`; the learner task does not disclose its location or behavior. Check out that branch after completing the guided lessons, use a fresh local D1 database, and return to `main` when finished. Never merge the training branch into `main` or deploy it to production. The branch commit is the reproducible training build identifier.
+
+Keep a correction and regression check on a separate fix branch so the original exercise remains reproducible. Review the learner's report before sharing the diagnosis.

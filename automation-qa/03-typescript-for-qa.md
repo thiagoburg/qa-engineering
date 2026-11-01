@@ -35,7 +35,7 @@ test('new task appears in the list', async ({ page }) => {
 
 ## Guided practice
 
-1. Open `taskflow-qa/tests/taskflow.spec.ts` and identify imports, test names, variables, functions, and awaited operations.
+1. Open `taskflow-app/tests/taskflow.spec.ts` and identify imports, test names, variables, functions, and awaited operations.
 2. Create a scratch `.ts` file with a string, boolean, array, and task object; run `npm run typecheck`.
 3. Change one type incorrectly and observe the compiler message, then correct it.
 4. Write a small typed helper that returns a unique invented task title; avoid global mutable state.
@@ -43,7 +43,7 @@ test('new task appears in the list', async ({ page }) => {
 
 ## Assignment
 
-**Tools:** Node.js/npm, TypeScript in `taskflow-qa/`, editor. **Deliverable:** `automation-qa/submissions/typescript-notes.md` with five annotated code snippets (value/type, object or array, function, import, awaited operation), one compiler error you intentionally corrected, and one explanation of how the code supports a QA check. Do not submit a general programming exercise. **Submission location:** `automation-qa/submissions/`.
+**Tools:** Node.js/npm, TypeScript in `taskflow-app/`, editor. **Deliverable:** `automation-qa/submissions/typescript-notes.md` with five annotated code snippets (value/type, object or array, function, import, awaited operation), one compiler error you intentionally corrected, and one explanation of how the code supports a QA check. Do not submit a general programming exercise. **Submission location:** `automation-qa/submissions/`.
 
 ## Definition of Done
 

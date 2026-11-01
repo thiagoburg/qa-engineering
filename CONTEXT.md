@@ -863,7 +863,7 @@ As a starting point, it should include:
     
 - `automation-qa/`
     
-- `taskflow-qa/`
+- `taskflow-app/`
     
 - `portfolio/`
     
@@ -1424,12 +1424,12 @@ Lessons follow nine sections: introduction, objectives, concise theory, examples
 - `CONTEXT.md` — original master prompt followed by current project context and decisions.
 - `manual-qa/` — nine lessons, `templates/`, and learner `submissions/`.
 - `automation-qa/` — seven lessons and learner `submissions/`.
-- `taskflow-qa/` — practice app, product specification, migrations, local setup, tests, and deployment notes.
+- `taskflow-app/` — practice app, product specification, migrations, local setup, tests, and deployment notes.
 - `.github/workflows/` — GitHub Actions checks and failure evidence.
 
 ## TaskFlow and safety
 
-`taskflow-qa/PRODUCT_SPEC.md` is the source of truth for app behavior. The app uses Cloudflare Workers, D1, Supabase Auth, TypeScript, and Playwright Test. GitHub Actions runs tests; Cloudflare Git integration deploys from `main`. Develop locally first and use invented accounts and dummy data only.
+`taskflow-app/PRODUCT_SPEC.md` is the source of truth for app behavior. The app uses Cloudflare Workers, D1, Supabase Auth, TypeScript, and Playwright Test. GitHub Actions runs tests; Cloudflare Git integration deploys from `main`. Develop locally first and use invented accounts and dummy data only.
 
 Keep stable `main` defect-free. The separate `training/taskflow-release-01` branch contains a reproducible intentional defect for the Manual QA capstone. Do not merge it into `main`, deploy it, or disclose its behavior before the learner's review. The local reset command must target only local D1.
 

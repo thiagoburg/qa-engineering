@@ -29,7 +29,7 @@ Before testing, ask whether spaces count as a title and what feedback should app
 
 ## Guided practice
 
-1. Read the task creation rules in [TaskFlow's product specification](../taskflow-qa/PRODUCT_SPEC.md).
+1. Read the task creation rules in [TaskFlow's product specification](../taskflow-app/PRODUCT_SPEC.md).
 2. Before opening the app, list any unclear details about the title field. This is static review.
 3. Register an invented training account and log in.
 4. Try creating a task with a normal title, an empty title, and a spaces-only title.
