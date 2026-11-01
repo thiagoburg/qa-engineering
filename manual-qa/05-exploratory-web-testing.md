@@ -1,4 +1,4 @@
-# Manual QA 4: Exploratory and Web Testing
+# Manual QA 5: Exploratory and Web Testing
 
 ## Introduction
 
@@ -35,7 +35,7 @@ For a task edit charter, create, edit, cancel, reload, and try long text with ke
 
 ## Assignment
 
-**Tools:** Two browsers if available, Developer Tools, timer, `templates/test-execution-template.csv`. **Deliverable:** `submissions/manual-qa/exploratory-session.md` with charter, time box, environment/browser/viewport, actions and observations, covered smoke/regression checks, responsive and cross-browser comparison (or a stated constraint), accessibility/usability notes, and open risks. If you find a defect, create a separate report from `templates/bug-report-template.md`; do not label an unconfirmed suspicion as a defect. **Submission location:** `submissions/manual-qa/`.
+**Tools:** Two browsers if available, Developer Tools, timer, and the [test execution template](../templates/test-execution-template.csv). **Deliverable:** `submissions/manual-qa/exploratory-session.md` with charter, time box, environment/browser/viewport, actions and observations, covered smoke/regression checks, responsive and cross-browser comparison (or a stated constraint), accessibility/usability notes, and open risks. If you find a defect, use the separate [bug report template](../templates/bug-report-template.md); do not label an unconfirmed suspicion as a defect. **Submission location:** `submissions/manual-qa/`.
 
 ## Definition of Done
 

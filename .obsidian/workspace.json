@@ -11,10 +11,14 @@
             "id": "f5044128292f8a6e",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "README.md",
+                "mode": "preview",
+                "source": false
+              },
               "icon": "lucide-file",
-              "title": "New tab"
+              "title": "README"
             }
           }
         ]
@@ -182,5 +186,11 @@
     }
   },
   "active": "f5044128292f8a6e",
-  "lastOpenFiles": []
+  "lastOpenFiles": [
+    "PROJECT_CONTEXT_HANDOFF.md",
+    "PROJECT_BRIEF.md",
+    "PROGRESS.md",
+    "MASTER_PROMPT.md",
+    "BACKUP_AND_RECOVERY.md"
+  ]
 }

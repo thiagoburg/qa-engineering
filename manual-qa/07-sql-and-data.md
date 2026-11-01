@@ -1,4 +1,4 @@
-# Manual QA 6: SQL and Data Validation
+# Manual QA 7: SQL and Data Validation
 
 ## Introduction
 

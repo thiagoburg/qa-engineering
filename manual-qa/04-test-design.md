@@ -1,4 +1,4 @@
-# Manual QA 3: Test Cases and Test Design
+# Manual QA 4: Test Cases and Test Design
 
 ## Introduction
 
@@ -34,7 +34,7 @@ For a required title, partitions are empty/whitespace, valid 1–120 trimmed cha
 
 ## Assignment
 
-**Tools:** Markdown or CSV and `templates/test-case-template.csv`. **Deliverable:** `submissions/manual-qa/task-validation-test-cases.csv` with at least 10 cases: partitions, key boundaries, two condition combinations, and all task state transitions. Add a short Markdown note explaining which combinations you intentionally did not test and why. **Submission location:** `submissions/manual-qa/`; share both artifacts for review.
+**Tools:** Markdown or CSV and the [test case template](../templates/test-case-template.csv). **Deliverable:** `submissions/manual-qa/task-validation-test-cases.csv` with at least 10 cases: partitions, key boundaries, two condition combinations, and all task state transitions. Add a short Markdown note explaining which combinations you intentionally did not test and why. **Submission location:** `submissions/manual-qa/`; share both artifacts for review.
 
 ## Definition of Done
 

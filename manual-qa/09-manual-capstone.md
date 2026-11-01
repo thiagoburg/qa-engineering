@@ -1,8 +1,8 @@
-# Manual QA 8: TaskFlow Manual QA Capstone
+# Manual QA 9: TaskFlow Manual QA Capstone
 
 ## Introduction
 
-This capstone combines requirements review, risk-based design, execution, API/data checks, defect reporting, and release communication. Work independently and use the stable TaskFlow behavior as your oracle.
+This capstone combines requirements review, risk-based design, execution, API/data checks, defect reporting, and release communication. Work independently and use `PRODUCT_SPEC.md` as the expected-behavior oracle.
 
 ## Learning objectives
 
@@ -25,16 +25,16 @@ Journey: register → create task → complete → filter completed → reload �
 
 ## Guided practice
 
-1. Complete the earlier Manual QA lessons and Foundations checkpoint review first. Then switch to `training/taskflow-release-01` and note the commit and local environment.
+1. Complete the earlier Manual QA lessons first. Then switch to `training/taskflow-release-01` and note the commit and local environment.
 2. Create a one-page scope and prioritize risks; identify test data and reset boundaries.
 3. Design cases for every required feature area. Include positive, negative, boundary, state, API, persistence, and isolation checks.
 4. Execute the cases against local TaskFlow, recording exact actual results. Stop before any unsafe remote or irreversible action.
-5. Report any defect using the template; retest corrected behavior if a correction is available.
+5. Report any defect using the [bug report template](../templates/bug-report-template.md); retest corrected behavior if a correction is available.
 6. Summarize coverage, defect status, and remaining risk for a product manager.
 
 ## Assignment
 
-**Tools:** TaskFlow local app on the training branch, product specification, templates, browser DevTools, Postman, local D1 read-only queries. **Deliverables:** `submissions/manual-qa/capstone/` containing `test-plan.md`, `test-cases.csv`, `execution.csv`, `bug-reports/` (or an explicit “none observed” note), and `release-summary.md`. Include at least 20 well-chosen cases across the scope, but prioritize risk over raw count. This is an independent-practice assessment; lesson hints should not be needed during execution. **Submission location:** stated capstone folder; share the folder contents for competency review.
+**Tools:** TaskFlow local app on the training branch, product specification, browser DevTools, Postman, local D1 read-only queries, and the [test plan](../templates/test-plan-template.md), [test case](../templates/test-case-template.csv), [execution](../templates/test-execution-template.csv), and [bug report](../templates/bug-report-template.md) templates. **Deliverables:** `submissions/manual-qa/capstone/` containing `test-plan.md`, `test-cases.csv`, `execution.csv`, `bug-reports/` (or an explicit “none observed” note), and `release-summary.md`. Include at least 20 well-chosen cases across the scope, but prioritize risk over raw count. This is an independent-practice assessment; lesson hints should not be needed during execution. **Submission location:** stated capstone folder; share the folder contents for competency review.
 
 ## Definition of Done
 

@@ -12,6 +12,8 @@ Assume no prior QA, programming, or development-tool knowledge. Explain new term
 
 Use four support levels: demonstration, guided practice, independent practice, and mastery assessment. Lessons are original, self-contained Markdown files. Practice and useful QA artifacts take priority over theory. Review submissions with specific strengths, gaps, and actionable corrections.
 
+The course has three stages: Manual QA, Automation QA, and Job Preparation. There is no standalone Foundations stage. Web/browser fundamentals are introduced in Manual QA; Git, GitHub, and Markdown are introduced in Automation QA immediately before test-code work.
+
 ## Practice product
 
 TaskFlow QA Lab is a small task-management web application. Its product specification is the testing source of truth. Features are introduced in stages so each creates a concrete QA exercise. The main release remains stable; controlled training defects are separate.

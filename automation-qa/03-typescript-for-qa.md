@@ -1,4 +1,4 @@
-# Automation QA 2: TypeScript for QA
+# Automation QA 3: TypeScript for QA
 
 ## Introduction
 

@@ -1,4 +1,4 @@
-# Automation QA 6: TaskFlow Automation Capstone
+# Automation QA 7: TaskFlow Automation Capstone
 
 ## Introduction
 

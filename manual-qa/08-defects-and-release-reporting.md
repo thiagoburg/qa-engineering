@@ -1,4 +1,4 @@
-# Manual QA 7: Defects, Retesting, and Release Reporting
+# Manual QA 8: Defects, Retesting, and Release Reporting
 
 ## Introduction
 
@@ -26,10 +26,10 @@ Title: “Completed tasks reappear in Active filter after reload.” Steps ident
 ## Guided practice
 
 1. Use a real discrepancy from a lesson or the controlled training release; if none exists, use a clearly labeled hypothetical example.
-2. Fill `templates/bug-report-template.md` with exact steps and expected/actual results.
+2. Fill the [bug report template](../templates/bug-report-template.md) with exact steps and expected/actual results.
 3. Rank severity and priority separately, with a short reason for each.
 4. Define the retest and the smallest adjacent regression set.
-5. Complete `templates/test-execution-template.csv` and summarize pass/fail/blocked/not-run counts.
+5. Complete the [test execution template](../templates/test-execution-template.csv) and summarize pass/fail/blocked/not-run counts.
 
 ## Assignment
 

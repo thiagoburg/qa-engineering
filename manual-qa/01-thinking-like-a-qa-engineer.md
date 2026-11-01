@@ -11,7 +11,7 @@ Testing is a way to gather evidence about software and reduce uncertainty. In th
 - Write a small set of positive, negative, and boundary checks.
 - Record observed results without presenting guesses as facts.
 
-## Concise theory
+## Concise theoretical explanation
 
 **Quality Assurance (QA)** is the work of preventing and finding problems throughout delivery. **Testing** evaluates a product by reviewing it, exercising it, or checking its results. A **defect** is behavior that differs from an agreed expectation.
 
@@ -21,7 +21,7 @@ The Software Development Life Cycle (SDLC) describes work from idea through deli
 
 Testing has different **levels** based on what is being checked: unit (small code part), integration (parts working together), system (the complete product), and acceptance (whether it meets user/business needs). A junior QA often spends most time at system/acceptance level and collaborates with developers who may add lower-level checks. Testing **types** describe the question: functional (does it behave as specified?), non-functional (how usable, accessible, or reliable is it?), confirmation/retest (is a reported fix corrected?), and regression (did a change break existing behavior?). These categories can overlap; name the purpose of a check, not just its label.
 
-## Practical example
+## Practical examples
 
 Requirement: “A task title is required.”
 

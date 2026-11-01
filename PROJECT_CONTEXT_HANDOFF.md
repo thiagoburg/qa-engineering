@@ -1,6 +1,6 @@
 # QA Engineering Project — Context Handoff
 
-This file is a handoff for future chats or agents working in this repository. Read the root-level `master-prompt-qa-engineering.md` for the original requirements. The master prompt is now included in the public repository; the selected decisions in this handoff and the roadmap supersede any conflicting initial candidate in that prompt. The current checkout is `C:\Users\thiago\Syncthing\qa-engineerring`; the public GitHub repository is [`thiagoburg/qa-engineering`](https://github.com/thiagoburg/qa-engineering).
+This file is a handoff for future chats or agents working in this repository. Read the root-level [master prompt](MASTER_PROMPT.md) for the original requirements. The latest learner direction in this handoff and `ROADMAP.md` supersedes conflicting curriculum details in the original prompt. The current checkout is `C:\Users\thiago\Syncthing\qa-engineerring`; the public GitHub repository is [`thiagoburg/qa-engineering`](https://github.com/thiagoburg/qa-engineering).
 
 ## Purpose
 
@@ -12,24 +12,24 @@ The original prompt listed Python + Playwright/pytest as an initial candidate. T
 
 The learner also selected **Supabase Auth** after Cloudflare Workers rejected the proposed PBKDF2 iteration count. Keep Cloudflare Workers + D1 for the app/API/task persistence, and Supabase Auth for credential handling and tokens. Never weaken password hashing to fit an unsupported implementation.
 
-The agreed stages are:
+The latest agreed course stages are:
 
-1. Foundations
-2. Manual QA
-3. Automation QA
-4. Job Preparation
+1. Manual QA
+2. Automation QA
+3. Job Preparation
+
+There is no standalone Foundations stage. The learner does not want a Windows Terminal lesson. Web/browser fundamentals were moved into Manual QA immediately after the introductory QA lesson. Git, GitHub, and Markdown were moved into Automation QA immediately before TypeScript and test-code work; teach this with GitHub Desktop so it does not become a separate command-line course. The original `MASTER_PROMPT.md` is preserved, but these newer decisions supersede its old Foundation-stage sequence.
 
 Lessons are self-contained Markdown files and follow nine sections: Introduction, Learning objectives, Concise theoretical explanation, Practical examples, Guided practice, Assignment, Definition of Done, Submission instructions, and Optional extra credit. Every assignment should state tools, deliverables, and the path under `submissions/`. Progress is competency-based; reading or finishing a lesson does not pass a checkpoint.
 
 ## Repository map
 
-- `master-prompt-qa-engineering.md` — original full project prompt. It is present locally but intentionally untracked; do not publish it unless the learner asks.
+- `MASTER_PROMPT.md` — original full project prompt, now published at the repository root.
 - `ROADMAP.md` — linked course sequence, checkpoints, market evidence, and practice safety.
 - `PROGRESS.md` — current learner position and milestone status.
 - `PROJECT_BRIEF.md` — compact purpose, approach, technical direction, and success criteria.
-- `foundations/` — three beginner lessons on workspace/PowerShell, Git/GitHub/Markdown, and web/browser/HTTP basics.
-- `manual-qa/` — eight lessons: QA thinking, requirements/risk, test design, exploratory/web testing, API/Postman, SQL/data checks, defects/release reporting, and independent capstone.
-- `automation-qa/` — six lessons: strategy, TypeScript, Playwright UI, API/auth/test data, debugging/CI, and automation capstone.
+- `manual-qa/` — nine lessons: QA thinking, web/browser fundamentals, requirements/risk, test design, exploratory/web testing, API/Postman, SQL/data checks, defects/release reporting, and independent capstone.
+- `automation-qa/` — seven lessons: strategy, Git/GitHub/Markdown, TypeScript, Playwright UI, API/auth/test data, debugging/CI, and automation capstone.
 - `job-preparation/` — four lessons: portfolio, English CV/LinkedIn, interviews/take-home work, and remote QA simulation.
 - `taskflow-qa-lab/` — the practice web app, product specification, API guide, migrations, local setup, tests, and deployment notes.
 - `templates/` — test plan, test case/execution CSV, and defect report templates.
@@ -69,9 +69,9 @@ Both health endpoints returned `{"status":"ok"}` in the previous setup session. 
 
 ## Git and branch safety
 
-At the last verified sync before the backup materials were published:
+At the last verified sync before the latest course reorganization:
 
-- `main` and `origin/main` were at `536ceaccaa7daf9e055f5ab19f8f95ce55850534` (`Add project context handoff`). This is the stable, learner-facing baseline; check the current `main` ref after later commits.
+- `main` and `origin/main` were at `6f9a7197669a0df7b7bc7d05c1cd94b2d63062cd` (`Publish complete project backup and recovery guide`). This is the stable, learner-facing baseline; check the current `main` ref after later commits.
 - `training/taskflow-release-01` and its remote are both at `e1c2bb6612b229bed4b1e45db1fe1661e20e7dfc` (`Add isolated Manual QA training release`).
 - GitHub Actions run [`41242821692`](https://github.com/thiagoburg/qa-engineering/actions/runs/41242821692) for the curriculum commit completed successfully.
 - The working checkout was returned to `main`. The master prompt and Obsidian vault settings are now published for backup. `.dev.vars`, `.wrangler`, `node_modules`, and generated test artifacts remain excluded because they are local configuration/state or reproducible output.
@@ -82,7 +82,7 @@ GitHub may show “Compare and pull request” after the training branch push. T
 
 ## Learner progress and next action
 
-`PROGRESS.md` correctly says the learner is at **Foundations 1: Your QA workspace**, with no assignments or mastery checkpoints yet completed/reviewed. The course materials and app environment are ready; personal learning outcomes are not complete. The next step is to complete `foundations/01-your-qa-workspace.md`, save `submissions/foundations/workspace-check.md`, and request a review. Do not mark progress complete without reviewing actual learner work and requiring corrections where needed.
+`PROGRESS.md` says the learner starts at **Manual QA 1: Thinking like a QA Engineer**; no assignments or mastery checkpoints have been completed/reviewed. The course materials and app environment are ready; personal learning outcomes are not complete. The next step is to complete `manual-qa/01-thinking-like-a-qa-engineer.md`, save its deliverables under `submissions/manual-qa/`, and request a review. Do not mark progress complete without reviewing actual learner work and requiring corrections where needed.
 
 ## Provenance and collaboration
 

@@ -1,4 +1,4 @@
-# Automation QA 5: Debugging, Reliability, and CI
+# Automation QA 6: Debugging, Reliability, and CI
 
 ## Introduction
 

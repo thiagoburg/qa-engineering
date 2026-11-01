@@ -1,4 +1,4 @@
-# Manual QA 5: API Testing with HTTP and Postman
+# Manual QA 6: API Testing with HTTP and Postman
 
 ## Introduction
 
