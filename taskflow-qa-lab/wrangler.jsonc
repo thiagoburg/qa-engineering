@@ -33,6 +33,10 @@
   "env": {
     "preview": {
       "name": "taskflow-qa-lab-preview",
+      "vars": {
+        "SUPABASE_URL": "https://yjhabgqboalukhzezwpc.supabase.co",
+        "SUPABASE_PUBLISHABLE_KEY": "sb_publishable__LbKF7TRC9QCq6UwHr3Log_7wVJ6gdC"
+      },
       "d1_databases": [
         {
           "binding": "DB",

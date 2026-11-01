@@ -9,7 +9,7 @@ A practical learning path for a beginner, built around Manual QA and QA Automati
 3. Save each assignment in the [`manual-qa/submissions/`](manual-qa/submissions/) or [`automation-qa/submissions/`](automation-qa/submissions/) folder, as directed by the lesson.
 4. Request a review before moving past a mastery checkpoint. Reading lessons alone does not pass a checkpoint.
 
-For a fresh clone or recovery, see [Backup and Recovery](#backup-and-recovery). The original requirements are in [CONTEXT.md](CONTEXT.md); the [project context](CONTEXT.md) records current decisions.
+For a fresh clone or recovery, see [Backup and Recovery](#backup-and-recovery). [CONTEXT.md](CONTEXT.md) is the current project handoff for future chats and agents.
 
 ## Sections
 
@@ -110,6 +110,6 @@ The course and practice app are on `main`. Pull the latest `main` before startin
 
 ## What is not stored in GitHub
 
-Sign-in sessions, service access, local databases, and ignored runtime files are not part of the repository. Recreate dependencies with `npm ci`; sign in to Cloudflare, GitHub, and Supabase as needed. Obsidian workspace history and `.trash/` are local device state.
+Sign-in sessions, service access, local databases, ignored runtime files, and Obsidian settings are not part of the repository. Recreate dependencies with `npm ci`; sign in to Cloudflare, GitHub, and Supabase as needed. Obsidian settings and `.trash/` remain local device state.
 
 This is a public repository. Remove personal information, credentials, access tokens, and confidential material before committing learner submissions.

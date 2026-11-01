@@ -81,6 +81,10 @@ test("keeps task data after reload and returns a useful unauthenticated API resp
   await page.getByRole("button", { name: "Sign out" }).click();
   const response = await page.request.get("/api/tasks");
   expect(response.status()).toBe(401);
+  const missingRoute = await page.request.get("/api/not-a-route");
+  expect(missingRoute.status()).toBe(404);
+  const unsupportedMethod = await page.request.put("/api/tasks", { data: { title: "Not supported" } });
+  expect(unsupportedMethod.status()).toBe(404);
   await expect(page.getByRole("heading", { name: "Sign in to TaskFlow" })).toBeVisible();
 });
 
@@ -121,4 +125,26 @@ test("validates API inputs and renders task text as text", async ({ page }) => {
   await page.getByRole("button", { name: "Add task" }).click();
   await expect(page.getByText("<img src=x onerror=alert(1)>", { exact: true })).toBeVisible();
   await expect(page.locator("#task-list img")).toHaveCount(0);
+});
+
+test("enforces the documented UTF-8 password byte boundaries", async ({ page }) => {
+  const tooShort = await page.request.post("/api/auth/register", {
+    data: { email: uniqueEmail(), password: "é".repeat(5) },
+  });
+  expect(tooShort.status()).toBe(400);
+
+  const atMinimum = await page.request.post("/api/auth/register", {
+    data: { email: uniqueEmail(), password: "é".repeat(6) },
+  });
+  expect(atMinimum.status()).toBe(201);
+
+  const atMaximum = await page.request.post("/api/auth/register", {
+    data: { email: uniqueEmail(), password: "é".repeat(128) },
+  });
+  expect(atMaximum.status()).toBe(201);
+
+  const tooLong = await page.request.post("/api/auth/register", {
+    data: { email: uniqueEmail(), password: "é".repeat(129) },
+  });
+  expect(tooLong.status()).toBe(400);
 });

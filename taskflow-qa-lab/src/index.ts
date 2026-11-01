@@ -168,7 +168,8 @@ async function register(request: Request, env: Env): Promise<Response> {
 
   const email = body.email.trim().toLowerCase();
   const password = body.password;
-  if (password.length < 12 || new TextEncoder().encode(password).length > 256) {
+  const passwordBytes = new TextEncoder().encode(password).byteLength;
+  if (passwordBytes < 12 || passwordBytes > 256) {
     return error("Password must be between 12 and 256 bytes.", 400);
   }
 
@@ -319,6 +320,14 @@ async function handleApi(request: Request, env: Env): Promise<Response> {
   if (path === "/api/auth/login" && method === "POST") return login(request, env);
   if (path === "/api/auth/logout" && method === "POST") return logout(request, env);
 
+  const taskMatch = path.match(/^\/api\/tasks\/([\da-f-]+)$/i);
+  const protectedRoute =
+    (path === "/api/auth/me" && method === "GET") ||
+    (path === "/api/tasks" && ["GET", "POST"].includes(method)) ||
+    (path === "/api/tasks/stats" && method === "GET") ||
+    (taskMatch !== null && ["PATCH", "DELETE"].includes(method));
+  if (!protectedRoute) return error("API route not found.", 404);
+
   const user = await currentUser(request, env);
   if (path === "/api/auth/me" && method === "GET") {
     return user ? json({ user }) : error("Authentication required.", 401);
@@ -329,7 +338,6 @@ async function handleApi(request: Request, env: Env): Promise<Response> {
   if (path === "/api/tasks" && method === "POST") return createTask(request, env, user);
   if (path === "/api/tasks/stats" && method === "GET") return taskStats(env, user);
 
-  const taskMatch = path.match(/^\/api\/tasks\/([\da-f-]+)$/i);
   if (taskMatch && method === "PATCH") return updateTask(request, env, user, taskMatch[1]!);
   if (taskMatch && method === "DELETE") return deleteTask(env, user, taskMatch[1]!);
   return error("API route not found.", 404);

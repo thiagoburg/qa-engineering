@@ -37,8 +37,8 @@
         <form id="register-panel" class="form-stack" aria-labelledby="register-tab" hidden>
           <label for="register-email">Email address</label>
           <input id="register-email" name="email" type="email" autocomplete="email" maxlength="254" required />
-          <label for="register-password">Password <span class="field-hint">At least 12 characters</span></label>
-          <input id="register-password" name="password" type="password" autocomplete="new-password" minlength="12" maxlength="256" required />
+          <label for="register-password">Password <span class="field-hint">12–256 UTF-8 bytes</span></label>
+          <input id="register-password" name="password" type="password" autocomplete="new-password" maxlength="256" required />
           <button class="button button-primary" type="submit">Create account</button>
           <p class="form-message" id="register-message" role="alert" aria-live="polite"></p>
         </form>
