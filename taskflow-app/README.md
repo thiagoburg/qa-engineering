@@ -12,14 +12,12 @@ A small task manager used for manual and automated QA practice.
 From this folder:
 
 ```powershell
-npm install
-Copy-Item .dev.vars.example .dev.vars
-# Add SUPABASE_URL and SUPABASE_PUBLISHABLE_KEY to .dev.vars
+npm ci
 npm run db:migrate:local
 npm run dev
 ```
 
-Create a Supabase project and use its URL and publishable key in `.dev.vars`. Supabase Auth manages account credentials; TaskFlow D1 stores the account ID/email mapping and tasks. Open the local address printed by Wrangler (normally `http://localhost:8787`). The local D1 database is separate from the Cloudflare databases. Use invented training accounts; do not enter real credentials or personal information.
+The repository's `wrangler.jsonc` contains the public Supabase project URL and publishable key needed by the app. A `.dev.vars` file is optional; create one from `.dev.vars.example` only when you need local overrides, then replace both placeholder values. Never put a Supabase secret or service-role key in `.dev.vars`. Supabase Auth manages account credentials; TaskFlow D1 stores the account ID/email mapping and tasks. Open the local address printed by Wrangler (normally `http://localhost:8787`). The local D1 database is separate from the Cloudflare databases. Use invented training accounts; do not enter real credentials or personal information.
 
 To delete local training rows while keeping the schema, run:
 
@@ -113,7 +111,7 @@ TaskFlow uses Cloudflare Workers and D1 for the app and task data. Supabase Auth
 2. Email sign-up is enabled and Confirm Email is disabled for practice accounts. This lets invented accounts sign in without a mailbox. Use only dummy data; if the project is ever used with real personal data, enable email confirmation and configure appropriate email delivery first.
 3. Use invented, syntactically valid example addresses such as `qa@example.com` and practice-only passwords. Do not enter real personal information. The hosted project's built-in email service has restrictive delivery limits; custom SMTP is needed for sending confirmation email to arbitrary addresses.
 4. On October 31, 2026, live Preview API checks passed for registration, current user, login/logout, invalid input, task create/edit/complete/delete, filtering, statistics, persistence across sign-in, and account isolation. Temporary task rows were deleted. Test Auth identities use reserved example addresses and have no usable mailbox.
-5. Production's two D1 migrations have been applied, and the Worker has been deployed and health-checked. Cloudflare Workers Builds is connected to `thiagoburg/qa-engineering`. Its configured root directory was `taskflow-qa-lab`; change that setting to `taskflow-app` before the next deployment. The integration uses `main` as the production branch, `npx wrangler deploy` as the deploy command, and `npx wrangler preview` as the Preview command. Preview builds are enabled. The first `main` push after connection triggered a production deployment, and its health check passed.
+5. Production's two D1 migrations have been applied, and the Worker has been deployed and health-checked. Cloudflare Workers Builds is connected to `thiagoburg/qa-engineering`. Its root directory was previously `taskflow-qa-lab`; verify it is now set to `taskflow-app` before relying on the next deployment. The integration uses `main` as the production branch, `npx wrangler deploy` as the deploy command, and `npx wrangler preview` as the Preview command. Preview builds are enabled. The first `main` push after connection triggered a production deployment, and its health check passed.
 
 Supabase's Free plan currently lists 50,000 monthly active users and pauses projects after a week of inactivity. This is adequate for a learning prototype but means a Preview may need to be resumed after inactivity. See [Supabase pricing](https://supabase.com/pricing).
 

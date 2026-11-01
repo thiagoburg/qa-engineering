@@ -22,7 +22,7 @@ In TaskFlow, opening the task list should create a `GET /api/tasks` request. The
 
 ## Guided practice
 
-1. Open the TaskFlow Preview linked from the [app README](../taskflow-app/README.md), using an invented account. If working locally, follow that same README's start instructions.
+1. Start TaskFlow locally by following the [app README](../taskflow-app/README.md#run-locally), and use an invented account. Keep practice data in local D1; do not use the public Preview or production app for exercises.
 2. Open the app in a browser and press `F12` to open Developer Tools.
 3. Select **Network**, reload the page, and find a request whose URL begins with `/api/`.
 4. Record its request method, status code, and a field from the response body.
@@ -30,7 +30,7 @@ In TaskFlow, opening the task list should create a `GET /api/tasks` request. The
 
 ## Assignment
 
-**Tools:** TaskFlow Preview or local app, browser Developer Tools, [product specification](../taskflow-app/README.md#product-specification), and a Markdown editor. **Deliverable:** `manual-qa/submissions/web-request-inspection.md`. Include the page/feature, request method and path, response status, one observed JSON field, and one sentence describing what the evidence tells you. Use only values you observed. **Submission location:** `manual-qa/submissions/`.
+**Tools:** TaskFlow local app, browser Developer Tools, [product specification](../taskflow-app/README.md#product-specification), and a Markdown editor. **Deliverable:** `manual-qa/submissions/web-request-inspection.md`. Include the page/feature, request method and path, response status, one observed JSON field, and one sentence describing what the evidence tells you. Use only values you observed. **Submission location:** `manual-qa/submissions/`.
 
 ## Definition of Done
 

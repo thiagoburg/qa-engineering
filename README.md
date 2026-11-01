@@ -6,7 +6,7 @@ A practical learning path for a beginner, built around Manual QA and QA Automati
 
 1. Read the roadmap below.
 2. Begin with [Manual QA 1: Thinking like a QA Engineer](manual-qa/01-thinking-like-a-qa-engineer.md).
-3. Save each assignment in the `submissions/` folder inside its section.
+3. Save each assignment in the [`manual-qa/submissions/`](manual-qa/submissions/) or [`automation-qa/submissions/`](automation-qa/submissions/) folder, as directed by the lesson.
 4. Request a review before moving past a mastery checkpoint. Reading lessons alone does not pass a checkpoint.
 
 For a fresh clone or recovery, see [Backup and Recovery](#backup-and-recovery). The original requirements are in [CONTEXT.md](CONTEXT.md); the [project context](CONTEXT.md) records current decisions.
@@ -20,7 +20,7 @@ For a fresh clone or recovery, see [Backup and Recovery](#backup-and-recovery). 
 
 ## TaskFlow QA Lab
 
-TaskFlow is a small task manager for practice. Its expected behavior is defined in the [product specification](taskflow-app/README.md#product-specification). Run it locally with `npm ci`, `npm run db:migrate:local`, and `npm run dev` from `taskflow-app/`.
+TaskFlow is a small task manager for practice. Its expected behavior is defined in the [product specification](taskflow-app/README.md#product-specification). Run it locally by following [TaskFlow's setup instructions](taskflow-app/README.md#run-locally).
 
 Use invented accounts and dummy data only. Do not enter real credentials or personal information.
 
@@ -30,7 +30,7 @@ Manual QA templates: [test plan](manual-qa/templates/test-plan-template.md), [te
 
 The application and learning materials were AI-assisted. Learner submissions must reflect work the learner can explain and reproduce. Keep that distinction clear, and never include credentials or private data in this public repository.
 
-Begin with [Manual QA 1](manual-qa/01-thinking-like-a-qa-engineer.md) and save work in `manual-qa/submissions/`. The stable app follows [Product Specification](taskflow-app/README.md#product-specification) and contains no intentional defects.
+Begin with [Manual QA 1](manual-qa/01-thinking-like-a-qa-engineer.md) and save work in [`manual-qa/submissions/`](manual-qa/submissions/). The stable app follows [Product Specification](taskflow-app/README.md#product-specification) and contains no intentional defects.
 
 ---
 
@@ -94,7 +94,7 @@ In PowerShell, clone the repository and start the app:
 
 ```powershell
 git clone https://github.com/thiagoburg/qa-engineering.git
-Set-Location qa-engineering/taskflow-qa
+Set-Location qa-engineering/taskflow-app
 npm ci
 npm run db:migrate:local
 npm run dev
