@@ -33,7 +33,7 @@ Automate that an unauthenticated `GET /api/tasks` returns `401` as an API check.
 
 ## Assignment
 
-**Tools:** `PRODUCT_SPEC.md`, spreadsheet or Markdown. **Deliverable:** `submissions/automation-qa/automation-strategy.md` with an eight-row decision table, top-three automation backlog, manual-only rationale, coverage gaps, and one explicit limitation per chosen check. **Submission location:** `submissions/automation-qa/`; share for review before coding.
+**Tools:** `PRODUCT_SPEC.md`, spreadsheet or Markdown. **Deliverable:** `automation-qa/submissions/automation-strategy.md` with an eight-row decision table, top-three automation backlog, manual-only rationale, coverage gaps, and one explicit limitation per chosen check. **Submission location:** `automation-qa/submissions/`; share for review before coding.
 
 ## Definition of Done
 

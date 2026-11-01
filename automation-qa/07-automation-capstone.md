@@ -32,7 +32,7 @@ An efficient suite may include health, unauthenticated access, title validation,
 
 ## Assignment
 
-**Tools:** TypeScript, Playwright Test, local Worker/D1, GitHub Actions. **Deliverables:** `submissions/automation-qa/capstone/` with strategy matrix, automated specs, manual-only checks, run instructions, execution summary, and a short CI/reliability review. Include at least eight meaningful checks across API/UI; use no fixed arbitrary sleeps. **Submission location:** stated capstone folder; request an independent competency review.
+**Tools:** TypeScript, Playwright Test, local Worker/D1, GitHub Actions. **Deliverables:** `automation-qa/submissions/capstone/` with strategy matrix, automated specs, manual-only checks, run instructions, execution summary, and a short CI/reliability review. Include at least eight meaningful checks across API/UI; use no fixed arbitrary sleeps. **Submission location:** stated capstone folder; request an independent competency review.
 
 ## Definition of Done
 

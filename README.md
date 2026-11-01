@@ -1,36 +1,33 @@
 # QA Engineer Roadmap
 
-A practical, milestone-based path from beginner to junior QA Engineer, with a small web application for hands-on practice.
+A practical learning path for a beginner, built around Manual QA and QA Automation. TaskFlow QA Lab is the practice application.
 
 ## Start here
 
-1. Read [the roadmap](ROADMAP.md) and [project brief](PROJECT_BRIEF.md).
+1. Read the [roadmap](ROADMAP.md) and [project brief](PROJECT_BRIEF.md).
 2. Begin with [Manual QA 1: Thinking like a QA Engineer](manual-qa/01-thinking-like-a-qa-engineer.md).
-3. Follow each lesson's assignment and save your work in `submissions/` under the relevant stage.
-4. Ask for a review in the project chat before moving past a mastery checkpoint. Lessons are ready-to-use, but checkpoints are passed only after practical evidence is reviewed.
+3. Save each assignment in the `submissions/` folder inside its section.
+4. Request a review before moving past a mastery checkpoint. Reading lessons alone does not pass a checkpoint.
 
-For a fresh clone or local recovery, follow [Backup and Recovery](BACKUP_AND_RECOVERY.md). The original requirements are in [the master prompt](MASTER_PROMPT.md), and [the context handoff](PROJECT_CONTEXT_HANDOFF.md) records project decisions and status.
+For a fresh clone or recovery, see [Backup and Recovery](BACKUP_AND_RECOVERY.md). The original requirements are in [MASTER_PROMPT.md](MASTER_PROMPT.md); the [context handoff](PROJECT_CONTEXT_HANDOFF.md) records current decisions.
 
-## Learning stages
+## Sections
 
-| Stage | Focus | Status |
-| --- | --- | --- |
-| Manual QA | QA thinking, web/browser basics, requirements, risk, test design, execution, API/data checks, defects, and capstone | Lessons ready; learner progress active |
-| Automation QA | Strategy, Git/GitHub, TypeScript, Playwright Test, browser/API checks, debugging, and CI | Lessons ready; gated by Manual QA mastery |
-| Job Preparation | Portfolio, CV, interviews, and remote-team practice | Lessons ready; gated by Automation QA mastery |
+| Section | Focus |
+| --- | --- |
+| [1. Manual QA](manual-qa/) | QA thinking, web and browser basics, requirements, risk, test design, execution, API/data checks, defects, and capstone |
+| [2. QA Automation](automation-qa/) | Automation strategy, Git/GitHub, TypeScript, Playwright, API checks, debugging, CI, and capstone |
 
 ## TaskFlow QA Lab
 
-TaskFlow is a deliberately small task manager used to practise QA. Its behavior is defined in [the product specification](taskflow-qa-lab/PRODUCT_SPEC.md). Run it locally with `npm ci`, `npm run db:migrate:local`, and `npm run dev` from `taskflow-qa-lab/`.
+TaskFlow is a small task manager for practice. Its expected behavior is defined in the [product specification](taskflow-qa-lab/PRODUCT_SPEC.md). Run it locally with `npm ci`, `npm run db:migrate:local`, and `npm run dev` from `taskflow-qa-lab/`.
 
-Use invented email addresses and passwords in this public learning project. Do not enter real credentials or personal information.
+Use invented accounts and dummy data only. Do not enter real credentials or personal information.
 
-Templates: [test plan](templates/test-plan-template.md), [test case](templates/test-case-template.csv), [test execution](templates/test-execution-template.csv), and [bug report](templates/bug-report-template.md).
+Manual QA templates: [test plan](manual-qa/templates/test-plan-template.md), [test case](manual-qa/templates/test-case-template.csv), [test execution](manual-qa/templates/test-execution-template.csv), and [bug report](manual-qa/templates/bug-report-template.md).
 
-## Portfolio integrity
+## Project integrity and progress
 
-Do not present AI-assisted application code or lesson content as work you completed independently. Record your contribution and assistance in [the portfolio provenance guide](portfolio/PROVENANCE.md). Learner submissions belong in the stage-specific `submissions/` directory.
+The application and learning materials were AI-assisted. Learner submissions must reflect work the learner can explain and reproduce. Keep that distinction clear, and never include credentials or private data in this public repository.
 
-## Current checkpoint
-
-All roadmap lessons are authored. Begin with [Manual QA 1](manual-qa/01-thinking-like-a-qa-engineer.md), save the assignment under `submissions/manual-qa/`, and request review. Current learner status and checkpoint gates are in [PROGRESS.md](PROGRESS.md). All app expectations come from [PRODUCT_SPEC.md](taskflow-qa-lab/PRODUCT_SPEC.md); the stable app contains no intentional defects.
+Begin with [Manual QA 1](manual-qa/01-thinking-like-a-qa-engineer.md) and save work in `manual-qa/submissions/`. Current learner status and checkpoint gates are in [PROGRESS.md](PROGRESS.md). The stable app follows [PRODUCT_SPEC.md](taskflow-qa-lab/PRODUCT_SPEC.md) and contains no intentional defects.

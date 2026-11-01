@@ -38,7 +38,7 @@ Before testing, ask whether spaces count as a title and what feedback should app
 
 ## Assignment
 
-**Tools:** TaskFlow local app, browser, product specification, Markdown/CSV editor. **Deliverables:** `submissions/manual-qa/task-title-checks.csv` with columns `case_id,scenario,input,expected,actual,status,evidence`, including the three checks above and at least one additional check you designed; and `submissions/manual-qa/review-notes.md` with one ambiguity found during static review. **Submission location:** `submissions/manual-qa/`.
+**Tools:** TaskFlow local app, browser, product specification, Markdown/CSV editor. **Deliverables:** `manual-qa/submissions/task-title-checks.csv` with columns `case_id,scenario,input,expected,actual,status,evidence`, including the three checks above and at least one additional check you designed; and `manual-qa/submissions/review-notes.md` with one ambiguity found during static review. **Submission location:** `manual-qa/submissions/`.
 
 ## Definition of Done
 
@@ -49,7 +49,7 @@ Before testing, ask whether spaces count as a title and what feedback should app
 
 ## Submission instructions
 
-Save both artifacts under `submissions/manual-qa/`. Share them in the project chat for review. Correct any findings before treating this checkpoint as complete.
+Save both artifacts under `manual-qa/submissions/`. Share them in the project chat for review. Correct any findings before treating this checkpoint as complete.
 
 ## Optional extra credit
 

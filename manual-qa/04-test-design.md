@@ -34,7 +34,7 @@ For a required title, partitions are empty/whitespace, valid 1–120 trimmed cha
 
 ## Assignment
 
-**Tools:** Markdown or CSV and the [test case template](../templates/test-case-template.csv). **Deliverable:** `submissions/manual-qa/task-validation-test-cases.csv` with at least 10 cases: partitions, key boundaries, two condition combinations, and all task state transitions. Add a short Markdown note explaining which combinations you intentionally did not test and why. **Submission location:** `submissions/manual-qa/`; share both artifacts for review.
+**Tools:** Markdown or CSV and the [test case template](templates/test-case-template.csv). **Deliverable:** `manual-qa/submissions/task-validation-test-cases.csv` with at least 10 cases: partitions, key boundaries, two condition combinations, and all task state transitions. Add a short Markdown note explaining which combinations you intentionally did not test and why. **Submission location:** `manual-qa/submissions/`; share both artifacts for review.
 
 ## Definition of Done
 
@@ -45,7 +45,7 @@ For a required title, partitions are empty/whitespace, valid 1–120 trimmed cha
 
 ## Submission instructions
 
-Save the CSV and note under `submissions/manual-qa/`. In the review request, point to one boundary case and one state transition. Update unclear or redundant cases after feedback.
+Save the CSV and note under `manual-qa/submissions/`. In the review request, point to one boundary case and one state transition. Update unclear or redundant cases after feedback.
 
 ## Optional extra credit
 

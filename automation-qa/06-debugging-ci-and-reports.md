@@ -33,7 +33,7 @@ If a test times out finding “Save,” inspect the page and accessible name. If
 
 ## Assignment
 
-**Tools:** Playwright CLI, trace viewer, GitHub Actions. **Deliverable:** `submissions/automation-qa/ci-investigation.md` with one diagnosed failure (intentional local failure is acceptable), its evidence, root-cause category, correction, rerun result, workflow summary, and one limitation of the CI suite. **Submission location:** `submissions/automation-qa/`. Do not upload secrets or unredacted auth state.
+**Tools:** Playwright CLI, trace viewer, GitHub Actions. **Deliverable:** `automation-qa/submissions/ci-investigation.md` with one diagnosed failure (intentional local failure is acceptable), its evidence, root-cause category, correction, rerun result, workflow summary, and one limitation of the CI suite. **Submission location:** `automation-qa/submissions/`. Do not upload secrets or unredacted auth state.
 
 ## Definition of Done
 

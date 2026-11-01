@@ -40,18 +40,18 @@ This is readable as plain text and renders as a heading and three bullets on Git
 
 ## Assignment
 
-**Tools:** GitHub Desktop, GitHub, an editor, and a reviewed practice test or Markdown artifact. **Deliverable:** `submissions/automation-qa/git-workflow.md` with a screenshot or written record of the branch, the reviewed diff, and the local commit summary. Explain why you included only the intended file and when a pull request is appropriate. **Submission location:** `submissions/automation-qa/`.
+**Tools:** GitHub Desktop, GitHub, an editor, and a reviewed practice test or Markdown artifact. **Deliverable:** `automation-qa/submissions/git-workflow.md` with a screenshot or written record of the branch, the reviewed diff, and the local commit summary. Explain why you included only the intended file and when a pull request is appropriate. **Submission location:** `automation-qa/submissions/`.
 
 ## Definition of Done
 
-- The note is saved under `submissions/automation-qa/`.
+- The note is saved under `automation-qa/submissions/`.
 - The recorded diff contains only the intended file and no credentials or unrelated changes.
 - The local commit exists on a branch and has a clear summary.
 - The learner explains that a local commit is not yet published to GitHub.
 
 ## Submission instructions
 
-Save the note under `submissions/automation-qa/` and share it in the project chat for review. After review, push the reviewed branch using GitHub Desktop. Open a pull request only when the change is intended for the stable repository; never propose merging the controlled training branch.
+Save the note under `automation-qa/submissions/` and share it in the project chat for review. After review, push the reviewed branch using GitHub Desktop. Open a pull request only when the change is intended for the stable repository; never propose merging the controlled training branch.
 
 ## Optional extra credit
 

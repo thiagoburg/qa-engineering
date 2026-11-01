@@ -41,14 +41,14 @@ Adapt labels and setup to the current UI; the point is accessible selection and 
 
 1. Read `playwright.config.ts` and `tests/taskflow.spec.ts`; note base URL, browsers, retries, and reporter.
 2. Run the existing suite locally following the app README so you understand its environment.
-3. Add a learner-authored test for a simple specified behavior in `submissions/automation-qa/` or in a separate local branch.
+3. Add a learner-authored test for a simple specified behavior in `automation-qa/submissions/` or in a separate local branch.
 4. Prefer role/label locators; verify the locator is unique and the accessible name matches the UI.
 5. Replace any fixed sleep with a locator action/assertion that waits for a meaningful state.
 6. Run the same test alone and with the suite; investigate any order dependency.
 
 ## Assignment
 
-**Tools:** Playwright Test, local TaskFlow, browser. **Deliverable:** `submissions/automation-qa/ui-smoke.spec.ts` plus `ui-smoke-notes.md` describing setup, requirement, locator choices, assertion, and execution result. Cover one sign-in and one task journey. Use a throwaway local account strategy; no real credentials. **Submission location:** `submissions/automation-qa/`.
+**Tools:** Playwright Test, local TaskFlow, browser. **Deliverables:** `automation-qa/submissions/ui-smoke.spec.ts` and `automation-qa/submissions/ui-smoke-notes.md` describing setup, requirement, locator choices, assertion, and execution result. Cover one sign-in and one task journey. Use a throwaway local account strategy; no real credentials. **Submission location:** `automation-qa/submissions/`.
 
 ## Definition of Done
 
@@ -59,7 +59,7 @@ Adapt labels and setup to the current UI; the point is accessible selection and 
 
 ## Submission instructions
 
-Save the spec and notes to `submissions/automation-qa/`. Run locally and share the command/result for review. If a test fails, include the first useful error and evidence; do not hide a failure with retries.
+Save the spec and notes to `automation-qa/submissions/`. Run locally and share the command/result for review. If a test fails, include the first useful error and evidence; do not hide a failure with retries.
 
 ## Optional extra credit
 

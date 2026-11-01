@@ -33,7 +33,7 @@ In `PRODUCT_SPEC.md`, “a title from 1 through 120 characters after trimming”
 
 ## Assignment
 
-**Tools:** Markdown editor and the [test plan template](../templates/test-plan-template.md). **Deliverable:** `submissions/manual-qa/task-filter-test-plan.md`, containing scope, source requirements, environment, assumptions/questions, at least five risks with likelihood/impact/score, prioritized test areas, and out-of-scope items. Keep the plan small enough to execute in one sitting. **Submission location:** `submissions/manual-qa/`; share it in the project chat for review before committing.
+**Tools:** Markdown editor and the [test plan template](templates/test-plan-template.md). **Deliverable:** `manual-qa/submissions/task-filter-test-plan.md`, containing scope, source requirements, environment, assumptions/questions, at least five risks with likelihood/impact/score, prioritized test areas, and out-of-scope items. Keep the plan small enough to execute in one sitting. **Submission location:** `manual-qa/submissions/`; share it in the project chat for review before committing.
 
 ## Definition of Done
 

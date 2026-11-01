@@ -26,14 +26,14 @@ Title: “Completed tasks reappear in Active filter after reload.” Steps ident
 ## Guided practice
 
 1. Use a real discrepancy from a lesson or the controlled training release; if none exists, use a clearly labeled hypothetical example.
-2. Fill the [bug report template](../templates/bug-report-template.md) with exact steps and expected/actual results.
+2. Fill the [bug report template](templates/bug-report-template.md) with exact steps and expected/actual results.
 3. Rank severity and priority separately, with a short reason for each.
 4. Define the retest and the smallest adjacent regression set.
-5. Complete the [test execution template](../templates/test-execution-template.csv) and summarize pass/fail/blocked/not-run counts.
+5. Complete the [test execution template](templates/test-execution-template.csv) and summarize pass/fail/blocked/not-run counts.
 
 ## Assignment
 
-**Tools:** Bug report and execution templates. **Deliverable:** `submissions/manual-qa/defect-and-release-report.md` with one report (observed or clearly marked hypothetical), severity/priority rationale, retest/regression plan, and a one-page release summary that states scope, environment, counts, open defects, and residual risk. **Submission location:** `submissions/manual-qa/`.
+**Tools:** Bug report and execution templates. **Deliverable:** `manual-qa/submissions/defect-and-release-report.md` with one report (observed or clearly marked hypothetical), severity/priority rationale, retest/regression plan, and a one-page release summary that states scope, environment, counts, open defects, and residual risk. **Submission location:** `manual-qa/submissions/`.
 
 ## Definition of Done
 
@@ -44,7 +44,7 @@ Title: “Completed tasks reappear in Active filter after reload.” Steps ident
 
 ## Submission instructions
 
-Save the deliverable in `submissions/manual-qa/`. Label hypothetical content clearly. Share it for review and revise unclear steps or unsupported impact claims.
+Save the deliverable in `manual-qa/submissions/`. Label hypothetical content clearly. Share it for review and revise unclear steps or unsupported impact claims.
 
 ## Optional extra credit
 

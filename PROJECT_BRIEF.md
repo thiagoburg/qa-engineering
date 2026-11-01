@@ -2,35 +2,23 @@
 
 ## Goal
 
-Build evidence of the practical skills needed for a first junior QA Engineer role, with a focus on fully remote international teams and roles open to candidates in Argentina.
+Build practical QA skills through two focused sections: Manual QA and QA Automation. TaskFlow QA Lab provides a small application for exercises.
 
-## Learner profile
+## Learner and learning method
 
-Assume no prior QA, programming, or development-tool knowledge. Explain new terms before relying on them. Keep programming and infrastructure at the minimum level needed to test software professionally.
+Assume no prior QA or programming knowledge. Explain new terms clearly and teach technical topics only to the depth needed for QA work. Lessons are original and self-contained, with practical assignments, a clear Definition of Done, and review before mastery checkpoints.
 
-## Learning method
+## Sections
 
-Use four support levels: demonstration, guided practice, independent practice, and mastery assessment. Lessons are original, self-contained Markdown files. Practice and useful QA artifacts take priority over theory. Review submissions with specific strengths, gaps, and actionable corrections.
+1. **Manual QA:** QA judgment, web/browser fundamentals, requirements, risk, test design, exploratory testing, API/data checks, defect reporting, and a capstone.
+2. **QA Automation:** automation strategy, Git/GitHub, TypeScript, Playwright Test, API checks, debugging, CI, and a capstone.
 
-The course has three stages: Manual QA, Automation QA, and Job Preparation. There is no standalone Foundations stage. Web/browser fundamentals are introduced in Manual QA; Git, GitHub, and Markdown are introduced in Automation QA immediately before test-code work.
+## Practice product and technical direction
 
-## Practice product
+TaskFlow QA Lab is a small task-management web application. Its product specification is the source of truth for expected behavior. Cloudflare Workers and D1 serve the app and task data; Supabase Auth handles credentials and sessions. TypeScript and Playwright Test are the automation stack. GitHub Actions runs checks; local development comes first.
 
-TaskFlow QA Lab is a small task-management web application. Its product specification is the testing source of truth. Features are introduced in stages so each creates a concrete QA exercise. The main release remains stable; controlled training defects are separate.
+The stable application stays free of intentional defects. A separate training branch supports the Manual QA capstone. Database reset commands must remain local-only.
 
-## Technical direction
+## Privacy and integrity
 
-- Static, accessible web interface with a same-origin JSON API.
-- Cloudflare Worker and D1 database for the app and task data; Supabase Auth manages credentials and access tokens. Local development first.
-- TypeScript for the Worker and Playwright Test automation.
-- GitHub Actions runs tests; Cloudflare Git integration owns deployment after local verification.
-- Local-only database reset command. Never point a training reset at a remote database.
-
-## Portfolio integrity and privacy
-
-Keep learner submissions separate from AI-assisted project code. Record provenance. Use only invented accounts and data; this learning app is not for real personal or sensitive information.
-
-## Success
-
-The learner can independently analyze requirements, design and execute risk-based manual and automated tests, report defects with evidence, validate APIs/data, communicate release risk, and present honest portfolio evidence in English.
-
+Use invented accounts and dummy data. Keep learner submissions distinguishable from AI-assisted project materials. Never commit real credentials, personal data, or confidential information.

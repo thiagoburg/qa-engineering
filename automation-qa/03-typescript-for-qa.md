@@ -39,11 +39,11 @@ test('new task appears in the list', async ({ page }) => {
 2. Create a scratch `.ts` file with a string, boolean, array, and task object; run `npm run typecheck`.
 3. Change one type incorrectly and observe the compiler message, then correct it.
 4. Write a small typed helper that returns a unique invented task title; avoid global mutable state.
-5. Add a test file under `submissions/automation-qa/` only after understanding the project test command and local server setup.
+5. Add a test file under `automation-qa/submissions/` only after understanding the project test command and local server setup.
 
 ## Assignment
 
-**Tools:** Node.js/npm, TypeScript in `taskflow-qa-lab/`, editor. **Deliverable:** `submissions/automation-qa/typescript-notes.md` with five annotated code snippets (value/type, object or array, function, import, awaited operation), one compiler error you intentionally corrected, and one explanation of how the code supports a QA check. Do not submit a general programming exercise. **Submission location:** `submissions/automation-qa/`.
+**Tools:** Node.js/npm, TypeScript in `taskflow-qa-lab/`, editor. **Deliverable:** `automation-qa/submissions/typescript-notes.md` with five annotated code snippets (value/type, object or array, function, import, awaited operation), one compiler error you intentionally corrected, and one explanation of how the code supports a QA check. Do not submit a general programming exercise. **Submission location:** `automation-qa/submissions/`.
 
 ## Definition of Done
 
@@ -54,7 +54,7 @@ test('new task appears in the list', async ({ page }) => {
 
 ## Submission instructions
 
-Save the note under `submissions/automation-qa/`, run `npm run typecheck`, and include the result. Request review before moving to Playwright locator work.
+Save the note under `automation-qa/submissions/`, run `npm run typecheck`, and include the result. Request review before moving to Playwright locator work.
 
 ## Optional extra credit
 

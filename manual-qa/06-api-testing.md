@@ -33,7 +33,7 @@ TaskFlow's `API.md` documents the routes; `PRODUCT_SPEC.md` defines expected beh
 
 ## Assignment
 
-**Tools:** Postman and TaskFlow API documentation. **Deliverable:** `submissions/manual-qa/taskflow-api-checks.md` with a sanitized collection outline or screenshots, at least eight request/expected/observed rows spanning success and errors, and a short conclusion on what the API evidence localizes. Do not submit credentials or token-bearing headers. **Submission location:** `submissions/manual-qa/`; share for review.
+**Tools:** Postman and TaskFlow API documentation. **Deliverable:** `manual-qa/submissions/taskflow-api-checks.md` with a sanitized collection outline or screenshots, at least eight request/expected/observed rows spanning success and errors, and a short conclusion on what the API evidence localizes. Do not submit credentials or token-bearing headers. **Submission location:** `manual-qa/submissions/`; share for review.
 
 ## Definition of Done
 
@@ -44,7 +44,7 @@ TaskFlow's `API.md` documents the routes; `PRODUCT_SPEC.md` defines expected beh
 
 ## Submission instructions
 
-Save the sanitized report under `submissions/manual-qa/`. Share the report and, only if safe, a collection export with all secrets removed. Correct any mismatch before calling the checks complete.
+Save the sanitized report under `manual-qa/submissions/`. Share the report and, only if safe, a collection export with all secrets removed. Correct any mismatch before calling the checks complete.
 
 ## Optional extra credit
 

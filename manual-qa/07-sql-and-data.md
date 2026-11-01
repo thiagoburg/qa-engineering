@@ -31,7 +31,7 @@ After creating a task, confirm one row exists with the expected title and authen
 
 ## Assignment
 
-**Tools:** PowerShell, Wrangler local D1, migration SQL. **Deliverable:** `submissions/manual-qa/data-validation.md` with the query used for each check, sanitized expected/observed values, linked UI or API action, and a note explaining why owner filtering matters. Include four read-only checks: create, update/complete, delete, and second-user isolation. **Submission location:** `submissions/manual-qa/`.
+**Tools:** PowerShell, Wrangler local D1, migration SQL. **Deliverable:** `manual-qa/submissions/data-validation.md` with the query used for each check, sanitized expected/observed values, linked UI or API action, and a note explaining why owner filtering matters. Include four read-only checks: create, update/complete, delete, and second-user isolation. **Submission location:** `manual-qa/submissions/`.
 
 ## Definition of Done
 
@@ -42,7 +42,7 @@ After creating a task, confirm one row exists with the expected title and authen
 
 ## Submission instructions
 
-Save the note in `submissions/manual-qa/` and share it for review. Do not commit database files, passwords, auth tokens, or query output containing real data.
+Save the note in `manual-qa/submissions/` and share it for review. Do not commit database files, passwords, auth tokens, or query output containing real data.
 
 ## Optional extra credit
 

@@ -30,7 +30,7 @@ In TaskFlow, opening the task list should create a `GET /api/tasks` request. The
 
 ## Assignment
 
-**Tools:** TaskFlow Preview or local app, browser Developer Tools, [product specification](../taskflow-qa-lab/PRODUCT_SPEC.md), and a Markdown editor. **Deliverable:** `submissions/manual-qa/web-request-inspection.md`. Include the page/feature, request method and path, response status, one observed JSON field, and one sentence describing what the evidence tells you. Use only values you observed. **Submission location:** `submissions/manual-qa/`.
+**Tools:** TaskFlow Preview or local app, browser Developer Tools, [product specification](../taskflow-qa-lab/PRODUCT_SPEC.md), and a Markdown editor. **Deliverable:** `manual-qa/submissions/web-request-inspection.md`. Include the page/feature, request method and path, response status, one observed JSON field, and one sentence describing what the evidence tells you. Use only values you observed. **Submission location:** `manual-qa/submissions/`.
 
 ## Definition of Done
 
@@ -40,7 +40,7 @@ In TaskFlow, opening the task list should create a `GET /api/tasks` request. The
 
 ## Submission instructions
 
-Save the note under `submissions/manual-qa/` and share it in the project chat for review.
+Save the note under `manual-qa/submissions/` and share it in the project chat for review.
 
 ## Optional extra credit
 

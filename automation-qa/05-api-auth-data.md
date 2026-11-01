@@ -40,7 +40,7 @@ For an authenticated call, create a test account through the supported flow and 
 
 ## Assignment
 
-**Tools:** Playwright `request` fixture and local TaskFlow. **Deliverable:** `submissions/automation-qa/api-auth.spec.ts` with three API checks (health, unauthenticated access, invalid task input) plus one authenticated data-isolation check, and a note explaining test-data lifecycle. **Submission location:** `submissions/automation-qa/`.
+**Tools:** Playwright `request` fixture and local TaskFlow. **Deliverable:** `automation-qa/submissions/api-auth.spec.ts` with three API checks (health, unauthenticated access, invalid task input) plus one authenticated data-isolation check, and a note explaining test-data lifecycle. **Submission location:** `automation-qa/submissions/`.
 
 ## Definition of Done
 
