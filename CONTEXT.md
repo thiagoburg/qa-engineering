@@ -1429,7 +1429,7 @@ Lessons follow nine sections: introduction, objectives, concise theory, examples
 
 ## TaskFlow and safety
 
-`taskflow-app/PRODUCT_SPEC.md` is the source of truth for app behavior. The app uses Cloudflare Workers, D1, Supabase Auth, TypeScript, and Playwright Test. GitHub Actions runs tests; Cloudflare Git integration deploys from `main`. Develop locally first and use invented accounts and dummy data only.
+The [TaskFlow Product Specification](taskflow-app/README.md#product-specification) is the source of truth for app behavior. The app uses Cloudflare Workers, D1, Supabase Auth, TypeScript, and Playwright Test. GitHub Actions runs tests; Cloudflare Git integration deploys from `main`. Develop locally first and use invented accounts and dummy data only.
 
 Keep stable `main` defect-free. The separate `training/taskflow-release-01` branch contains a reproducible intentional defect for the Manual QA capstone. Do not merge it into `main`, deploy it, or disclose its behavior before the learner's review. The local reset command must target only local D1.
 

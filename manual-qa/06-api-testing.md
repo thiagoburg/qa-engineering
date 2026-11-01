@@ -17,7 +17,7 @@ HTTP is a request/response protocol. A request includes a method, URL, headers, 
 
 Common statuses here: `200` success, `201` created, `204` success with no response body, `400` invalid input, `401` not authenticated, and `404` missing or not-owned resource. A status alone is not enough: check the response shape and side effects. Postman collections can save requests; environments hold base URLs and variables. Do not save real credentials, access tokens, or secrets in a shared collection.
 
-TaskFlow's [API Reference](../taskflow-app/README.md#api-reference) documents the routes; [PRODUCT_SPEC.md](../taskflow-app/PRODUCT_SPEC.md) defines expected behavior. Test one request at a time, vary one important condition, and record response status/body plus the resulting app state.
+TaskFlow's [API Reference](../taskflow-app/README.md#api-reference) documents the routes; [Product Specification](../taskflow-app/README.md#product-specification) defines expected behavior. Test one request at a time, vary one important condition, and record response status/body plus the resulting app state.
 
 ## Practical examples
 

@@ -20,7 +20,7 @@ For a fresh clone or recovery, see [Backup and Recovery](#backup-and-recovery). 
 
 ## TaskFlow QA Lab
 
-TaskFlow is a small task manager for practice. Its expected behavior is defined in the [product specification](taskflow-app/PRODUCT_SPEC.md). Run it locally with `npm ci`, `npm run db:migrate:local`, and `npm run dev` from `taskflow-app/`.
+TaskFlow is a small task manager for practice. Its expected behavior is defined in the [product specification](taskflow-app/README.md#product-specification). Run it locally with `npm ci`, `npm run db:migrate:local`, and `npm run dev` from `taskflow-app/`.
 
 Use invented accounts and dummy data only. Do not enter real credentials or personal information.
 
@@ -30,7 +30,7 @@ Manual QA templates: [test plan](manual-qa/templates/test-plan-template.md), [te
 
 The application and learning materials were AI-assisted. Learner submissions must reflect work the learner can explain and reproduce. Keep that distinction clear, and never include credentials or private data in this public repository.
 
-Begin with [Manual QA 1](manual-qa/01-thinking-like-a-qa-engineer.md) and save work in `manual-qa/submissions/`. The stable app follows [PRODUCT_SPEC.md](taskflow-app/PRODUCT_SPEC.md) and contains no intentional defects.
+Begin with [Manual QA 1](manual-qa/01-thinking-like-a-qa-engineer.md) and save work in `manual-qa/submissions/`. The stable app follows [Product Specification](taskflow-app/README.md#product-specification) and contains no intentional defects.
 
 ---
 

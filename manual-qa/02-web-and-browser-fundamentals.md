@@ -30,7 +30,7 @@ In TaskFlow, opening the task list should create a `GET /api/tasks` request. The
 
 ## Assignment
 
-**Tools:** TaskFlow Preview or local app, browser Developer Tools, [product specification](../taskflow-app/PRODUCT_SPEC.md), and a Markdown editor. **Deliverable:** `manual-qa/submissions/web-request-inspection.md`. Include the page/feature, request method and path, response status, one observed JSON field, and one sentence describing what the evidence tells you. Use only values you observed. **Submission location:** `manual-qa/submissions/`.
+**Tools:** TaskFlow Preview or local app, browser Developer Tools, [product specification](../taskflow-app/README.md#product-specification), and a Markdown editor. **Deliverable:** `manual-qa/submissions/web-request-inspection.md`. Include the page/feature, request method and path, response status, one observed JSON field, and one sentence describing what the evidence tells you. Use only values you observed. **Submission location:** `manual-qa/submissions/`.
 
 ## Definition of Done
 
