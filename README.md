@@ -30,7 +30,7 @@ Manual QA templates: [test plan](manual-qa/templates/test-plan-template.md), [te
 
 The application and learning materials were AI-assisted. Learner submissions must reflect work the learner can explain and reproduce. Keep that distinction clear, and never include credentials or private data in this public repository.
 
-Begin with [Manual QA 1](manual-qa/01-thinking-like-a-qa-engineer.md) and save work in [`manual-qa/submissions/`](manual-qa/submissions/). The stable app follows [Product Specification](taskflow-app/README.md#product-specification) and contains no intentional defects.
+Begin with [Manual QA 1](manual-qa/01-thinking-like-a-qa-engineer.md) and save work in [`manual-qa/submissions/`](manual-qa/submissions/). Use the [TaskFlow Product Specification](taskflow-app/README.md#product-specification) as the expected-behavior source during testing.
 
 ---
 
@@ -52,7 +52,7 @@ Learn through practical assignments. Complete each checkpoint and address review
 6. [API testing](manual-qa/06-api-testing.md) — HTTP, REST, JSON, Postman, and authenticated behavior.
 7. [SQL and data validation](manual-qa/07-sql-and-data.md) — read-only local D1 checks and data ownership.
 8. [Defects and release reporting](manual-qa/08-defects-and-release-reporting.md) — defect lifecycle, severity/priority, retest, and risk communication.
-9. [Manual QA capstone](manual-qa/09-manual-capstone.md) — independent assessment on stable TaskFlow and a controlled training release.
+9. [Manual QA capstone](manual-qa/09-manual-capstone.md) — independent assessment using local TaskFlow.
 
 **Checkpoint:** Independently test an unfamiliar feature, create a risk-focused test set, report reproducible defects, and summarize residual risk.
 
@@ -78,7 +78,7 @@ Save work in [`automation-qa/submissions/`](automation-qa/submissions/).
 
 Each lesson uses nine sections: introduction, objectives, concise theory, examples, guided practice, assignment, Definition of Done, submission instructions, and optional extra credit. Support decreases as skills build. Submit practical work for review; lesson availability is not evidence of mastery.
 
-Use invented accounts and local D1 for exercises. Public app endpoints are for demonstration, not destructive test runs. The reset script only targets local D1. Stable `main` contains no intentional defect; the Manual QA capstone uses a separate reproducible training branch. Do not merge or deploy that branch to production.
+Use invented accounts and local D1 for exercises. Public app endpoints are for demonstration, not destructive test runs. The reset script only targets local D1. Compare observed behavior with the Product Specification and report evidence-based differences.
 
 ---
 
@@ -86,7 +86,7 @@ Use invented accounts and local D1 for exercises. Public app endpoints are for d
 
 ### Backup and Recovery Guide
 
-The public [GitHub repository](https://github.com/thiagoburg/qa-engineering) stores project files and committed learner submissions. It includes the two course sections, app source, migrations, templates, master prompt, and project notes.
+The public [GitHub repository](https://github.com/thiagoburg/qa-engineering) stores project files and committed learner submissions. It includes the two course sections, app source, migrations, templates, and current project context.
 
 ## Restore the project
 
@@ -104,9 +104,9 @@ The local app opens at `http://localhost:8787`. Optional local overrides belong 
 
 Start at [Manual QA 1](manual-qa/01-thinking-like-a-qa-engineer.md). Save learner work inside its section: `manual-qa/submissions/` or `automation-qa/submissions/`. Commit reviewed work when it is ready for backup. Update the checkpoint status in this README after reviewing evidence.
 
-## Recover the training branch
+## Keep a current copy
 
-The stable app and course are on `main`. Fetch `training/taskflow-release-01` only when the Manual QA capstone calls for it. Use fresh local D1 data. The `db:reset:local` command from `taskflow-app/` targets local D1 only. Do not merge the training branch into `main` or deploy it to production.
+The course and practice app are on `main`. Pull the latest `main` before starting a new learning section. Use fresh local D1 data for capstones. The `db:reset:local` command from `taskflow-app/` targets local D1 only.
 
 ## What is not stored in GitHub
 

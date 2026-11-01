@@ -121,7 +121,7 @@ Supabase's Free plan currently lists 50,000 monthly active users and pauses proj
 - Worker Previews use the separate preview D1 database configured under `previews` in `wrangler.jsonc`.
 - The `preview` Wrangler environment exists so `wrangler d1 migrations apply DB --remote --env preview` targets only the preview database.
 - The local reset command is hard-coded to `--local`; it cannot target either Cloudflare database.
-- The stable app and training releases must not share user/task data. Use invented practice accounts only; the app has no production support or user-data retention guarantee.
+- Use local D1 and invented practice accounts for exercises; the public app has no production support or user-data retention guarantee.
 - Keep GitHub Actions responsible for tests and artifacts. Use Cloudflare Workers Builds for deployment.
 
 ## Release status
@@ -133,13 +133,9 @@ Supabase's Free plan currently lists 50,000 monthly active users and pauses proj
 
 ---
 
-## Training Releases
+## Manual QA practice
 
-The current `main` release is the stable baseline and contains no intentionally introduced defects. Use local D1 for learner runs; do not use the public Preview or production database for exercises.
-
-The independent Manual QA capstone uses the separate Git branch `training/taskflow-release-01`. It contains one controlled behavior mismatch against the [Product Specification](#product-specification); the learner task does not disclose its location or behavior. Check out that branch after completing the guided lessons, use a fresh local D1 database, and return to `main` when finished. Never merge the training branch into `main` or deploy it to production. The branch commit is the reproducible training build identifier.
-
-Keep a correction and regression check on a separate fix branch so the original exercise remains reproducible. Review the learner's report before sharing the diagnosis.
+Use the app from `main` with local D1 for all Manual QA exercises. Compare observed behavior with the [Product Specification](#product-specification), preserve factual evidence, and use invented accounts. Do not use the public Preview or production database for destructive test runs.
 
 ---
 
@@ -209,4 +205,4 @@ Validation failures return `400`; unauthenticated protected requests return `401
 
 ### Current implementation scope
 
-The first release includes account registration/sign-in/sign-out, task create/edit/complete/delete, filters, counts, local persistence, and the API. Training defects are not included in the stable `main` release.
+The app includes account registration/sign-in/sign-out, task create/edit/complete/delete, filters, counts, local persistence, and the API. Use the Product Specification as the expected-behavior source for manual and automated checks.

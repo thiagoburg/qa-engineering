@@ -65,7 +65,7 @@ h2 { margin: 0 0 18px; font-size: 1.2rem; letter-spacing: -.02em; }
 .task-item input[type="checkbox"] { width: 18px; height: 18px; margin: 3px 0 0; accent-color: var(--blue); }
 .task-content { min-width: 0; }
 .task-title { display: block; font-weight: 700; overflow-wrap: anywhere; }
-.task-description { margin: 5px 0 0; color: var(--muted); font-size: .92rem; white-space: pre-wrap; overflow-wrap: anywhere; }
+.task-description { margin: 5px 0 0; color: var(--muted); font-size: .92rem; white-space: pre-wrap; }
 .task-item.is-complete .task-title { color: var(--muted); text-decoration: line-through; }
 .task-actions { display: flex; gap: 7px; }
 .task-actions .button { padding: 7px 10px; font-size: .84rem; }

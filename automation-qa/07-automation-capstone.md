@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Build a small, maintainable test suite for the stable TaskFlow app. Choose checks by risk and explain what automation can and cannot tell the team.
+Build a small, maintainable test suite for the TaskFlow practice app. Choose checks by risk and explain what automation can and cannot tell the team.
 
 ## Learning objectives
 
@@ -15,7 +15,7 @@ Build a small, maintainable test suite for the stable TaskFlow app. Choose check
 
 Automation capstone quality is measured by trustworthy evidence and maintainability, not test count. Select stable, repeatable high-risk checks; use API checks for contract/validation behavior and UI checks for a few critical user journeys. Use accessible locators, web-first assertions, unique data, and explicit setup. Keep a manual exploratory list for judgments automation cannot make.
 
-The suite should run locally with the project scripts and in GitHub Actions. A test should fail when the specified behavior is wrong and pass when it is correct. Do not introduce intentional defects into `main`. If the stable app differs from the product specification, report the mismatch and preserve evidence. Protect auth state, environment configuration, and test data.
+The suite should run locally with the project scripts and in GitHub Actions. A test should fail when the specified behavior is wrong and pass when it is correct. If TaskFlow differs from the Product Specification, report the mismatch and preserve evidence; do not weaken an assertion to match the observed behavior. Protect auth state, environment configuration, and test data.
 
 ## Practical examples
 

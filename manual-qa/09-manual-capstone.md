@@ -15,7 +15,7 @@ This capstone combines requirements review, risk-based design, execution, API/da
 
 A capstone is a practical assessment, not a memory quiz. Start with the requirement source, decide what matters most, record what you tested, and report what remains unknown. Use the product specification as the release oracle. If you find a mismatch, document the exact build, steps, and evidence; do not alter expected behavior to match the app.
 
-For this checkpoint, a useful set covers critical user journeys and failure conditions: registration/sign-in, task lifecycle, validation, filters/statistics, API errors, persistence, and user isolation. Prioritize authentication, data loss, and cross-account exposure above minor presentation issues. Use local D1 and invented accounts. Avoid remote destructive testing or real credentials. The final independent exercise uses the separate `training/taskflow-release-01` branch; its intentional mismatch is not described in the learner instructions. Keep that branch local for the exercise and never merge it into `main`.
+For this checkpoint, a useful set covers critical user journeys and failure conditions: registration/sign-in, task lifecycle, validation, filters/statistics, API errors, persistence, and user isolation. Prioritize authentication, data loss, and cross-account exposure above minor presentation issues. Use local D1 and invented accounts. Avoid remote destructive testing or real credentials. Report observed mismatches against the Product Specification; “none observed” is acceptable when supported by the scope and evidence.
 
 The final report separates **executed**, **passed**, **failed**, **blocked**, and **not run**. Residual risk is specific: what behavior or environment remains untested and why it matters.
 
@@ -25,7 +25,7 @@ Journey: register → create task → complete → filter completed → reload �
 
 ## Guided practice
 
-1. Complete the earlier Manual QA lessons first. Then switch to `training/taskflow-release-01` and note the commit and local environment.
+1. Complete the earlier Manual QA lessons first. Start TaskFlow locally using the app README and record the app version, browser, and viewport.
 2. Create a one-page scope and prioritize risks; identify test data and reset boundaries.
 3. Design cases for every required feature area. Include positive, negative, boundary, state, API, persistence, and isolation checks.
 4. Execute the cases against local TaskFlow, recording exact actual results. Stop before any unsafe remote or irreversible action.
@@ -34,7 +34,7 @@ Journey: register → create task → complete → filter completed → reload �
 
 ## Assignment
 
-**Tools:** TaskFlow local app on the training branch, product specification, browser DevTools, Postman, local D1 read-only queries, and the [test plan](templates/test-plan-template.md), [test case](templates/test-case-template.csv), [execution](templates/test-execution-template.csv), and [bug report](templates/bug-report-template.md) templates. **Deliverables:** `manual-qa/submissions/capstone/` containing `test-plan.md`, `test-cases.csv`, `execution.csv`, `bug-reports/` (or an explicit “none observed” note), and `release-summary.md`. Include at least 20 well-chosen cases across the scope, but prioritize risk over raw count. This is an independent-practice assessment; lesson hints should not be needed during execution. **Submission location:** stated capstone folder; share the folder contents for competency review.
+**Tools:** TaskFlow on `main` with local D1, product specification, browser DevTools, Postman, local read-only D1 queries, and the [test plan](templates/test-plan-template.md), [test case](templates/test-case-template.csv), [execution](templates/test-execution-template.csv), and [bug report](templates/bug-report-template.md) templates. **Deliverables:** `manual-qa/submissions/capstone/` containing `test-plan.md`, `test-cases.csv`, `execution.csv`, `bug-reports/` (or an explicit “none observed” note), and `release-summary.md`. Include at least 20 well-chosen cases across the scope, but prioritize risk over raw count. This is an independent-practice assessment; lesson hints should not be needed during execution. **Submission location:** stated capstone folder; share the folder contents for competency review.
 
 ## Definition of Done
 

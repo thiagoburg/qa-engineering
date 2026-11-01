@@ -25,7 +25,7 @@ Title: “Completed tasks reappear in Active filter after reload.” Steps ident
 
 ## Guided practice
 
-1. Use a real discrepancy from a lesson or the controlled training release; if none exists, use a clearly labeled hypothetical example.
+1. Use a discrepancy you observed while testing TaskFlow. If you have not observed one, use a clearly labeled hypothetical example.
 2. Fill the [bug report template](templates/bug-report-template.md) with exact steps and expected/actual results.
 3. Rank severity and priority separately, with a short reason for each.
 4. Define the retest and the smallest adjacent regression set.

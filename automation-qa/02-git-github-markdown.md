@@ -16,7 +16,7 @@ GitHub Desktop provides a graphical view of changed files, diffs, branches, and 
 
 If GitHub Desktop is not installed, install it from the [official GitHub Desktop site](https://desktop.github.com/). Add the existing `qa-engineering` local repository; do not clone a second copy into the project folder.
 
-The change review matters: stage only the files you intend to include, read the full diff, and never commit credentials, test output, or unrelated personal files. A commit stays on your computer until pushed. Do not merge a training branch into `main`.
+The change review matters: stage only the files you intend to include, read the full diff, and never commit credentials, test output, or unrelated personal files. A commit stays on your computer until pushed.
 
 ## Practical examples
 
@@ -51,7 +51,7 @@ This is readable as plain text and renders as a heading and three bullets on Git
 
 ## Submission instructions
 
-Save the note under `automation-qa/submissions/` and share it in the project chat for review. After review, push the reviewed branch using GitHub Desktop. Open a pull request only when the change is intended for the stable repository; never propose merging the controlled training branch.
+Save the note under `automation-qa/submissions/` and share it in the project chat for review. After review, push the reviewed branch using GitHub Desktop. Open a pull request when the change is ready to become part of the project.
 
 ## Optional extra credit
 
