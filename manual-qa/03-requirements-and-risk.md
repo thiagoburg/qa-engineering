@@ -25,7 +25,7 @@ In `PRODUCT_SPEC.md`, “a title from 1 through 120 characters after trimming”
 
 ## Guided practice
 
-1. Open `taskflow-qa-lab/PRODUCT_SPEC.md` and choose task creation or account registration.
+1. Open `taskflow-qa/PRODUCT_SPEC.md` and choose task creation or account registration.
 2. Copy the exact requirements you intend to test into a short plan; do not rewrite them as broader promises.
 3. List missing details as questions. Mark each as blocking or non-blocking for the current test.
 4. Brainstorm failures, assign likelihood and impact from 1 (low) to 3 (high), and multiply them for a simple risk score.

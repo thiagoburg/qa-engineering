@@ -23,9 +23,9 @@ After creating a task, confirm one row exists with the expected title and authen
 
 ## Guided practice
 
-1. Read `taskflow-qa-lab/migrations/0001_initial_schema.sql` and identify table names and ownership columns.
+1. Read `taskflow-qa/migrations/0001_initial_schema.sql` and identify table names and ownership columns.
 2. Start the local stack and create a dummy task.
-3. Use Wrangler's documented local D1 execute command from `taskflow-qa-lab/README.md` with a `SELECT` for task ID, title, completed, and owner.
+3. Use Wrangler's documented local D1 execute command from `taskflow-qa/README.md` with a `SELECT` for task ID, title, completed, and owner.
 4. Complete, edit, and delete the task; repeat the read query after each action.
 5. Create a second dummy account and verify its task listing does not reveal the first task.
 

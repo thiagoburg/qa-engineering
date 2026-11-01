@@ -1,3 +1,7 @@
+# Context
+
+## Original Master Prompt
+
 this is the master prompt for the QA Engineering project:
 
 # QA Engineer Roadmap Portfolio — Project Planning
@@ -545,7 +549,7 @@ You can use reliable external sources to research and verify the accuracy of the
 
 All the theory necessary to complete each lesson must be available directly in its Markdown file.
 
-Sources used to ensure the project's accuracy can be documented in `SOURCES.md`, but they must not become mandatory reading assignments.
+Sources used to ensure the project's accuracy can be documented in `README.md`, but they must not become mandatory reading assignments.
 
 **Be concise without omitting essential knowledge. Every paragraph, example and exercise must justify its presence.**
 
@@ -845,13 +849,13 @@ As a starting point, it should include:
 
 - `README.md`
     
-- `ROADMAP.md`
+- `README.md`
     
-- `PROGRESS.md`
+- `README.md`
     
-- `PROJECT_BRIEF.md`
+- `README.md`
     
-- `SOURCES.md`
+- `README.md`
     
 - `foundations/`
     
@@ -859,7 +863,7 @@ As a starting point, it should include:
     
 - `automation-qa/`
     
-- `taskflow-qa-lab/`
+- `taskflow-qa/`
     
 - `portfolio/`
     
@@ -1394,3 +1398,51 @@ I want the best possible learning experience with the least unnecessary complexi
 **Teach me to become a QA Engineer, not a software developer. Every technical skill must be taught only to the depth required by the QA role.**
 
 Let's continue refining the plan before starting development.
+
+---
+
+## Current Project Context
+
+# QA Engineering Project — Context Handoff
+
+Use this file to continue work in a future chat or agent. The original requirements are preserved above in the Original Master Prompt section. The learner's latest directions here and in [README.md](README.md) define the current course scope. Repository: [thiagoburg/qa-engineering](https://github.com/thiagoburg/qa-engineering). The current local folder is `C:\Users\thiago\Syncthing\qa-engineering`.
+
+## Purpose and course structure
+
+This is a beginner-friendly, practice-first QA learning project. Keep learner materials in English and focused on skills useful for QA work. The active course has exactly two sections:
+
+1. **Manual QA** — nine lessons covering QA judgment, web/browser basics, requirements, risk, test design, exploratory testing, APIs, data checks, defect reporting, and a capstone.
+2. **QA Automation** — seven lessons covering strategy, Git/GitHub, TypeScript, Playwright, API/auth checks, debugging/CI, and a capstone.
+
+Job Preparation and a standalone Foundations section are not part of the active course. The original prompt is preserved as a historical source; newer learner direction supersedes it where scope differs.
+
+Lessons follow nine sections: introduction, objectives, concise theory, examples, guided practice, assignment, Definition of Done, submission instructions, and optional extra credit. Each assignment identifies tools, deliverables, and a path inside its section's `submissions/` folder. Review evidence before advancing or updating progress.
+
+## Repository map
+
+- `README.md` — start page, complete roadmap, and backup/recovery instructions.
+- `CONTEXT.md` — original master prompt followed by current project context and decisions.
+- `manual-qa/` — nine lessons, `templates/`, and learner `submissions/`.
+- `automation-qa/` — seven lessons and learner `submissions/`.
+- `taskflow-qa/` — practice app, product specification, migrations, local setup, tests, and deployment notes.
+- `.github/workflows/` — GitHub Actions checks and failure evidence.
+
+## TaskFlow and safety
+
+`taskflow-qa/PRODUCT_SPEC.md` is the source of truth for app behavior. The app uses Cloudflare Workers, D1, Supabase Auth, TypeScript, and Playwright Test. GitHub Actions runs tests; Cloudflare Git integration deploys from `main`. Develop locally first and use invented accounts and dummy data only.
+
+Keep stable `main` defect-free. The separate `training/taskflow-release-01` branch contains a reproducible intentional defect for the Manual QA capstone. Do not merge it into `main`, deploy it, or disclose its behavior before the learner's review. The local reset command must target only local D1.
+
+## Credentials and external services
+
+Never commit `.dev.vars`, passwords, auth tokens, service-role keys, or private information. Public Supabase URL/key configuration may be present in the tracked Wrangler config; no secret key belongs in app code. Cloudflare, GitHub, and Supabase sessions are not stored in the repository and may need reauthorization after a restore.
+
+## Learner status and provenance
+
+The learner starts at Manual QA 1, with no reviewed submissions or passed checkpoints. Save the first assignment in `manual-qa/submissions/`. Do not claim mastery or update `README.md` without reviewing actual learner work.
+
+The app, lessons, and templates were AI-assisted. Keep that provenance clear; learner-created work should be work the learner can explain and reproduce. Do not fabricate portfolio evidence.
+
+## Working safely
+
+Check `git status`, current branch, and remote state before editing. Preserve local Obsidian workspace changes. Keep the stable/training branch boundary intact. Do not add or run tests unless asked; if a requested verification is performed, report its actual result.

@@ -46,7 +46,7 @@ Journey: register → create task → complete → filter completed → reload �
 
 ## Submission instructions
 
-Submit all five artifact types in the capstone folder. Ask the reviewer to evaluate independence, coverage, evidence, prioritization, and communication. Correct critical gaps and repeat affected checks before moving to Automation QA. The reviewer records pass/revise in `PROGRESS.md`; reading the lesson does not pass the checkpoint.
+Submit all five artifact types in the capstone folder. Ask the reviewer to evaluate independence, coverage, evidence, prioritization, and communication. Correct critical gaps and repeat affected checks before moving to Automation QA. The reviewer records the checkpoint result in this README; reading the lesson does not pass the checkpoint.
 
 ## Optional extra credit
 

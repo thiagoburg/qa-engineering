@@ -1,0 +1,24 @@
+{
+  "name": "taskflow-qa-lab",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev --local",
+    "db:migrate:local": "wrangler d1 migrations apply DB --local",
+    "db:migrate:preview": "wrangler d1 migrations apply DB --remote --env preview",
+    "db:reset:local": "node scripts/reset-local-db.mjs",
+    "test": "playwright test",
+    "test:server": "node scripts/start-test-stack.mjs",
+    "test:ui": "playwright test --ui",
+    "typecheck": "tsc --noEmit",
+    "deploy": "wrangler deploy"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "5.20261031.1",
+    "@playwright/test": "1.64.1",
+    "typescript": "7.0.2",
+    "wrangler": "4.156.0"
+  }
+}
+
