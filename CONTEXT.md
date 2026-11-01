@@ -47,14 +47,14 @@ Web fundamentals belong in Manual QA. Git/GitHub is introduced with code in Auto
 - CONTEXT.md: this current project handoff.
 - manual-qa/: nine lessons, templates/, and learner submissions/.
 - automation-qa/: seven lessons and learner submissions/.
-- taskflow-app/: TaskFlow source, app documentation/product specification, D1 migrations, local scripts, and Playwright suite.
+- taskflow-qa-lab/: TaskFlow source, app documentation/product specification, D1 migrations, local scripts, and Playwright suite.
 - .github/workflows/taskflow-qa.yml: CI checks and failure-artifact upload.
 
 Learner deliverables belong in the section's submissions folder as named by the relevant lesson. The submissions README files explain portfolio provenance and safe evidence handling.
 
 ## TaskFlow QA Lab
 
-TaskFlow is a small task manager for manual and automated testing practice, not a commercial or supported production service. Its specification is embedded in taskflow-app/README.md under Product Specification and is the expected-behavior oracle. If observed behavior differs, record evidence against that specification.
+TaskFlow is a small task manager for manual and automated testing practice, not a commercial or supported production service. Its specification is embedded in taskflow-qa-lab/README.md under Product Specification and is the expected-behavior oracle. If observed behavior differs, record evidence against that specification.
 
 The app includes registration, sign-in/out, task creation/edit/completion/deletion, task filters and statistics, persistence, validation, an API, accessible interaction requirements, and account isolation. API routes and full expected behavior are documented in the app README.
 
@@ -62,9 +62,9 @@ Technology: TypeScript Worker on Cloudflare Workers; D1 stores task data and the
 
 ### Local setup and safety
 
-From taskflow-app/, run npm ci, npm run db:migrate:local, and npm run dev. The app normally opens at http://localhost:8787. Public Supabase URL/publishable-key configuration is in wrangler.jsonc. An ignored .dev.vars file is optional for local overrides; never add secret/service-role keys there or to Git.
+From taskflow-qa-lab/, run npm ci, npm run db:migrate:local, and npm run dev. The app normally opens at http://localhost:8787. Public Supabase URL/publishable-key configuration is in wrangler.jsonc. An ignored .dev.vars file is optional for local overrides; never add secret/service-role keys there or to Git.
 
-The Playwright test stack starts a local Worker on port 8787 and a local Supabase Auth mock on port 8788. It uses local D1 and does not contact Supabase. Run npm run typecheck and npm test from taskflow-app/ when verifying app changes. npm run db:reset:local is hard-coded for local D1 only; never target remote/production data for learning.
+The Playwright test stack starts a local Worker on port 8787 and a local Supabase Auth mock on port 8788. It uses local D1 and does not contact Supabase. Run npm run typecheck and npm test from taskflow-qa-lab/ when verifying app changes. npm run db:reset:local is hard-coded for local D1 only; never target remote/production data for learning.
 
 Use invented accounts and dummy data. Do not enter or commit real personal information, credentials, passwords, tokens, service-role keys, auth state, or unredacted evidence. Public Preview/production are for demonstration; destructive practice belongs on local D1.
 
@@ -82,7 +82,7 @@ Cloudflare Workers Builds deploys main and creates branch/PR previews. Productio
 - Production: https://taskflow-qa-lab.taskflow-qa-lab.workers.dev
 - Preview: https://taskflow-qa-lab-preview.taskflow-qa-lab.workers.dev
 
-The last recorded Cloudflare Workers Builds root was the old taskflow-qa-lab directory. Verify/update it to taskflow-app before relying on a new deployment. A push to main can publish the practice-only presentation issue; this is intentional for Thiago's single-learner project. Do not use real or sensitive data.
+Cloudflare Workers Builds is configured with taskflow-qa-lab as its root directory, matching the repository folder. A push to main can publish the practice-only presentation issue; this is intentional for Thiago's single-learner project. Do not use real or sensitive data.
 
 Supabase's project is configured for practice accounts with email confirmation disabled. Project sessions and local databases are not stored in GitHub and may need recreation/reauthorization on a new device.
 

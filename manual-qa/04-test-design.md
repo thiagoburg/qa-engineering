@@ -25,7 +25,7 @@ For a required title, partitions are empty/whitespace, valid 1–120 trimmed cha
 
 ## Guided practice
 
-1. Choose task title validation in the [TaskFlow Product Specification](../taskflow-app/README.md#product-specification).
+1. Choose task title validation in the [TaskFlow Product Specification](../taskflow-qa-lab/README.md#product-specification).
 2. Create a table of input partitions and one representative input per partition.
 3. Add the boundary values around 1 and 120 characters.
 4. Build a small decision table for title valid/invalid and description valid/too long.

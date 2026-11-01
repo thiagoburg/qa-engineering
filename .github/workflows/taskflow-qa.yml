@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: taskflow-app
+        working-directory: taskflow-qa-lab
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -23,7 +23,7 @@ jobs:
         with:
           node-version: 22
           cache: npm
-          cache-dependency-path: taskflow-app/package-lock.json
+          cache-dependency-path: taskflow-qa-lab/package-lock.json
 
       - name: Install dependencies
         run: npm ci
@@ -43,7 +43,7 @@ jobs:
         with:
           name: taskflow-playwright-${{ github.run_id }}
           path: |
-            taskflow-app/playwright-report/
-            taskflow-app/test-results/
+            taskflow-qa-lab/playwright-report/
+            taskflow-qa-lab/test-results/
           if-no-files-found: ignore
           retention-days: 14

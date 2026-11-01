@@ -52,7 +52,7 @@ Adapt labels and setup to the current UI; the point is accessible selection and 
 
 ## Definition of Done
 
-- The test maps to a requirement in the [TaskFlow Product Specification](../taskflow-app/README.md#product-specification).
+- The test maps to a requirement in the [TaskFlow Product Specification](../taskflow-qa-lab/README.md#product-specification).
 - It uses user-facing locators and a meaningful awaited assertion.
 - Setup/data are repeatable and the test does not depend on another test.
 - The report records browser/environment and result without secrets.

@@ -20,7 +20,7 @@ For a fresh clone or recovery, see [Backup and Recovery](#backup-and-recovery). 
 
 ## TaskFlow QA Lab
 
-TaskFlow is a small task manager for practice. Its expected behavior is defined in the [product specification](taskflow-app/README.md#product-specification). Run it locally by following [TaskFlow's setup instructions](taskflow-app/README.md#run-locally).
+TaskFlow is a small task manager for practice. Its expected behavior is defined in the [product specification](taskflow-qa-lab/README.md#product-specification). Run it locally by following [TaskFlow's setup instructions](taskflow-qa-lab/README.md#run-locally).
 
 Use invented accounts and dummy data only. Do not enter real credentials or personal information.
 
@@ -30,7 +30,7 @@ Manual QA templates: [test plan](manual-qa/templates/test-plan-template.md), [te
 
 The application and learning materials were AI-assisted. Learner submissions must reflect work the learner can explain and reproduce. Keep that distinction clear, and never include credentials or private data in this public repository.
 
-Begin with [Manual QA 1](manual-qa/01-thinking-like-a-qa-engineer.md) and save work in [`manual-qa/submissions/`](manual-qa/submissions/). Use the [TaskFlow Product Specification](taskflow-app/README.md#product-specification) as the expected-behavior source during testing.
+Begin with [Manual QA 1](manual-qa/01-thinking-like-a-qa-engineer.md) and save work in [`manual-qa/submissions/`](manual-qa/submissions/). Use the [TaskFlow Product Specification](taskflow-qa-lab/README.md#product-specification) as the expected-behavior source during testing.
 
 ---
 
@@ -94,7 +94,7 @@ In PowerShell, clone the repository and start the app:
 
 ```powershell
 git clone https://github.com/thiagoburg/qa-engineering.git
-Set-Location qa-engineering/taskflow-app
+Set-Location qa-engineering/taskflow-qa-lab
 npm ci
 npm run db:migrate:local
 npm run dev
@@ -106,7 +106,7 @@ Start at [Manual QA 1](manual-qa/01-thinking-like-a-qa-engineer.md). Save learne
 
 ## Keep a current copy
 
-The course and practice app are on `main`. Pull the latest `main` before starting a new learning section. Use fresh local D1 data for capstones. The `db:reset:local` command from `taskflow-app/` targets local D1 only.
+The course and practice app are on `main`. Pull the latest `main` before starting a new learning section. Use fresh local D1 data for capstones. The `db:reset:local` command from `taskflow-qa-lab/` targets local D1 only.
 
 ## What is not stored in GitHub
 

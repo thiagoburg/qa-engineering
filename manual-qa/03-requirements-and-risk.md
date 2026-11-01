@@ -21,11 +21,11 @@ Example story: “As a signed-in user, I want to filter my tasks so I can focus 
 
 ## Practical examples
 
-In the [TaskFlow Product Specification](../taskflow-app/README.md#product-specification), “a title from 1 through 120 characters after trimming” gives boundaries. A task belonging to another account returning `404` is a security and isolation expectation. The same issue can have both likelihood and impact; record why you ranked it high instead of treating the label as self-evident.
+In the [TaskFlow Product Specification](../taskflow-qa-lab/README.md#product-specification), “a title from 1 through 120 characters after trimming” gives boundaries. A task belonging to another account returning `404` is a security and isolation expectation. The same issue can have both likelihood and impact; record why you ranked it high instead of treating the label as self-evident.
 
 ## Guided practice
 
-1. Open the [TaskFlow Product Specification](../taskflow-app/README.md#product-specification) and choose task creation or account registration.
+1. Open the [TaskFlow Product Specification](../taskflow-qa-lab/README.md#product-specification) and choose task creation or account registration.
 2. Copy the exact requirements you intend to test into a short plan; do not rewrite them as broader promises.
 3. List missing details as questions. Mark each as blocking or non-blocking for the current test.
 4. Brainstorm failures, assign likelihood and impact from 1 (low) to 3 (high), and multiply them for a simple risk score.

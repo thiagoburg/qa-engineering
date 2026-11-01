@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This capstone combines requirements review, risk-based design, execution, API/data checks, defect reporting, and release communication. Work independently and use the [TaskFlow Product Specification](../taskflow-app/README.md#product-specification) as the expected-behavior source.
+This capstone combines requirements review, risk-based design, execution, API/data checks, defect reporting, and release communication. Work independently and use the [TaskFlow Product Specification](../taskflow-qa-lab/README.md#product-specification) as the expected-behavior source.
 
 ## Learning objectives
 
