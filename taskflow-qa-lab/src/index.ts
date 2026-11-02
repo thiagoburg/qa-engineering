@@ -266,13 +266,17 @@ async function createTask(request: Request, env: Env, user: SessionUser): Promis
   const description = body.description === undefined ? "" : body.description;
   if (!title) return error("Enter a task title.", 400);
   if (codePointLength(title) > 120) return error("Task title must be 120 characters or fewer.", 400);
-  if (typeof description !== "string" || codePointLength(description) > 1000) {
+  if (typeof description !== "string") {
+    return error("Description must be 1,000 characters or fewer.", 400);
+  }
+  const trimmedDescription = description.trim();
+  if (codePointLength(trimmedDescription) > 1000) {
     return error("Description must be 1,000 characters or fewer.", 400);
   }
 
   const id = crypto.randomUUID();
   await env.DB.prepare("INSERT INTO tasks (id, user_id, title, description) VALUES (?, ?, ?, ?)")
-    .bind(id, user.id, title, description.trim())
+    .bind(id, user.id, title, trimmedDescription)
     .run();
   const task = await env.DB.prepare(
     "SELECT id, title, description, completed, created_at, updated_at FROM tasks WHERE id = ? AND user_id = ?",
@@ -296,7 +300,11 @@ async function updateTask(request: Request, env: Env, user: SessionUser, id: str
   const completed = body.completed === undefined ? Boolean(existing.completed) : body.completed;
   if (typeof title !== "string" || !title.trim()) return error("Enter a task title.", 400);
   if (codePointLength(title.trim()) > 120) return error("Task title must be 120 characters or fewer.", 400);
-  if (typeof description !== "string" || codePointLength(description) > 1000) {
+  if (typeof description !== "string") {
+    return error("Description must be 1,000 characters or fewer.", 400);
+  }
+  const trimmedDescription = description.trim();
+  if (codePointLength(trimmedDescription) > 1000) {
     return error("Description must be 1,000 characters or fewer.", 400);
   }
   if (typeof completed !== "boolean") return error("Completion state must be true or false.", 400);
@@ -304,7 +312,7 @@ async function updateTask(request: Request, env: Env, user: SessionUser, id: str
   await env.DB.prepare(
     "UPDATE tasks SET title = ?, description = ?, completed = ?, updated_at = strftime('%Y-%m-%dT%H:%M:%fZ', 'now') WHERE id = ? AND user_id = ?",
   )
-    .bind(title.trim(), description.trim(), completed ? 1 : 0, id, user.id)
+    .bind(title.trim(), trimmedDescription, completed ? 1 : 0, id, user.id)
     .run();
   const task = await env.DB.prepare(
     "SELECT id, title, description, completed, created_at, updated_at FROM tasks WHERE id = ? AND user_id = ?",

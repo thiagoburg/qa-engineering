@@ -4,7 +4,7 @@ import { createServer } from "node:http";
 const accounts = new Map();
 const sessions = new Map();
 const publishableKey = "taskflow-playwright-mock-key";
-let failNextLogout = false;
+const failedLogoutTokens = new Set();
 
 function send(response, status, body) {
   response.writeHead(status, { "Content-Type": "application/json; charset=utf-8", "Cache-Control": "no-store" });
@@ -34,9 +34,18 @@ const server = createServer(async (request, response) => {
     send(response, 200, { status: "ok" });
     return;
   }
-  if (url.pathname === "/__test/fail-next-logout" && request.method === "POST") {
-    failNextLogout = true;
-    send(response, 200, { ok: true });
+  if (url.pathname === "/__test/fail-logout-for-token" && request.method === "POST") {
+    try {
+      const body = await readBody(request);
+      if (typeof body.token !== "string" || !sessions.has(body.token)) {
+        send(response, 400, { message: "A current test session token is required." });
+        return;
+      }
+      failedLogoutTokens.add(body.token);
+      send(response, 200, { ok: true });
+    } catch {
+      send(response, 400, { message: "Invalid request body." });
+    }
     return;
   }
   if (request.headers.apikey !== publishableKey) {
@@ -96,12 +105,11 @@ const server = createServer(async (request, response) => {
   }
 
   if (url.pathname === "/auth/v1/logout" && request.method === "POST") {
-    if (failNextLogout) {
-      failNextLogout = false;
+    const token = request.headers.authorization?.replace(/^Bearer\s+/i, "");
+    if (token && failedLogoutTokens.delete(token)) {
       send(response, 503, { message: "Temporary auth service failure." });
       return;
     }
-    const token = request.headers.authorization?.replace(/^Bearer\s+/i, "");
     if (token) sessions.delete(token);
     send(response, 204, null);
     return;

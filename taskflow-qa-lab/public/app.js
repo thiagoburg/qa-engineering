@@ -18,7 +18,7 @@ let activeFilter = "all";
 
 function bindCodePointLimit(input, maximum, label) {
   const validate = () => {
-    const count = Array.from(input.value).length;
+    const count = Array.from(input.value.trim()).length;
     input.setCustomValidity(count > maximum ? `${label} must be ${maximum} characters or fewer.` : "");
   };
   input.addEventListener("input", validate);

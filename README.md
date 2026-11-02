@@ -60,13 +60,13 @@ The repository uses one branch, `main`, to keep the workflow simple. TaskFlow is
 
 ## Repository map
 
-- `manual-qa/` has the nine lessons, templates, and learner submissions.
-- `automation-qa/` has the seven lessons and learner submissions.
+- `manual-qa/` has the nine lessons and templates. Create `manual-qa/submissions/` as needed when a lesson asks you to save work.
+- `automation-qa/` has the seven lessons. Create `automation-qa/submissions/` as needed when a lesson asks you to save work.
 - `taskflow-qa-lab/` has the app, specification/setup guide, D1 migrations, local scripts, and Playwright tests.
 - `.github/workflows/taskflow-qa.yml` runs the app's type check and Playwright suite and preserves reports and failure evidence.
 - `README.md` is the roadmap, learning workflow, project context, and recovery guide.
 
-Written learner work belongs in manual-qa/submissions/ or automation-qa/submissions/ as the lesson directs. Executable Playwright tests belong in taskflow-qa-lab/tests/ so local runs and GitHub Actions can discover them; name them learner-authored. Keep notes and reports in the relevant section submissions folder. All learner work should be explainable and reproducible.
+Written learner work belongs in `manual-qa/submissions/` or `automation-qa/submissions/` as the lesson directs; create the folder when you first need it. Executable Playwright tests belong in `taskflow-qa-lab/tests/` so local runs and GitHub Actions can discover them; name them learner-authored. Keep notes and reports in the relevant section submissions folder. All learner work should be explainable and reproducible.
 
 ## CI, deployment, and learner status
 
@@ -78,7 +78,7 @@ The app, lessons, and templates were AI-assisted. Keep them distinct from learne
 
 ## Backup and recovery
 
-The public [GitHub repository](https://github.com/thiagoburg/qa-engineering) stores committed course files, app source, migrations, templates, and committed learner submissions. To restore on a new device, use GitHub Desktop to clone `thiagoburg/qa-engineering` into the desired folder. Then follow the app's [local setup guide](taskflow-qa-lab/README.md#run-locally).
+The public [GitHub repository](https://github.com/thiagoburg/qa-engineering) stores committed course files, app source, migrations, templates, and learner work after you commit it. To restore on a new device, use GitHub Desktop to clone `thiagoburg/qa-engineering` into the desired folder. Then follow the app's [local setup guide](taskflow-qa-lab/README.md#run-locally).
 
 Sign-in sessions, local databases, ignored runtime files, and Obsidian settings are not stored in GitHub. Recreate dependencies using the app setup guide. Pull the latest `main` before continuing. Commit learner work when ready for backup, after checking it contains no private information.
 

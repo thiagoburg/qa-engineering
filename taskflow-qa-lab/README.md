@@ -175,7 +175,7 @@ TaskFlow is a small practice app for QA learning. Users create invented accounts
 ### Task behavior
 
 - Only a signed-in user can list, create, edit, complete, or delete tasks.
-- A task has a required title from 1 through 120 Unicode code points after trimming whitespace and an optional description up to 1,000 Unicode code points. A standalone emoji counts as one code point; combined emoji may contain several.
+- A task has a required title from 1 through 120 Unicode code points after trimming surrounding whitespace and an optional description up to 1,000 Unicode code points after trimming surrounding whitespace. The trimmed text is saved. A standalone emoji counts as one code point; combined emoji may contain several.
 - New tasks are active and have an empty description when none is supplied.
 - A user can edit a task title and description, mark it completed or active, and delete it.
 - A task owned by another account behaves as not found. User A cannot read, update, or delete user B's task.

@@ -53,9 +53,22 @@ test("shows a message if the sign-out request cannot reach the server", async ({
   await expect(page.getByRole("heading", { name: "My tasks" })).toBeVisible();
 });
 
-test("reports when TaskFlow signs out locally but Supabase cannot confirm revocation", async ({ page }) => {
+test("keeps a simulated logout failure scoped to its session during another sign-out", async ({ page, browser }) => {
   await register(page);
-  await page.request.post("http://127.0.0.1:8788/__test/fail-next-logout");
+  const token = (await page.context().cookies()).find((cookie) => cookie.name === "taskflow_session")?.value;
+  expect(token).toBeTruthy();
+  await page.request.post("http://127.0.0.1:8788/__test/fail-logout-for-token", { data: { token } });
+
+  const otherContext = await browser.newContext();
+  try {
+    const otherPage = await otherContext.newPage();
+    await register(otherPage);
+    await otherPage.getByRole("button", { name: "Sign out" }).click();
+    await expect(otherPage.getByRole("heading", { name: "Sign in to TaskFlow" })).toBeVisible();
+  } finally {
+    await otherContext.close();
+  }
+
   await page.getByRole("button", { name: "Sign out" }).click();
   await expect(page.getByRole("heading", { name: "Sign in to TaskFlow" })).toBeVisible();
   await expect(page.locator("#auth-status")).toContainText("could not confirm sign-out");
@@ -195,6 +208,17 @@ test("counts title and description limits by Unicode code point for create and e
   });
   expect(createdAtLimit.status()).toBe(201);
 
+  const createdWithPaddedDescription = await page.request.post("/api/tasks", {
+    data: { title: "Trim description on create", description: `  ${maximumDescription}  ` },
+  });
+  expect(createdWithPaddedDescription.status()).toBe(201);
+  expect((await createdWithPaddedDescription.json()).task.description).toBe(maximumDescription);
+
+  const createdWithTrimmedDescriptionOverLimit = await page.request.post("/api/tasks", {
+    data: { title: "Reject long trimmed description", description: `  ${maximumDescription}🧪  ` },
+  });
+  expect(createdWithTrimmedDescriptionOverLimit.status()).toBe(400);
+
   const createdOverLimit = await page.request.post("/api/tasks", {
     data: { title: `${maximumTitle}😀`, description: "" },
   });
@@ -208,6 +232,12 @@ test("counts title and description limits by Unicode code point for create and e
   });
   expect(editedAtLimit.status()).toBe(200);
 
+  const editedWithPaddedDescription = await page.request.patch(`/api/tasks/${task.id}`, {
+    data: { description: `  ${maximumDescription}  ` },
+  });
+  expect(editedWithPaddedDescription.status()).toBe(200);
+  expect((await editedWithPaddedDescription.json()).task.description).toBe(maximumDescription);
+
   const editedOverTitleLimit = await page.request.patch(`/api/tasks/${task.id}`, {
     data: { title: `${maximumTitle}😀` },
   });
@@ -216,6 +246,10 @@ test("counts title and description limits by Unicode code point for create and e
     data: { description: `${maximumDescription}🧪` },
   });
   expect(editedOverDescriptionLimit.status()).toBe(400);
+  const editedWithTrimmedDescriptionOverLimit = await page.request.patch(`/api/tasks/${task.id}`, {
+    data: { description: `  ${maximumDescription}🧪  ` },
+  });
+  expect(editedWithTrimmedDescriptionOverLimit.status()).toBe(400);
 });
 
 test("enforces Unicode code-point limits in the browser form", async ({ page }) => {
@@ -227,13 +261,21 @@ test("enforces Unicode code-point limits in the browser form", async ({ page }) 
   expect(await title.evaluate((input: HTMLInputElement) => input.validity.valid)).toBe(false);
   await title.fill("😀".repeat(120));
   expect(await title.evaluate((input: HTMLInputElement) => input.validity.valid)).toBe(true);
+  await title.fill(`  ${"😀".repeat(120)}  `);
+  expect(await title.evaluate((input: HTMLInputElement) => input.validity.valid)).toBe(true);
 
   await description.fill("🧪".repeat(1001));
   expect(await description.evaluate((input: HTMLTextAreaElement) => input.validity.valid)).toBe(false);
   await description.fill("🧪".repeat(1000));
   expect(await description.evaluate((input: HTMLTextAreaElement) => input.validity.valid)).toBe(true);
+  await description.fill(`  ${"🧪".repeat(1000)}  `);
+  expect(await description.evaluate((input: HTMLTextAreaElement) => input.validity.valid)).toBe(true);
+  await description.fill(`  ${"🧪".repeat(1001)}  `);
+  expect(await description.evaluate((input: HTMLTextAreaElement) => input.validity.valid)).toBe(false);
+  await description.fill(`  ${"🧪".repeat(1000)}  `);
   await page.getByRole("button", { name: "Add task" }).click();
   await expect(page.locator("[data-task-id]")).toContainText("😀".repeat(120));
+  await expect(page.locator("[data-task-id] p.task-description")).toHaveText("🧪".repeat(1000));
 });
 
 test("keeps task data after reload and returns a useful unauthenticated API response", async ({ page }) => {
