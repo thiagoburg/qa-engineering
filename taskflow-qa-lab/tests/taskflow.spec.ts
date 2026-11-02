@@ -3,8 +3,64 @@ import { expect, test, type Page } from "@playwright/test";
 const password = "Practice-only-456!";
 
 function uniqueEmail(): string {
-  return `qa-${crypto.randomUUID()}@example.test`;
+  return `qa-test-${process.env.PW_TEST_RUN_ID ?? "local"}-${crypto.randomUUID()}@example.test`;
 }
+
+test("supports opening account actions with the keyboard", async ({ page }) => {
+  await page.goto("/");
+  const createAccount = page.getByRole("group", { name: "Account actions" }).getByRole("button", { name: "Create account" });
+  await createAccount.focus();
+  await page.keyboard.press("Enter");
+  await expect(page.locator("#register-panel")).toBeVisible();
+});
+
+test("shows a useful message and retry when task loading fails after sign-in", async ({ page }) => {
+  let failed = false;
+  await page.route("**/api/tasks?status=all", async (route) => {
+    if (!failed) {
+      failed = true;
+      await new Promise((resolve) => setTimeout(resolve, 300));
+      await route.fulfill({ status: 503, json: { error: "Service temporarily unavailable." } });
+    }
+    else await route.continue();
+  });
+  await register(page);
+  await expect(page.locator("#loading-tasks")).toBeVisible();
+  await expect(page.getByText(/Could not load your tasks/)).toBeVisible();
+  await expect(page.getByRole("button", { name: "Try loading tasks again" })).toBeVisible();
+  await page.getByRole("button", { name: "Try loading tasks again" }).click();
+  await expect(page.getByText(/Could not load your tasks/)).toBeHidden();
+  await expect(page.getByText("0 active · 0 completed · 0 total")).toBeVisible();
+});
+
+test("shows an error and allows retry when statistics fail", async ({ page }) => {
+  let failed = false;
+  await page.route("**/api/tasks/stats", async (route) => {
+    if (!failed) { failed = true; await route.fulfill({ status: 503, json: { error: "Statistics unavailable." } }); }
+    else await route.continue();
+  });
+  await register(page);
+  await expect(page.getByText(/Could not load your tasks/)).toBeVisible();
+  await page.getByRole("button", { name: "Try loading tasks again" }).click();
+  await expect(page.getByText("0 active · 0 completed · 0 total")).toBeVisible();
+});
+
+test("shows a message if the sign-out request cannot reach the server", async ({ page }) => {
+  await register(page);
+  await page.route("**/api/auth/logout", (route) => route.abort());
+  await page.getByRole("button", { name: "Sign out" }).click();
+  await expect(page.getByText(/Could not sign out/)).toBeVisible();
+  await expect(page.getByRole("heading", { name: "My tasks" })).toBeVisible();
+});
+
+test("rejects incorrect credentials with a clear message", async ({ page }) => {
+  await page.goto("/");
+  const login = page.locator("#login-panel");
+  await login.getByLabel("Email address").fill(uniqueEmail());
+  await login.getByLabel("Password").fill(password);
+  await login.getByRole("button", { name: "Sign in" }).click();
+  await expect(page.getByRole("alert")).toContainText("incorrect");
+});
 
 async function register(page: Page, email = uniqueEmail()): Promise<string> {
   await page.goto("/");

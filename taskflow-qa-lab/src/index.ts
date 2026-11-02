@@ -138,7 +138,24 @@ async function parseJson(request: Request): Promise<Record<string, unknown> | nu
   if (contentLength > 8_192) return null;
   if (!request.headers.get("Content-Type")?.toLowerCase().includes("application/json")) return null;
   try {
-    const value: unknown = await request.json();
+    if (!request.body) return null;
+    const reader = request.body.getReader();
+    const chunks: Uint8Array[] = [];
+    let size = 0;
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      size += value.byteLength;
+      if (size > 8_192) {
+        await reader.cancel();
+        return null;
+      }
+      chunks.push(value);
+    }
+    const bytes = new Uint8Array(size);
+    let offset = 0;
+    for (const chunk of chunks) { bytes.set(chunk, offset); offset += chunk.byteLength; }
+    const value: unknown = JSON.parse(new TextDecoder().decode(bytes));
     return value !== null && typeof value === "object" && !Array.isArray(value)
       ? (value as Record<string, unknown>)
       : null;

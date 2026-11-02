@@ -10,6 +10,8 @@ const emptyState = document.querySelector("#empty-state");
 const stats = document.querySelector("#task-stats");
 const accountLabel = document.querySelector("#account-label");
 const listMessage = document.querySelector("#list-message");
+const retryTasks = document.querySelector("#retry-tasks");
+const loadingTasks = document.querySelector("#loading-tasks");
 let activeFilter = "all";
 
 async function api(path, options = {}) {
@@ -35,9 +37,9 @@ function showAuth() {
 }
 
 async function showTasks(user) {
-  authView.hidden = true;
   taskView.hidden = false;
   accountLabel.textContent = user.email;
+  authView.hidden = true;
   await refreshTasks();
 }
 
@@ -161,14 +163,26 @@ function startEdit(item, task) {
 
 async function refreshTasks() {
   listMessage.textContent = "";
-  const [{ tasks }, taskStats] = await Promise.all([
-    api(`/api/tasks?status=${activeFilter}`),
-    api("/api/tasks/stats"),
-  ]);
-  taskList.replaceChildren(...tasks.map(makeTaskElement));
-  emptyState.classList.toggle("is-visible", tasks.length === 0);
-  stats.textContent = `${taskStats.active} active · ${taskStats.completed} completed · ${taskStats.total} total`;
+  retryTasks.hidden = true;
+  loadingTasks.hidden = false;
+  try {
+    const [{ tasks }, taskStats] = await Promise.all([
+      api(`/api/tasks?status=${activeFilter}`),
+      api("/api/tasks/stats"),
+    ]);
+    taskList.replaceChildren(...tasks.map(makeTaskElement));
+    emptyState.classList.toggle("is-visible", tasks.length === 0);
+    stats.textContent = `${taskStats.active} active · ${taskStats.completed} completed · ${taskStats.total} total`;
+  } catch (error) {
+    listMessage.textContent = `Could not load your tasks. ${error.message}`;
+    retryTasks.hidden = false;
+    throw error;
+  } finally {
+    loadingTasks.hidden = true;
+  }
 }
+
+retryTasks.addEventListener("click", () => refreshTasks().catch(() => {}));
 
 function selectAuthTab(tab) {
   const loginSelected = tab === "login";
@@ -223,9 +237,17 @@ registerForm.addEventListener("submit", async (event) => {
 });
 
 document.querySelector("#logout-button").addEventListener("click", async () => {
-  await api("/api/auth/logout", { method: "POST" });
-  showAuth();
-  selectAuthTab("login");
+  const button = document.querySelector("#logout-button");
+  button.disabled = true;
+  try {
+    await api("/api/auth/logout", { method: "POST" });
+    showAuth();
+    selectAuthTab("login");
+  } catch (error) {
+    listMessage.textContent = `Could not sign out. ${error.message}`;
+  } finally {
+    button.disabled = false;
+  }
 });
 
 taskForm.addEventListener("submit", async (event) => {

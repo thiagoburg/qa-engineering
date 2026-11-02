@@ -30,8 +30,21 @@ mock.on("exit", (code) => {
   if (!shuttingDown) shutdown(code ?? 1);
 });
 
-await new Promise((resolveReady) => setTimeout(resolveReady, 250));
-if (shuttingDown) process.exit(1);
+const readyUntil = Date.now() + 10_000;
+let mockReady = false;
+while (!shuttingDown && Date.now() < readyUntil) {
+  if (mock.exitCode !== null) break;
+  try {
+    const response = await fetch("http://127.0.0.1:8788/health", { signal: AbortSignal.timeout(500) });
+    if (response.ok) { mockReady = true; break; }
+  } catch {}
+  await new Promise((resolveReady) => setTimeout(resolveReady, 100));
+}
+if (!mockReady) {
+  console.error("Auth mock did not become ready within 10 seconds.");
+  shutdown(1);
+  process.exit(1);
+}
 
 const worker = spawn(
   process.execPath,

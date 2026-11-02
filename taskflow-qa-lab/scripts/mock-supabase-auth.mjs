@@ -28,12 +28,15 @@ function session(user) {
 }
 
 const server = createServer(async (request, response) => {
+  const url = new URL(request.url ?? "/", "http://127.0.0.1");
+  if (url.pathname === "/health" && request.method === "GET") {
+    send(response, 200, { status: "ok" });
+    return;
+  }
   if (request.headers.apikey !== publishableKey) {
     send(response, 401, { message: "Invalid API key." });
     return;
   }
-
-  const url = new URL(request.url ?? "/", "http://127.0.0.1");
   if (url.pathname === "/auth/v1/signup" && request.method === "POST") {
     try {
       const body = await readBody(request);

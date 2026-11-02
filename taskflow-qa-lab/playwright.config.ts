@@ -1,4 +1,5 @@
 import { defineConfig, devices } from "@playwright/test";
+process.env.PW_TEST_RUN_ID ??= `${Date.now()}-${Math.random().toString(16).slice(2)}`;
 
 export default defineConfig({
   testDir: "./tests",
@@ -7,6 +8,7 @@ export default defineConfig({
   retries: process.env.CI ? 1 : 0,
   workers: process.env.CI ? 2 : undefined,
   reporter: process.env.CI ? [["list"], ["html", { open: "never" }]] : "list",
+  globalTeardown: "./scripts/cleanup-test-data.mjs",
   use: {
     baseURL: "http://127.0.0.1:8787",
     trace: "retain-on-failure",
@@ -20,4 +22,3 @@ export default defineConfig({
     timeout: 120_000,
   },
 });
-

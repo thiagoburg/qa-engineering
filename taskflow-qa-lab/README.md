@@ -36,6 +36,8 @@ npm test
 
 The Playwright suite launches a local Worker, local D1 binding, and a test-only mock of the Supabase Auth API. It does not require Supabase credentials, deploy, or contact a production database. The mock is used only by the test stack.
 
+Each test run labels its own accounts and removes only that run's matching rows from local D1 after the suite. Learner-created local practice data is preserved. This cleanup always uses Wrangler's `--local` mode.
+
 ## API and product behavior
 
 See [Product Specification](#product-specification). Migrations are versioned under `migrations/`.
