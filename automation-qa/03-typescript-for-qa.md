@@ -1,61 +1,44 @@
 # Automation QA 3: TypeScript for QA
 
-## Introduction
+## Theory
 
-TypeScript is JavaScript with optional type checks. You need only a small part of it to understand and maintain Playwright tests.
+TypeScript is JavaScript with type checking. You do not need to become a general software developer for QA work. Learn enough TypeScript to read a test, change a check safely, understand a compiler message, and add small test helpers.
 
-## Learning objectives
+A **variable** gives a value a name. Use const when you will not assign a different value to that name; use let when you need to assign it again. Common values are strings for text, numbers for counts, and booleans for true/false. Arrays hold several values, such as a list of valid task filters. An object groups related values, such as a task title and completion state.
 
-- Read variables, strings, booleans, arrays, and objects in a test.
-- Use conditions, functions, imports, and simple types.
-- Understand `async`/`await` in browser and API checks.
-- Read compiler errors and debug test code without writing a general application.
+A **type** describes what kind of value is expected. TypeScript can infer many types from the value, but you can also write them: a title is a string, a count is a number, and a list of titles can be string[]. An object type explains its fields. Types help catch mistakes before the test runs; they do not prove that the product behaves correctly.
 
-## Concise theoretical explanation
+A **function** is a named, reusable step. Its parameters describe the input, and its return type describes the value it gives back. A helper that creates a unique task title can reduce repeated test setup. An if statement runs different code depending on whether a condition is true. Use simple helpers only when they make tests easier to read and maintain.
 
-Use `const` when a variable name will not be reassigned and `let` when it will. Values include strings (`'task'`), numbers (`120`), booleans (`true`), arrays (`['all', 'active']`), and objects (`{ title: 'Review', completed: false }`). A type such as `string` helps catch mismatches before a test runs: `const title: string = 'Review'`.
+An **import** makes code from another file or package available. Playwright Test provides test to define a check and expect to compare an observed result with an expected value. A package is reusable code installed in a project; package.json records the project's dependencies and commands.
 
-An `if` selects behavior based on a condition. A function names reusable steps: `function makeTitle(index: number): string { return `Task ${index}`; }`. Imports bring in test tools from another module: `import { test, expect } from '@playwright/test';`. A package is reusable code installed in the project; the package file records its dependencies.
+Browser and API operations take time. Playwright represents work that may finish later with a **Promise**. An async function can use await to wait for a Promise before checking its result. Without await, the test may continue before the browser action or response is ready. TypeScript checks the code before it runs; a type error is different from a test failure, which is a failed assertion about product behavior.
 
-Browser operations take time, so Playwright methods return **promises**. `await` waits for that operation before continuing. Inside a Playwright test callback, write `async ({ page }) => { ... }`. Missing `await` can make a test race ahead. Read error messages from the first relevant line and use `npm run typecheck` for type errors. Do not add classes or complex abstractions unless a concrete test maintenance need appears.
-
-## Practical examples
+For example, a QA helper can make a predictable title, while a Playwright test can await a health response and check its status and JSON:
 
 ```ts
-const validTitle: string = 'Review release';
-const statuses: string[] = ['all', 'active', 'completed'];
-const task = { title: validTitle, completed: false };
+import { expect, test } from "@playwright/test";
 
-test('new task appears in the list', async ({ page }) => {
-  await page.getByLabel('Task title').fill(task.title);
-  await page.getByRole('button', { name: 'Add task' }).click();
-  await expect(page.getByText(task.title)).toBeVisible();
+function makeTitle(run: number): string {
+  return "qa-title-" + run;
+}
+
+test("health API returns its expected status", async ({ request }) => {
+  const response = await request.get("/api/health");
+  const body: { status: string } = await response.json();
+
+  expect(response.status()).toBe(200);
+  expect(body.status).toBe("ok");
+  expect(makeTitle(1)).toBe("qa-title-1");
 });
 ```
 
-## Guided practice
+## Practice
 
-1. Open `taskflow-qa-lab/tests/taskflow.spec.ts` and identify imports, test names, variables, functions, and awaited operations.
-2. Create a scratch `.ts` file with a string, boolean, array, and task object; run `npm run typecheck`.
-3. Change one type incorrectly and observe the compiler message, then correct it.
-4. Write a small typed helper that returns a unique invented task title; avoid global mutable state.
-5. Add a test file under `automation-qa/submissions/` only after understanding the project test command and local server setup.
+1. Open taskflow-qa-lab/tests/taskflow.spec.ts. Find an import, a test name, a variable, a function, and an awaited browser or API operation. Explain what each one contributes to a QA check.
+2. From taskflow-qa-lab, create tests/learner-typescript-practice.spec.ts using the example above. Add a string array of TaskFlow filter names and check one value with an assertion.
+3. Change the declared type of one value so it conflicts with its value. Run the app's typecheck command, read the error, and then correct the type. A compiler error means the code needs fixing; it is not a product defect.
+4. Run npm run typecheck, then run npm test -- tests/learner-typescript-practice.spec.ts against the local test stack. Confirm the API status and response body assertions pass, and keep the learner-authored test in the TaskFlow test suite.
+5. Save automation-qa/submissions/typescript-notes.md with five annotated examples and identify the learner-authored test file: values/types, an array or object, a small function, an import, and an awaited API or browser operation. Include the compiler error you corrected and explain how the examples support QA testing.
 
-## Assignment
-
-**Tools:** Node.js/npm, TypeScript in `taskflow-qa-lab/`, editor. **Deliverable:** `automation-qa/submissions/typescript-notes.md` with five annotated code snippets (value/type, object or array, function, import, awaited operation), one compiler error you intentionally corrected, and one explanation of how the code supports a QA check. Do not submit a general programming exercise. **Submission location:** `automation-qa/submissions/`.
-
-## Definition of Done
-
-- Examples compile or are explicitly labeled as pseudocode.
-- Every language feature is connected to reading, writing, or debugging tests.
-- The learner explains why asynchronous browser actions are awaited.
-- No secret or real user data is included.
-
-## Submission instructions
-
-Save the note under `automation-qa/submissions/`, run `npm run typecheck`, and include the result. Request review before moving to Playwright locator work.
-
-## Optional extra credit
-
-Read a type error in a small provided test and describe the likely cause before running the compiler.
+Use Node.js/npm, TypeScript, the existing Playwright project, and an editor. The app README explains how to run commands from taskflow-qa-lab. Do not add programming examples that are unrelated to reading, writing, or debugging QA tests.

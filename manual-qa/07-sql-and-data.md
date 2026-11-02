@@ -1,49 +1,21 @@
 # Manual QA 7: SQL and Data Validation
 
-## Introduction
+## Theory
 
-When a screen looks wrong, checking stored data can reveal whether the UI displayed stale data or the backend saved the wrong value. This lesson covers safe, read-focused SQL for QA.
+A relational database organizes information in **tables**. Each **row** is one record, and each **column** is one kind of information about that record. A **primary key** is an ID that uniquely identifies a row. TaskFlow's migration files describe its D1 tables and columns.
 
-## Learning objectives
+SQL is a language for asking a database questions. SELECT reads data; WHERE limits which rows are returned; COUNT counts matching rows. For example, a QA check can select a task's ID, title, completion value, and owner from the local tasks table, with a WHERE condition for the test account. A count grouped by completion state can be compared with the task counts shown by the app. Use the actual table and column names from the schema.
 
-- Read a table, row, column, and primary key.
-- Use `SELECT`, `WHERE`, `ORDER BY`, and simple counts.
-- Compare application behavior with persisted records.
-- Protect user isolation and avoid changing shared data.
+Database checks can help locate where a mismatch occurs. If the UI shows a task but the database has no corresponding row, the save may not have persisted. If the database row is correct but the page is wrong, the display or API may be responsible. Compare the same account and task at the same time, and filter by owner so another user's record is not confused with yours.
 
-## Concise theoretical explanation
+Use read-only SELECT queries and local D1 only. Do not run write queries or remote commands for this lesson. A read query can still show private information, so use invented data and redact IDs and output in anything you share.
 
-A relational database stores data in **tables** (similar to grids). A **row** is one record; a **column** is one property. A primary key identifies a row. `SELECT` reads data, `WHERE` filters it, `ORDER BY` sorts it, and `COUNT` counts matches. Example: `SELECT title, completed FROM tasks WHERE user_id = ? ORDER BY created_at;` The `?` is a bound parameter supplied safely by application code; never build SQL by inserting raw user input into the query string.
+## Practice
 
-QA validation compares the user-visible/API result with the database state using the same account and resource. Check counts, values, and ownership. In this project, the D1 schema and migrations are the source for table names. Use local D1 only for learning queries. Do not run write statements against a remote or production database. A read-only query can still expose private data, so use only dummy data and share only redacted results.
+1. Read the schema in taskflow-qa-lab/migrations/0001_initial_schema.sql. Identify the task table, its primary key, task fields, and owner field.
+2. Start the local app and create a task using a dummy account. Follow the local D1 query instructions in the app README.
+3. Use SELECT to check the task's ID, title, completion state, and owner. Add a WHERE condition for the test account.
+4. Complete, edit, and delete the task. Repeat the read-only query after each action and compare the result with the UI or API.
+5. Create a second dummy account. Check its task list and verify its data does not include the first account's task. Compare a read-only count with TaskFlow's statistics if the schema makes that check clear.
 
-## Practical examples
-
-After creating a task, confirm one row exists with the expected title and authenticated owner ID. After completion, confirm its `completed` value changed. After deletion, confirm the row is absent. Check that a second account's query returns no rows for the first account's task.
-
-## Guided practice
-
-1. Read `taskflow-qa-lab/migrations/0001_initial_schema.sql` and identify table names and ownership columns.
-2. Start the local stack and create a dummy task.
-3. Use Wrangler's documented local D1 execute command from `taskflow-qa-lab/README.md` with a `SELECT` for task ID, title, completed, and owner.
-4. Complete, edit, and delete the task; repeat the read query after each action.
-5. Create a second dummy account and verify its task listing does not reveal the first task.
-
-## Assignment
-
-**Tools:** PowerShell, Wrangler local D1, migration SQL. **Deliverable:** `manual-qa/submissions/data-validation.md` with the query used for each check, sanitized expected/observed values, linked UI or API action, and a note explaining why owner filtering matters. Include four read-only checks: create, update/complete, delete, and second-user isolation. **Submission location:** `manual-qa/submissions/`.
-
-## Definition of Done
-
-- Queries are read-only and target local D1.
-- Each result is linked to an action and expected application behavior.
-- User/task identifiers and personal information are redacted or invented.
-- The report explains how ownership filtering supports isolation.
-
-## Submission instructions
-
-Save the note in `manual-qa/submissions/` and share it for review. Do not commit database files, passwords, auth tokens, or query output containing real data.
-
-## Optional extra credit
-
-Write a `GROUP BY` count by completion state and compare it with `/api/tasks/stats`; explain what mismatch would indicate.
+Use PowerShell, Wrangler's local D1 commands, and the migration SQL. Save your report in manual-qa/submissions/data-validation.md with each query, the linked UI/API action, sanitized expected and observed results, and a short explanation of why the owner condition matters. Include create, update/complete, delete, and second-user isolation checks. Keep every query read-only and local.

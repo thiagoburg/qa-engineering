@@ -1,53 +1,22 @@
 # Manual QA 5: Exploratory and Web Testing
 
-## Introduction
+## Theory
 
-A scripted case checks known expectations. Exploratory testing uses a focused question and observations to find risks the script did not anticipate.
+A scripted test case checks a known expectation. **Exploratory testing** is different: while you use the product, you learn how it works, decide what to check next, and observe the results. It is still planned. A **charter** gives the session a goal, such as “Explore task editing for lost changes and confusing feedback.” A **time box** is the amount of time you agree to spend. Write actions and observations as you go so an interesting result is not lost.
 
-## Learning objectives
+A **smoke test** is a short check that the most important parts of an app still work. A **regression test** checks that behavior which used to work still works after a change. These names describe the purpose and scope of the checks, not a quality rating. State exactly what you checked; a small smoke test does not prove the whole app is safe.
 
-- Run a time-boxed exploratory session.
-- Distinguish smoke, sanity, and regression checks.
-- Check responsive behavior, usability, and basic accessibility.
-- Record evidence and environment so another person can reproduce an observation.
+**Responsive testing** checks whether content and controls remain usable at different screen sizes. **Usability** asks whether people can understand and complete a task. **Accessibility** asks whether people with different abilities can use the product. A beginner check can inspect whether controls have clear labels, keyboard focus is visible and moves in a sensible order, text is readable, and status changes are announced. These checks can reveal barriers, but a short manual pass is not a full accessibility audit.
 
-## Concise theoretical explanation
+For example, a task-editing charter could ask whether a user can edit, cancel, and reload without losing the saved title. You could repeat one critical path at a wide and narrow viewport and use only the keyboard. Record browser, viewport, steps, and evidence so another person can repeat what you did.
 
-**Exploratory testing** is simultaneous learning, test design, and execution. A **charter** sets a goal, such as “Explore task editing for data loss and confusing feedback.” A **session** is a short time box; record actions, observations, questions, and defects. It complements scripted tests rather than replacing them.
+## Practice
 
-A **smoke test** checks whether critical paths are usable after a change. A **sanity check** is a narrow check around a particular change. **Regression testing** checks that existing behavior still works after a change. These labels depend on scope; document what you actually checked.
+1. Start local TaskFlow with a dummy account. Choose task editing or filtering and write a charter about one risk.
+2. Spend 20 minutes exploring. Try an ordinary sequence, a boundary or unusual sequence, and one recovery action such as cancel or reload. Record each action and observation.
+3. At a wide and narrow viewport, check whether the main controls remain visible and usable. Record both viewport sizes.
+4. Use only the keyboard for one task journey. Note the focus order, visible focus, labels, and any action you could not complete.
+5. Write one short smoke path for a critical TaskFlow journey. Identify one existing behavior you would check as regression after a change.
+6. Repeat the smoke path in a second browser if available; otherwise record the limitation. Capture sanitized screenshots or Network/Console evidence only when it helps explain an observation.
 
-Responsive testing checks layout and usable controls at different viewport sizes. Usability checks whether users can understand and complete tasks. Accessibility is the ability of people with different needs to use the app. For a junior check, inspect visible labels, keyboard focus/order, action names, contrast/readability, and announced status messages; do not claim a full accessibility audit from a quick scan.
-
-## Practical examples
-
-For a task edit charter, create, edit, cancel, reload, and try long text with keyboard and mouse. At narrow width, check that the task actions remain reachable without horizontal scrolling. Browser zoom and viewport width are different conditions; record which you used.
-
-## Guided practice
-
-1. Start the local app and use a dummy account.
-2. Set a 20-minute timer and write a charter with one risk focus.
-3. Explore with normal, boundary, and unexpected action sequences; keep notes as you go.
-4. Repeat one critical path at desktop width and a narrow mobile viewport.
-5. Repeat one smoke path in a second browser when available; record browser/version or say why cross-browser comparison was not possible.
-6. Use keyboard only for sign-in, create, complete, edit, and delete; note focus visibility and any blocked action.
-7. Capture exact environment details, screenshots, and relevant Network/Console evidence for anomalies.
-
-## Assignment
-
-**Tools:** Two browsers if available, Developer Tools, timer, and the [test execution template](templates/test-execution-template.csv). **Deliverable:** `manual-qa/submissions/exploratory-session.md` with charter, time box, environment/browser/viewport, actions and observations, covered smoke/regression checks, responsive and cross-browser comparison (or a stated constraint), accessibility/usability notes, and open risks. If you find a defect, use the separate [bug report template](templates/bug-report-template.md); do not label an unconfirmed suspicion as a defect. **Submission location:** `manual-qa/submissions/`.
-
-## Definition of Done
-
-- Session notes can guide a second person to repeat the exploration.
-- At least one keyboard and one narrow viewport path are recorded.
-- Smoke, sanity, or regression labels describe the actual scope.
-- Claims about usability/accessibility stay within the evidence gathered.
-
-## Submission instructions
-
-Share the session note and any redacted evidence in the project chat. Include one useful question the session raised for product clarification. Never include real personal information or tokens in screenshots.
-
-## Optional extra credit
-
-Ask another learner to replay your session charter and compare findings. Note which exploration paths differed.
+Use a timer, browser Developer Tools, and the [test execution template](templates/test-execution-template.csv). Save your notes in manual-qa/submissions/exploratory-session.md with your charter, time box, environment/browser/viewport, actions and observations, smoke/regression path, responsive and keyboard findings, open questions, and remaining risks. For an observed mismatch, use the [bug report template](templates/bug-report-template.md); do not present a suspicion as a confirmed defect.

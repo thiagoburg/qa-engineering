@@ -1,58 +1,22 @@
 # Automation QA 5: API, Authentication, and Test Data
 
-## Introduction
+## Theory
 
-API checks are quick for rules and error responses. UI checks prove a user workflow. Combining them thoughtfully gives evidence without making every test slow.
+Playwright Test has a request fixture for sending API calls. Use it to check API behavior without depending on page layout. Check both the status and response data: a 200 response containing another user's task is still a failure.
 
-## Learning objectives
+An authenticated API check also needs a session. TaskFlow stores its session in an HTTP-only cookie, which page JavaScript cannot read. To exercise a protected route, sign in an invented account in the test browser and use that page's request context so the browser's cookie is sent with the API request. Never extract, print, or copy the cookie into a report. A saved browser storageState can reuse a session, but it contains authentication data; keep it ignored by Git and never upload it. For early tests, signing in with a fresh account is easier to understand.
 
-- Send API requests with Playwright's `request` fixture.
-- Assert status and response data.
-- Handle authentication state safely.
-- Keep test data isolated and make cleanup reliable.
+**Test data isolation** means one test cannot change another test's result. Use a new account or unique task title for each run, or use a reset that is guaranteed to target local D1 only. Cleanup should remove only data the test created. Do not rely on a database ID that another test or earlier run might reuse.
 
-## Concise theoretical explanation
+For example, an unauthenticated GET to the task list should return 401. For an authenticated check, sign in, create a task, and verify that the same account can see it while another account cannot. Keep a smaller UI test as evidence that the browser workflow works; API checks do not prove the page displays the result correctly.
 
-Playwright's API request fixture can call an endpoint and return a response. Check both status and body: a `200` with another user's data is still a failure. Keep API checks independent of UI styling; keep a smaller UI journey for browser integration.
+## Practice
 
-Authentication can be established through the UI or API. Browser `storageState` can reuse a session, but it contains credentials/tokens and must be generated for test use, ignored by Git, and never uploaded as an artifact. TaskFlow uses an HTTP-only cookie; page JavaScript cannot read it. Do not try to extract or log it. The simplest safe approach for early exercises is a fresh invented account and sign-in in each test. Later, reuse state only if you can explain its lifecycle.
+1. Read the TaskFlow [API Reference](../taskflow-qa-lab/README.md#api-reference) and Product Specification. Choose a success case, a validation failure, and an access-control check.
+2. Write tests for the health route and unauthenticated task access using Playwright's request fixture. Assert status and useful response data.
+3. Test invalid task input and check the error status and response body.
+4. For the isolation check, create and sign in an invented account in the browser, use that page's request context to create and read a task, then sign in a second invented account and confirm it cannot see the first task.
+5. Use unique test data. Keep cleanup local. Check that any saved auth state is ignored by Git, and make sure reports and logs do not expose passwords, cookies, or tokens.
+6. Run each test alone and with the suite. Record the results and explain how the test data is created and removed.
 
-Isolation means one test cannot change another test's result. Use unique task titles and accounts or a local test reset that is guaranteed not to reach remote D1. Cleanup in `finally`/teardown should remove only test-created local data. Avoid depending on row IDs that another run can reuse.
-
-## Practical examples
-
-```ts
-test('task list requires authentication', async ({ request }) => {
-  const response = await request.get('/api/tasks');
-  expect(response.status()).toBe(401);
-});
-```
-
-For an authenticated call, create a test account through the supported flow and retain its session only for that run. Assert returned task ownership through visibility and API shape; never print the cookie.
-
-## Guided practice
-
-1. Read the API contract and list one success, one validation failure, and one access-control check.
-2. Write API tests for health and unauthenticated task access.
-3. Add a task validation test with a boundary input and assert both status and error body.
-4. Create a per-run unique task title; ensure a rerun does not collide with prior test data.
-5. If exploring storage state, confirm its path is ignored by Git and cleanup removes it after the run.
-
-## Assignment
-
-**Tools:** Playwright `request` fixture and local TaskFlow. **Deliverable:** `automation-qa/submissions/api-auth.spec.ts` with three API checks (health, unauthenticated access, invalid task input) plus one authenticated data-isolation check, and a note explaining test-data lifecycle. **Submission location:** `automation-qa/submissions/`.
-
-## Definition of Done
-
-- Each check asserts status and relevant response data.
-- Authenticated and unauthenticated behavior are distinguished.
-- Data is unique or cleaned up safely; no remote reset is used.
-- Logs and artifacts contain no passwords, session cookies, or access tokens.
-
-## Submission instructions
-
-Run against local D1 only and save the report alongside the spec. Share the files for review. If auth cannot be established in the selected fixture, document the blocker and revise the setup rather than weakening the assertion.
-
-## Optional extra credit
-
-Compare API setup with UI setup for one scenario and describe the best layer for the assertion and why.
+Use Playwright Test and local TaskFlow. Create taskflow-qa-lab/tests/learner-api-auth.spec.ts with health, unauthenticated access, invalid task input, and authenticated data-isolation checks. Save automation-qa/submissions/api-auth-notes.md explaining the test-data lifecycle and results.

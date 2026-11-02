@@ -1,57 +1,29 @@
 # Manual QA 1: Thinking Like a QA Engineer
 
-## Introduction
+## Theory
 
-Testing is a way to gather evidence about software and reduce uncertainty. In this first guided exercise, you will review a requirement, try the feature, and report what you observed without assuming that one successful example proves everything works.
+A QA engineer helps a team build confidence that a product behaves as people need it to. QA work includes asking questions about requirements, choosing checks, looking for problems, and sharing clear evidence. Testing is one part of QA; it does not prove that a product has no defects. It shows what was checked, what happened, and what is still unknown.
 
-## Learning objectives
+A **requirement** is an agreed description of what the product should do. It gives a tester an expected result to compare with the actual result. If the requirement is missing or unclear, do not guess and report your guess as a defect. Write an open question so the team can clarify it.
 
-- Explain the difference between testing and proving a product has no defects.
-- Review a requirement before execution.
-- Write a small set of positive, negative, and boundary checks.
-- Record observed results without presenting guesses as facts.
+**Static review** means reading a requirement, design, or test without running the product. It can reveal unclear words or missing cases early. **Dynamic testing** means using the running product and observing what it does. Both are useful: static review finds questions; dynamic testing gathers evidence about behavior.
 
-## Concise theoretical explanation
+A **defect** is a difference between an agreed expectation and the behavior you observed. A useful test record separates:
+- **Expected:** what the requirement says should happen.
+- **Actual:** what you observed.
+- **Evidence:** details that help another person check the result, such as exact steps, input, browser, and a screenshot or response.
+- **Result:** pass when behavior matches the expectation, fail when it does not, or blocked when you could not complete the check.
 
-**Quality Assurance (QA)** is the work of preventing and finding problems throughout delivery. **Testing** evaluates a product by reviewing it, exercising it, or checking its results. A **defect** is behavior that differs from an agreed expectation.
+One passing check only supports that specific expectation and input. Creating one task with a normal title does not show that empty titles are handled correctly. Choose different inputs that matter, and keep facts separate from assumptions.
 
-Testing cannot prove that software has no defects; it can show what was checked, what happened, and what risk remains. **Static testing** means reviewing a requirement, design, or code without running the software. It is useful because ambiguity can be found before implementation.
+The [TaskFlow Product Specification](../taskflow-qa-lab/README.md#product-specification) says a task title must contain 1–120 characters after trimming whitespace. This gives a clear expected rule for empty and ordinary titles. The wording does not fully say whether surrounding spaces are removed from the saved title, so record that as a question rather than inventing the answer.
 
-The Software Development Life Cycle (SDLC) describes work from idea through delivery and maintenance. The Software Testing Life Cycle (STLC) describes QA work within that flow: analyze, plan, design, prepare, execute, report, and close. Teams often repeat these activities within each Agile sprint. **Agile** is an iterative way to deliver small changes and learn from feedback. In **Scrum**, a small team plans a short sprint, works toward a shared goal, meets briefly to coordinate, reviews the increment, and reflects on its process. QA contributes throughout the sprint rather than waiting until the end.
+## Practice
 
-Testing has different **levels** based on what is being checked: unit (small code part), integration (parts working together), system (the complete product), and acceptance (whether it meets user/business needs). A junior QA often spends most time at system/acceptance level and collaborates with developers who may add lower-level checks. Testing **types** describe the question: functional (does it behave as specified?), non-functional (how usable, accessible, or reliable is it?), confirmation/retest (is a reported fix corrected?), and regression (did a change break existing behavior?). These categories can overlap; name the purpose of a check, not just its label.
+1. Start TaskFlow locally using the [app setup instructions](../taskflow-qa-lab/README.md#run-locally). Use local D1 and an invented account.
+2. Read the task-title requirement in the [Product Specification](../taskflow-qa-lab/README.md#product-specification). Before using the form, write one question about anything it does not make clear.
+3. Create a task with a normal title, submit an empty title, submit spaces only, and try a title with spaces around real text. Use one account and record each attempt separately.
+4. For every attempt, write the input, expected behavior based on the specification, actual behavior, result (pass/fail/blocked), and evidence. If the result depends on an unanswered question, mark the question instead of calling it a defect.
+5. Do not change the app to make a check pass.
 
-## Practical examples
-
-Requirement: “A task title is required.”
-
-Before testing, ask whether spaces count as a title and what feedback should appear. A focused initial set is: submit a normal title; submit an empty value; submit spaces only. Record the exact expected behavior from the specification and compare it with the actual result.
-
-## Guided practice
-
-1. Start TaskFlow locally by following the [app setup instructions](../taskflow-qa-lab/README.md#run-locally). Use local D1 and an invented account.
-2. Read the task creation rules in [TaskFlow's product specification](../taskflow-qa-lab/README.md#product-specification).
-3. Before opening the task form, list any unclear details about the title field. This is static review.
-4. Register an invented training account and log in.
-5. Try creating a task with a normal title, an empty title, and a spaces-only title.
-6. For each attempt, record the input, expected result from the specification, actual result, and pass/fail.
-7. If actual behavior is unclear or differs from the specification, capture the evidence and note the environment. Do not edit the app to make the test pass.
-
-## Assignment
-
-**Tools:** TaskFlow local app, browser, product specification, Markdown/CSV editor. **Deliverables:** `manual-qa/submissions/task-title-checks.csv` with columns `case_id,scenario,input,expected,actual,status,evidence`, including the three checks above and at least one additional check you designed; and `manual-qa/submissions/review-notes.md` with one ambiguity found during static review. **Submission location:** `manual-qa/submissions/`.
-
-## Definition of Done
-
-- CSV headers match the required columns.
-- Each expected result is traceable to the specification or labeled as an open question.
-- Actual results are based on execution, not assumptions.
-- Evidence makes any failure reproducible.
-
-## Submission instructions
-
-Save both artifacts under `manual-qa/submissions/`. Share them in the project chat for review. Correct any findings before treating this checkpoint as complete.
-
-## Optional extra credit
-
-Repeat the checks in a second browser and note whether any result changes.
+Use the local TaskFlow app, a browser, the Product Specification, and a Markdown or CSV editor. Create `manual-qa/submissions/task-title-checks.csv` with columns `case_id,scenario,input,expected,actual,status,evidence`, and `manual-qa/submissions/review-notes.md` with the unanswered question from your requirement review. Save both files in `manual-qa/submissions/`. Make each actual result something you observed, and include enough evidence for someone to repeat any failed check.

@@ -1,47 +1,23 @@
 # Manual QA 2: Web and Browser Fundamentals
 
-## Introduction
+## Theory
 
-When a web page behaves unexpectedly, a QA Engineer checks both what the user sees and what the browser requested from the server. This lesson introduces only the web concepts needed for that work.
+A **browser** is a client: it asks another computer for a web page or data. A **server** receives that request and sends a response. When you open a web app, the browser may make many requests: one for the page, others for images, styles, scripts, and data.
 
-## Learning objectives
+A page combines different kinds of files. **HTML** describes content and structure, such as headings, buttons, and inputs. **CSS** controls how those elements look and where they appear. In QA, you usually inspect the page structure and appearance to understand behavior; you do not need to write HTML or CSS in this lesson.
 
-You will identify the browser and server roles, inspect a page with Developer Tools, and recognize the parts of a simple HTTP request and response.
+**HTTP** is the request-and-response system used by browsers and web APIs. A request has a method and a URL, and may also have headers and a body. A method describes the kind of action: GET usually reads information; POST usually sends information or creates something. A response has a status code and may have headers and a body. For example, 200 means the request succeeded, 201 usually means something was created, 400 means the request was invalid, and 401 means sign-in is required. A successful response does not by itself prove the whole user journey worked; check the returned data and what the page shows.
 
-## Concise theoretical explanation
+**JSON** is a common format for structured data. An object like {"title":"Review checkout","completed":false} has property names and values: title is a string, and completed is a boolean. An API often sends JSON in its response body.
 
-A browser is the **client**: it requests a page or data. A **server** receives the request and sends a response. **HTML** describes page content and structure; **CSS** controls appearance. JavaScript can make the page respond to actions.
+Browser Developer Tools help you inspect the page. **Elements** shows its HTML and applied CSS. **Network** shows requests and responses, including method, path, status, and body. **Console** shows messages and errors. For example, if a task does not appear, a screenshot shows the visible symptom; a failed request in Network may show that the page did not receive the task data. Report what each piece of evidence proves, not a guessed cause.
 
-HTTP is the request/response protocol used by browsers and APIs. A request includes a method, a URL, headers, and sometimes a body. Common methods include `GET` to read and `POST` to submit. A response includes a status code, headers, and sometimes a body. For example, `200` means the request succeeded, `201` means a resource was created, `400` means the request was invalid, and `401` means authentication is required.
+## Practice
 
-JSON is a text format for structured data, often used in APIs: `{"title":"Review checkout","completed":false}`. Browser Developer Tools can show page structure, styles, console messages, and network requests.
+1. Start TaskFlow locally by following the [app README](../taskflow-qa-lab/README.md#run-locally). Use an invented account and local D1; do not test destructive actions on Preview or production.
+2. Open the app and open Developer Tools with F12.
+3. In **Network**, reload the page and select a request whose path contains /api/. Record its method, path, status, and one property from its JSON response. Use actual observed values.
+4. In **Elements**, find the main heading and record its HTML tag and one applied style. Do not edit the app.
+5. In your note, explain what the request response tells you, what the Console shows, and one thing this evidence does not prove about the full app.
 
-## Practical examples
-
-In TaskFlow, opening the task list should create a `GET /api/tasks` request. The browser's Network panel can show the method, status, response body, and timing. A screenshot alone may show a symptom; the response can help explain whether the issue came from the page or its API.
-
-## Guided practice
-
-1. Start TaskFlow locally by following the [app README](../taskflow-qa-lab/README.md#run-locally), and use an invented account. Keep practice data in local D1; do not use the public Preview or production app for exercises.
-2. Open the app in a browser and press `F12` to open Developer Tools.
-3. Select **Network**, reload the page, and find a request whose URL begins with `/api/`.
-4. Record its request method, status code, and a field from the response body.
-5. Select **Elements** and locate the page's main heading. Observe its HTML tag and one applied style; do not edit the application.
-
-## Assignment
-
-**Tools:** TaskFlow local app, browser Developer Tools, [product specification](../taskflow-qa-lab/README.md#product-specification), and a Markdown editor. **Deliverable:** `manual-qa/submissions/web-request-inspection.md`. Include the page/feature, request method and path, response status, one observed JSON field, and one sentence describing what the evidence tells you. Use only values you observed. **Submission location:** `manual-qa/submissions/`.
-
-## Definition of Done
-
-- The note records an actual request from the local app.
-- Method, path, status, and JSON evidence are present.
-- The conclusion does not claim more than the evidence shows.
-
-## Submission instructions
-
-Save the note under `manual-qa/submissions/` and share it in the project chat for review.
-
-## Optional extra credit
-
-Compare a successful API response with the response you receive after logging out and requesting the same task list.
+Use TaskFlow, a browser, Developer Tools, the [Product Specification](../taskflow-qa-lab/README.md#product-specification), and a Markdown editor. Save the observations in manual-qa/submissions/web-request-inspection.md. Keep the note factual and do not include personal or account information.

@@ -1,51 +1,23 @@
 # Manual QA 6: API Testing with HTTP and Postman
 
-## Introduction
+## Theory
 
-An API lets software exchange data without using the page controls. Testing it directly can isolate whether a problem is in the interface, the API, or both.
+An **API** lets one program ask another program for data or an action. In TaskFlow, the browser uses the same API that you can inspect directly in Postman. This can help you see whether an unexpected page result also appears in the server response.
 
-## Learning objectives
+An HTTP **request** includes a method, a URL, and sometimes headers and a body. The method describes the action: GET usually reads, POST usually creates, PATCH updates part of a resource, and DELETE removes it. Headers carry extra information; for example, Content-Type tells the server that a request body contains JSON. A **query parameter** adds a filter to the URL, such as status=active. A JSON body could contain a task title and description.
 
-- Build and inspect HTTP requests in Postman.
-- Select methods, headers, query parameters, and JSON bodies.
-- Check status codes, response data, and error behavior.
-- Test authentication and user isolation without exposing secrets.
+The server's **response** includes a status code and may include headers and a body. In this app, 200 means success, 201 means a resource was created, 204 means success with no response body, 400 means invalid input, 401 means sign-in is needed, and 404 means the resource was not found or is not available to that user. Check the response body and the resulting task state as well as the status: the right status can still accompany the wrong data.
 
-## Concise theoretical explanation
+Postman lets you save related requests in a **collection**. A collection variable such as baseUrl helps you reuse the local app address. Requests after sign-in may use an authentication cookie; let Postman manage the cookie jar and never copy a token into your notes or a shared export. TaskFlow's [API Reference](../taskflow-qa-lab/README.md#api-reference) lists routes, and its [Product Specification](../taskflow-qa-lab/README.md#product-specification) describes expected behavior.
 
-HTTP is a request/response protocol. A request includes a method, URL, headers, and sometimes a body. `GET` reads, `POST` creates or submits, `PATCH` partially updates, and `DELETE` removes. A **header** carries metadata, such as `Content-Type: application/json`. A **query parameter** filters a URL, e.g. `?status=active`. JSON is a structured text body.
+For example, GET /api/tasks?status=active should list only the signed-in user's active tasks. A POST to /api/tasks with a valid JSON title should create a task. After sign-out, a protected task request should require sign-in. A successful DELETE returns 204 with no body, so there is no JSON response to inspect.
 
-Common statuses here: `200` success, `201` created, `204` success with no response body, `400` invalid input, `401` not authenticated, and `404` missing or not-owned resource. A status alone is not enough: check the response shape and side effects. Postman collections can save requests; environments hold base URLs and variables. Do not save real credentials, access tokens, or secrets in a shared collection.
+## Practice
 
-TaskFlow's [API Reference](../taskflow-qa-lab/README.md#api-reference) documents the routes; [Product Specification](../taskflow-qa-lab/README.md#product-specification) defines expected behavior. Test one request at a time, vary one important condition, and record response status/body plus the resulting app state.
+1. Open Postman and create a collection named TaskFlow QA Lab local. Set a collection variable named baseUrl to the local TaskFlow address from the app README.
+2. Send GET to the health route. Record the request and response; use the response to confirm the local API is reachable.
+3. Use a dummy account and let Postman store the authentication cookie. Send requests for current user, create, list with filters, statistics, update, delete, invalid title, unknown filter, and unauthenticated access.
+4. For each request, compare method, URL, input, status, response body, and task state with the API Reference and Product Specification. Include successful and error cases.
+5. Save only sanitized request details. Do not export passwords, cookies, token-bearing headers, or real user information.
 
-## Practical examples
-
-`GET /api/tasks?status=active` should return only the signed-in user's active tasks. `POST /api/tasks` needs JSON such as `{"title":"Review release"}` and should return `201`. A request after logout should return `401`; deleting an existing task should return `204` with no body.
-
-## Guided practice
-
-1. Install/open Postman and create a collection named `TaskFlow QA Lab — local`.
-2. Set a collection variable `baseUrl` to `http://localhost:8787`; use `{{baseUrl}}/api/health` to confirm connectivity.
-3. Register a reserved dummy email using a password created only for this local exercise. Keep credentials in a local-only variable and do not export/share it.
-4. Send requests for current user, create task, list filters, stats, update, delete, invalid title, unknown filter, and unauthenticated access. Use the app's authentication flow/cookie handling rather than copying a token into a report.
-5. Compare method, URL, request body, status, response JSON, and database-visible behavior to the docs.
-
-## Assignment
-
-**Tools:** Postman and TaskFlow API documentation. **Deliverable:** `manual-qa/submissions/taskflow-api-checks.md` with a sanitized collection outline or screenshots, at least eight request/expected/observed rows spanning success and errors, and a short conclusion on what the API evidence localizes. Do not submit credentials or token-bearing headers. **Submission location:** `manual-qa/submissions/`; share for review.
-
-## Definition of Done
-
-- At least eight cases include route, method, input, expected status/shape, observed status/shape, and result.
-- Coverage includes create/read/update/delete, validation, and unauthenticated access.
-- Evidence contains no credentials, tokens, or real user data.
-- `204` is checked as an empty response and user ownership is considered.
-
-## Submission instructions
-
-Save the sanitized report under `manual-qa/submissions/`. Share the report and, only if safe, a collection export with all secrets removed. Correct any mismatch before calling the checks complete.
-
-## Optional extra credit
-
-Add a Postman assertion that checks one stable response property and explain what the assertion still cannot prove.
+Use Postman and TaskFlow's API documentation. Save your report in manual-qa/submissions/taskflow-api-checks.md with at least eight rows showing request, expected result, observed result, and pass/fail; include create/read/update/delete, validation, and unauthenticated behavior. Add a short conclusion about what direct API evidence helps you isolate.

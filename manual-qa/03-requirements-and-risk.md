@@ -1,51 +1,21 @@
 # Manual QA 3: Requirements, Stories, and Risk
 
-## Introduction
+## Theory
 
-Good testing starts before a feature is built. This lesson turns a short request into clear, testable expectations and a small risk-focused plan.
+A **requirement** describes a behavior or rule the product should follow. A **user story** describes a user's goal, often in the form “As a user, I want to do something so that I get a benefit.” **Acceptance criteria** add observable conditions that say when the goal is met. A strong criterion is clear enough that two people can agree whether it passed. “Filtering should be easy” is unclear; “Selecting Active shows only incomplete tasks” can be checked.
 
-## Learning objectives
+Reading requirements before using the app is **static review**. It helps find missing answers early. Write unanswered questions instead of inventing expectations. For example, if a task title rule says how many characters are allowed but does not say what happens to extra spaces, ask whether those spaces are removed or only ignored during length checking.
 
-- Separate a user story from its acceptance criteria.
-- Find ambiguity and missing cases through static review.
-- Rank test ideas by likelihood and impact.
-- Write a compact test plan linked to the product specification.
+Testing time is limited, so use **risk** to choose what to check first. Risk considers both likelihood (how likely a problem is) and impact (how much harm it would cause). A login problem may affect every user; a small spacing issue may affect appearance only. For practice, assign each one a score from 1 (low) to 3 (high) for likelihood and impact, then multiply them. This simple score helps compare ideas; it is not a precise prediction and does not make low-scored requirements unimportant.
 
-## Concise theoretical explanation
+A useful plan states its feature scope, requirement source, environment, assumptions and questions, likely failures, test order, and exclusions. Explain why you ranked a risk high or low. Include an open question as an uncertainty, not as a test result.
 
-A **requirement** describes a product behavior or constraint. A **user story** expresses a goal from a user's point of view; **acceptance criteria** define observable conditions for accepting it. A useful criterion is specific, testable, and has one clear interpretation. Static review means examining text before running software.
+## Practice
 
-Risk combines the chance a problem occurs with the harm it could cause. A simple scale is Low, Medium, High. A login failure may be high risk because many users cannot reach the app; a minor spacing difference may be low. Risk helps choose coverage when time is limited. It does not justify ignoring agreed requirements.
+1. Open the [TaskFlow Product Specification](../taskflow-qa-lab/README.md#product-specification) and focus on task creation.
+2. Write a short user story for task creation, then list observable acceptance criteria using only the specification. Copy the exact requirement text you will test. List unclear details as questions and say whether each question blocks the planned test.
+3. List at least five ways task creation could fail. For each, write a short reason, likelihood score, impact score, and multiplied score.
+4. Order your planned test areas by risk. Include an ordinary user-flow risk, an invalid-input risk, and an ownership or access-control risk. Explain the order.
+5. State what is in scope, what is out of scope, and which environment and dummy data you will use. Do not invent test results.
 
-Example story: “As a signed-in user, I want to filter my tasks so I can focus on work that remains.” Criteria should say which filter values are valid, how counts behave, whether filters persist, and what an empty result looks like. If the specification does not answer a question, record it as an open question rather than inventing expected behavior.
-
-## Practical examples
-
-In the [TaskFlow Product Specification](../taskflow-qa-lab/README.md#product-specification), “a title from 1 through 120 characters after trimming” gives boundaries. A task belonging to another account returning `404` is a security and isolation expectation. The same issue can have both likelihood and impact; record why you ranked it high instead of treating the label as self-evident.
-
-## Guided practice
-
-1. Open the [TaskFlow Product Specification](../taskflow-qa-lab/README.md#product-specification) and choose task creation or account registration.
-2. Copy the exact requirements you intend to test into a short plan; do not rewrite them as broader promises.
-3. List missing details as questions. Mark each as blocking or non-blocking for the current test.
-4. Brainstorm failures, assign likelihood and impact from 1 (low) to 3 (high), and multiply them for a simple risk score.
-5. Choose the highest-risk checks first and explain the order.
-
-## Assignment
-
-**Tools:** Markdown editor and the [test plan template](templates/test-plan-template.md). **Deliverable:** `manual-qa/submissions/task-filter-test-plan.md`, containing scope, source requirements, environment, assumptions/questions, at least five risks with likelihood/impact/score, prioritized test areas, and out-of-scope items. Keep the plan small enough to execute in one sitting. **Submission location:** `manual-qa/submissions/`; share it in the project chat for review before committing.
-
-## Definition of Done
-
-- Every planned expectation links to the product specification or is labeled an open question.
-- Risks include a reason and separate likelihood from impact.
-- The plan prioritizes at least one security, one boundary, and one ordinary user-flow risk where applicable.
-- Scope and exclusions are explicit; no test result is invented.
-
-## Submission instructions
-
-Save the Markdown deliverable at the stated path. In your review request, identify the requirement with the most ambiguity and the risk you chose to test first. Correct review findings before marking the lesson complete.
-
-## Optional extra credit
-
-Ask a reviewer to change one product assumption. Update the risk ranking and explain why the test order changed.
+Use a Markdown editor and the [test plan template](templates/test-plan-template.md). Save manual-qa/submissions/task-creation-test-plan.md with the user story and acceptance criteria, scope, source requirements, environment, questions, risk list, test order, and exclusions. Keep the plan small enough to run in one session.

@@ -1,115 +1,85 @@
-# QA Engineer Roadmap
+# QA Engineering Roadmap
 
-A practical learning path for a beginner, built around Manual QA and QA Automation. TaskFlow QA Lab is the practice application.
+A beginner-friendly, practice-first path to junior QA skills, including remote opportunities. The course has two sections: Manual QA and QA Automation. TaskFlow QA Lab is the practice application. Lessons are original and focus on QA work, not general software development.
 
-## Start here
+## How to learn
 
-1. Read the roadmap below.
-2. Begin with [Manual QA 1: Thinking like a QA Engineer](manual-qa/01-thinking-like-a-qa-engineer.md).
-3. Save each assignment in the [`manual-qa/submissions/`](manual-qa/submissions/) or [`automation-qa/submissions/`](automation-qa/submissions/) folder, as directed by the lesson.
-4. Request a review before moving past a mastery checkpoint. Reading lessons alone does not pass a checkpoint.
+For each lesson, read and understand the theory, complete the practice, and save your work in the relevant section's submissions folder. Then ask an AI reviewer to review the saved work. The reviewer should explain what is correct, what needs correction, what to practice again, and whether you should reinforce this skill or move to the next lesson. Correct important gaps before moving on. Reading alone does not pass a competency checkpoint.
 
-For a fresh clone or recovery, see [Backup and Recovery](#backup-and-recovery). [CONTEXT.md](CONTEXT.md) is the current project handoff for future chats and agents.
+Support decreases as you progress: early lessons give more steps, while later lessons ask you to plan and work independently. A checkpoint is passed only after the learner's work has been reviewed and important gaps have been corrected. Do not claim skills or progress that the evidence does not support.
 
-## Sections
-
-| Section | Focus |
-| --- | --- |
-| [1. Manual QA](manual-qa/) | QA thinking, web and browser basics, requirements, risk, test design, execution, API/data checks, defects, and capstone |
-| [2. QA Automation](automation-qa/) | Automation strategy, Git/GitHub, TypeScript, Playwright, API checks, debugging, CI, and capstone |
-
-## TaskFlow QA Lab
-
-TaskFlow is a small task manager for practice. Its expected behavior is defined in the [product specification](taskflow-qa-lab/README.md#product-specification). Run it locally by following [TaskFlow's setup instructions](taskflow-qa-lab/README.md#run-locally).
-
-Use invented accounts and dummy data only. Do not enter real credentials or personal information.
-
-Manual QA templates: [test plan](manual-qa/templates/test-plan-template.md), [test case](manual-qa/templates/test-case-template.csv), [test execution](manual-qa/templates/test-execution-template.csv), and [bug report](manual-qa/templates/bug-report-template.md).
-
-## Project integrity and progress
-
-The application and learning materials were AI-assisted. Learner submissions must reflect work the learner can explain and reproduce. Keep that distinction clear, and never include credentials or private data in this public repository.
-
-Begin with [Manual QA 1](manual-qa/01-thinking-like-a-qa-engineer.md) and save work in [`manual-qa/submissions/`](manual-qa/submissions/). Use the [TaskFlow Product Specification](taskflow-qa-lab/README.md#product-specification) as the expected-behavior source during testing.
-
----
+For every lesson, ask: **Does this teach or practice something useful for becoming a QA engineer?** Every theory concept should be used naturally in the practice. If it does not fit, move it to a better lesson or remove it; do not invent an artificial exercise.
 
 ## Roadmap
 
-### Learning Roadmap
+### 1. Manual QA
 
-Learn through practical assignments. Complete each checkpoint and address review feedback before moving to the next section.
+1. [Thinking like a QA Engineer](manual-qa/01-thinking-like-a-qa-engineer.md) — QA's role, expected and actual behavior, evidence, and limits of testing.
+2. [Web and Browser Fundamentals](manual-qa/02-web-and-browser-fundamentals.md) — browser/server roles, HTML/CSS, Developer Tools, HTTP, and JSON.
+3. [Requirements, Stories, and Risk](manual-qa/03-requirements-and-risk.md) — testable expectations, unanswered questions, and risk priorities.
+4. [Test Cases and Test Design](manual-qa/04-test-design.md) — equivalence partitions, boundaries, decision tables, and task states.
+5. [Exploratory and Web Testing](manual-qa/05-exploratory-web-testing.md) — exploratory, smoke/regression, responsive, usability, and basic accessibility checks.
+6. [API Testing with HTTP and Postman](manual-qa/06-api-testing.md) — requests, responses, validation, authentication, and user isolation.
+7. [SQL and Data Validation](manual-qa/07-sql-and-data.md) — read-only checks against local D1.
+8. [Defects, Retesting, and Release Reporting](manual-qa/08-defects-and-release-reporting.md) — reproducible reports, severity/priority, retesting, and remaining risk.
+9. [TaskFlow Manual QA Capstone](manual-qa/09-manual-capstone.md) — an independent risk-focused test effort.
 
-## 1. Manual QA
+The Manual QA checkpoint is to test a feature from its documented behavior, prioritize risk, record reproducible evidence, and explain what remains untested.
 
-**Goal:** Learn QA judgment and test web software, including the browser concepts needed for testing.
+Templates: [test plan](manual-qa/templates/test-plan-template.md), [test cases](manual-qa/templates/test-case-template.csv), [test execution](manual-qa/templates/test-execution-template.csv), and [bug report](manual-qa/templates/bug-report-template.md).
 
-1. [Thinking like a QA Engineer](manual-qa/01-thinking-like-a-qa-engineer.md) — quality, testing principles, SDLC/STLC, and static review.
-2. [Web and browser fundamentals](manual-qa/02-web-and-browser-fundamentals.md) — client/server, HTML, CSS, DevTools, HTTP, and JSON in the context of testing.
-3. [Requirements, stories, and risk](manual-qa/03-requirements-and-risk.md) — acceptance criteria and risk-based planning.
-4. [Test cases and test design](manual-qa/04-test-design.md) — partitions, boundaries, decision tables, and state transitions.
-5. [Exploratory and web testing](manual-qa/05-exploratory-web-testing.md) — smoke/regression, responsive, cross-browser, usability, and accessibility basics.
-6. [API testing](manual-qa/06-api-testing.md) — HTTP, REST, JSON, Postman, and authenticated behavior.
-7. [SQL and data validation](manual-qa/07-sql-and-data.md) — read-only local D1 checks and data ownership.
-8. [Defects and release reporting](manual-qa/08-defects-and-release-reporting.md) — defect lifecycle, severity/priority, retest, and risk communication.
-9. [Manual QA capstone](manual-qa/09-manual-capstone.md) — independent assessment using local TaskFlow.
+### 2. QA Automation
 
-**Checkpoint:** Independently test an unfamiliar feature, create a risk-focused test set, report reproducible defects, and summarize residual risk.
+1. [Choosing What to Automate](automation-qa/01-automation-strategy.md) — value, risk, test layers, and tradeoffs.
+2. [Git, GitHub, and Markdown](automation-qa/02-git-github-markdown.md) — review and publish changes using GitHub Desktop.
+3. [TypeScript for QA](automation-qa/03-typescript-for-qa.md) — language needed to read, write, and maintain tests.
+4. [Playwright UI Checks](automation-qa/04-playwright-ui.md) — accessible locators, assertions, fixtures, and isolation.
+5. [API, Authentication, and Test Data](automation-qa/05-api-auth-data.md) — API checks, sessions, and safe data.
+6. [Debugging, Reliability, and CI](automation-qa/06-debugging-ci-and-reports.md) — diagnose failures and understand GitHub Actions.
+7. [TaskFlow Automation Capstone](automation-qa/07-automation-capstone.md) — an independent TypeScript/Playwright suite.
 
-Save work in [`manual-qa/submissions/`](manual-qa/submissions/). Templates are in [`manual-qa/templates/`](manual-qa/templates/).
+The Automation QA checkpoint is to build and debug an isolated suite, explain its coverage and limits, and interpret its CI result.
 
-## 2. QA Automation
+## Lesson format
 
-**Goal:** Turn valuable checks into reliable automated tests and explain their limits.
+Each lesson has only two learning sections: **Theory** explains the important ideas in clear English with QA-focused examples; **Practice** says what to do, which tools to use, and what to save. Lessons are in English, with new terms explained before they are used heavily.
 
-1. [Automation strategy](automation-qa/01-automation-strategy.md) — what to automate, where checks belong, and tradeoffs.
-2. [Git, GitHub, and Markdown](automation-qa/02-git-github-markdown.md) — version control and review workflow as code and test artifacts are introduced.
-3. [TypeScript for QA](automation-qa/03-typescript-for-qa.md) — the language features needed to understand and maintain tests.
-4. [Playwright UI checks](automation-qa/04-playwright-ui.md) — accessible locators, assertions, fixtures, and isolation.
-5. [API, authentication, and test data](automation-qa/05-api-auth-data.md) — API checks, safe auth state, and test data lifecycle.
-6. [Debugging, reliability, and CI](automation-qa/06-debugging-ci-and-reports.md) — failures, traces, flakiness, and GitHub Actions.
-7. [Automation capstone](automation-qa/07-automation-capstone.md) — independent TaskFlow suite and CI review.
+## TaskFlow QA Lab
 
-**Checkpoint:** Build and debug a small isolated suite, explain its coverage, and interpret a CI failure independently.
+TaskFlow is a fictional task manager for QA practice. Its [Product Specification](taskflow-qa-lab/README.md#product-specification) is the source of truth. If the app and specification disagree, record what happened and the evidence; do not silently change the expected result.
 
-Save work in [`automation-qa/submissions/`](automation-qa/submissions/).
+The automation stack is TypeScript with Playwright Test; learn only the TypeScript needed to write, understand, debug, and maintain QA tests. No Python curriculum is used. Git and GitHub appear when code is introduced. Manual QA and API testing remain foundational. The app supports registration and sign-in, task creation/editing/completion/deletion, filters and counts, validation, an API, persistence, and account isolation. It uses a TypeScript Cloudflare Worker, D1 for tasks and account mapping, Supabase Auth for credentials and sessions, and Playwright Test. The test suite uses a local Worker, local D1, and a test-only Supabase Auth mock.
 
-## Lesson and practice rules
+Follow the app README for [local setup](taskflow-qa-lab/README.md#run-locally), commands, API behavior, product expectations, and environment/deployment notes. Use local D1 for exercises. Reset commands target local D1 only. Do not use Preview or production for destructive practice.
 
-Each lesson uses nine sections: introduction, objectives, concise theory, examples, guided practice, assignment, Definition of Done, submission instructions, and optional extra credit. Support decreases as skills build. Submit practical work for review; lesson availability is not evidence of mastery.
+## Safety and privacy
 
-Use invented accounts and local D1 for exercises. Public app endpoints are for demonstration, not destructive test runs. The reset script only targets local D1. Compare observed behavior with the Product Specification and report evidence-based differences.
+Use invented accounts and dummy data. Never commit real personal information, passwords, credentials, access tokens, service-role keys, authentication state, unredacted evidence, local databases, or ignored runtime files. Treat screenshots, traces, logs, and database output as potentially sensitive; redact before sharing.
 
----
+The repository uses one branch, `main`, to keep the workflow simple. TaskFlow is a practice project, not a production service. One low-risk presentation difference is included for the Manual QA capstone; do not reveal its behavior before the learner completes that investigation. Keep authentication, task workflows, persistence, and user isolation usable.
 
-## Backup and Recovery
+## Repository map
 
-### Backup and Recovery Guide
+- `manual-qa/` has the nine lessons, templates, and learner submissions.
+- `automation-qa/` has the seven lessons and learner submissions.
+- `taskflow-qa-lab/` has the app, specification/setup guide, D1 migrations, local scripts, and Playwright tests.
+- `.github/workflows/taskflow-qa.yml` runs the app's type check and Playwright suite and preserves reports and failure evidence.
+- `README.md` is the roadmap, learning workflow, project context, and recovery guide.
 
-The public [GitHub repository](https://github.com/thiagoburg/qa-engineering) stores project files and committed learner submissions. It includes the two course sections, app source, migrations, templates, and current project context.
+Written learner work belongs in manual-qa/submissions/ or automation-qa/submissions/ as the lesson directs. Executable Playwright tests belong in taskflow-qa-lab/tests/ so local runs and GitHub Actions can discover them; name them learner-authored. Keep notes and reports in the relevant section submissions folder. All learner work should be explainable and reproducible.
 
-## Restore the project
+## CI, deployment, and learner status
 
-In PowerShell, clone the repository and start the app:
+GitHub Actions checks TypeScript types and Playwright behavior and saves reports and failure evidence. Cloudflare Workers Builds deploys from `main` with `taskflow-qa-lab` as its root directory. Preview and production use separate D1 databases. Local D1 is the learning environment.
 
-```powershell
-git clone https://github.com/thiagoburg/qa-engineering.git
-Set-Location qa-engineering/taskflow-qa-lab
-npm ci
-npm run db:migrate:local
-npm run dev
-```
+The learner starts at Manual QA lesson 1. No learner submissions have been reviewed and no competency checkpoint has been passed. Do not invent progress or portfolio evidence.
 
-The local app opens at `http://localhost:8787`. Optional local overrides belong in ignored `.dev.vars`; never add secrets or real credentials to Git.
+The app, lessons, and templates were AI-assisted. Keep them distinct from learner-created submissions.
 
-Start at [Manual QA 1](manual-qa/01-thinking-like-a-qa-engineer.md). Save learner work inside its section: `manual-qa/submissions/` or `automation-qa/submissions/`. Commit reviewed work when it is ready for backup. Update the checkpoint status in this README after reviewing evidence.
+## Backup and recovery
 
-## Keep a current copy
+The public [GitHub repository](https://github.com/thiagoburg/qa-engineering) stores committed course files, app source, migrations, templates, and committed learner submissions. To restore on a new device, use GitHub Desktop to clone `thiagoburg/qa-engineering` into the desired folder. Then follow the app's [local setup guide](taskflow-qa-lab/README.md#run-locally).
 
-The course and practice app are on `main`. Pull the latest `main` before starting a new learning section. Use fresh local D1 data for capstones. The `db:reset:local` command from `taskflow-qa-lab/` targets local D1 only.
+Sign-in sessions, local databases, ignored runtime files, and Obsidian settings are not stored in GitHub. Recreate dependencies using the app setup guide. Pull the latest `main` before continuing. Commit learner work when ready for backup, after checking it contains no private information.
 
-## What is not stored in GitHub
-
-Sign-in sessions, service access, local databases, ignored runtime files, and Obsidian settings are not part of the repository. Recreate dependencies with `npm ci`; sign in to Cloudflare, GitHub, and Supabase as needed. Obsidian settings and `.trash/` remain local device state.
-
-This is a public repository. Remove personal information, credentials, access tokens, and confidential material before committing learner submissions.
+This is a public repository. Review submissions and evidence for personal information, credentials, tokens, or confidential material before committing.
