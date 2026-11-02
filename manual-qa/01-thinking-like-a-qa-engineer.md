@@ -16,7 +16,7 @@ A **defect** is a difference between an agreed expectation and the behavior you 
 
 One passing check only supports that specific expectation and input. Creating one task with a normal title does not show that empty titles are handled correctly. Choose different inputs that matter, and keep facts separate from assumptions.
 
-The [TaskFlow Product Specification](../taskflow-qa-lab/README.md#product-specification) says a task title must contain 1–120 characters after trimming whitespace. This gives a clear expected rule for empty and ordinary titles. The wording does not fully say whether surrounding spaces are removed from the saved title, so record that as a question rather than inventing the answer.
+The [TaskFlow Product Specification](../taskflow-qa-lab/README.md#product-specification) says a task title must contain 1–120 Unicode code points after trimming whitespace. These are text units used for counting: a standalone emoji counts as one, while a combined emoji can count as several. The app trims surrounding whitespace before saving a title.
 
 ## Practice
 

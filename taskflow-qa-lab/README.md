@@ -115,17 +115,19 @@ Use invented data. Postman collections and screenshots must not contain real cre
 
 ## Deployment and Environment Notes
 
-TaskFlow uses Cloudflare Workers and D1 for the app and task data. Supabase Auth manages account passwords and access tokens. Preview is live at `https://taskflow-qa-lab-preview.taskflow-qa-lab.workers.dev`; production is live at `https://taskflow-qa-lab.taskflow-qa-lab.workers.dev`. Each environment has its own D1 database. Both health endpoints return `200 {"status":"ok"}`.
+TaskFlow uses Cloudflare Workers and D1 for the app and task data. Supabase Auth manages account passwords and access tokens. Preview is live at `https://taskflow-qa-lab-preview.taskflow-qa-lab.workers.dev`; production is live at `https://taskflow-qa-lab.taskflow-qa-lab.workers.dev`. Each environment has its own D1 database. Both health endpoints last returned `200 {"status":"ok"}` when checked on November 2, 2026; live status can change.
 
 ## Supabase Auth setup
 
 1. The Supabase Free project is already created. Its project URL and publishable key are public configuration values in `wrangler.jsonc`; local `.dev.vars` may override them and is ignored by Git. Never add a Supabase secret or service-role key to this app or repository.
-2. Email sign-up is enabled and Confirm Email is disabled for practice accounts. This lets invented accounts sign in without a mailbox. Use only dummy data; if the project is ever used with real personal data, enable email confirmation and configure appropriate email delivery first.
-3. Use invented, syntactically valid example addresses such as `qa@example.com` and practice-only passwords. Do not enter real personal information. The hosted project's built-in email service has restrictive delivery limits; custom SMTP is needed for sending confirmation email to arbitrary addresses.
+2. At the last settings check on October 31, 2026, email sign-up was enabled and Confirm Email was disabled for practice accounts. Check the current Supabase Auth settings before relying on this; with confirmation enabled, use an email address you can access. Use only dummy data.
+3. Use invented, syntactically valid example addresses such as `qa@example.com` and practice-only passwords. Do not enter real personal information. Email delivery limits and setup can change; check current Supabase guidance if confirmation emails are needed.
 4. On October 31, 2026, live Preview API checks passed for registration, current user, login/logout, invalid input, task create/edit/complete/delete, filtering, statistics, persistence across sign-in, and account isolation. Temporary task rows were deleted. Test Auth identities use reserved example addresses and have no usable mailbox.
 5. Production's two D1 migrations have been applied, and the Worker has been deployed and health-checked. Cloudflare Workers Builds is connected to `thiagoburg/qa-engineering`. Its root directory is `taskflow-qa-lab`, matching this folder. The integration uses `main` as the production branch, `npx wrangler deploy` as the deploy command, and `npx wrangler preview` as the Preview command. Preview builds are enabled. The first `main` push after connection triggered a production deployment, and its health check passed.
 
-Supabase's Free plan currently lists 50,000 monthly active users and pauses projects after a week of inactivity. This is adequate for a learning prototype but means a Preview may need to be resumed after inactivity. See [Supabase pricing](https://supabase.com/pricing).
+The Cloudflare dashboard configuration above was last reviewed on October 31, 2026. Check the current Worker settings before changing deployment behavior.
+
+Provider pricing, quotas, and inactivity policies can change. Check [current Supabase pricing and limits](https://supabase.com/pricing) before relying on hosted practice; local automated tests use a test-only auth mock and do not depend on the hosted Supabase project.
 
 ## Cloudflare environments
 
@@ -139,7 +141,7 @@ Supabase's Free plan currently lists 50,000 monthly active users and pauses proj
 ## Release status
 
 - Preview API checks passed on October 31, 2026 for auth, validation, task workflows, filtering, statistics, persistence, and account isolation. Temporary task rows were removed.
-- Production D1 migrations are applied, and production health is verified. Production user workflows have not been exercised; continue those checks on Preview.
+- Production D1 migrations are applied. Production and Preview health endpoints returned `200` when checked on November 2, 2026. Production user workflows have not been exercised; continue those checks on Preview.
 - GitHub Actions tests the code and retains failure artifacts. Cloudflare Workers Builds deploys commits from `main` and creates Preview builds for branches and pull requests.
 - Do not use real personal data. The public app is a practice environment, not a production service with user-data support.
 
@@ -168,11 +170,12 @@ TaskFlow is a small practice app for QA learning. Users create invented accounts
 - Incorrect email/password returns a general authentication error without revealing which field was wrong.
 - Sign out clears the TaskFlow cookie and asks Supabase Auth to end the session. The response says whether Supabase confirmed revocation; the interface reports if it could not. A subsequent protected request requires sign-in to TaskFlow.
 - The Supabase access token is held in an HTTP-only, same-site cookie for no longer than the token's lifetime. HTTPS responses mark the cookie Secure.
+- TaskFlow does not refresh access tokens. After the token expires, the learner must sign in again.
 
 ### Task behavior
 
 - Only a signed-in user can list, create, edit, complete, or delete tasks.
-- A task has a required title from 1 through 120 characters after trimming whitespace and an optional description up to 1,000 characters.
+- A task has a required title from 1 through 120 Unicode code points after trimming whitespace and an optional description up to 1,000 Unicode code points. A standalone emoji counts as one code point; combined emoji may contain several.
 - New tasks are active and have an empty description when none is supplied.
 - A user can edit a task title and description, mark it completed or active, and delete it.
 - A task owned by another account behaves as not found. User A cannot read, update, or delete user B's task.

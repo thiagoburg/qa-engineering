@@ -16,6 +16,18 @@ const authStatus = document.querySelector("#auth-status");
 const retrySession = document.querySelector("#retry-session");
 let activeFilter = "all";
 
+function bindCodePointLimit(input, maximum, label) {
+  const validate = () => {
+    const count = Array.from(input.value).length;
+    input.setCustomValidity(count > maximum ? `${label} must be ${maximum} characters or fewer.` : "");
+  };
+  input.addEventListener("input", validate);
+  validate();
+}
+
+bindCodePointLimit(document.querySelector("#task-title"), 120, "Task title");
+bindCodePointLimit(document.querySelector("#task-description"), 1000, "Description");
+
 async function api(path, options = {}) {
   const response = await fetch(path, {
     ...options,
@@ -118,9 +130,9 @@ function startEdit(item, task) {
   titleLabel.textContent = "Task title";
   const titleInput = document.createElement("input");
   titleInput.name = "title";
-  titleInput.maxLength = 120;
   titleInput.required = true;
   titleInput.value = task.title;
+  bindCodePointLimit(titleInput, 120, "Task title");
   titleLabel.htmlFor = `edit-title-${task.id}`;
   titleInput.id = titleLabel.htmlFor;
   const descriptionLabel = document.createElement("label");
@@ -129,9 +141,9 @@ function startEdit(item, task) {
   const descriptionInput = document.createElement("textarea");
   descriptionInput.id = descriptionLabel.htmlFor;
   descriptionInput.name = "description";
-  descriptionInput.maxLength = 1000;
   descriptionInput.rows = 2;
   descriptionInput.value = task.description;
+  bindCodePointLimit(descriptionInput, 1000, "Description");
   const message = document.createElement("p");
   message.className = "form-message";
   message.setAttribute("role", "alert");

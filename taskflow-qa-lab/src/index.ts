@@ -23,6 +23,10 @@ const SESSION_COOKIE = "taskflow_session";
 const SESSION_SECONDS = 60 * 60 * 24 * 7;
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+function codePointLength(value: string): number {
+  return Array.from(value).length;
+}
+
 class AuthServiceError extends Error {}
 
 function json(data: unknown, status = 200, headers = new Headers()): Response {
@@ -261,8 +265,8 @@ async function createTask(request: Request, env: Env, user: SessionUser): Promis
   const title = body.title.trim();
   const description = body.description === undefined ? "" : body.description;
   if (!title) return error("Enter a task title.", 400);
-  if (title.length > 120) return error("Task title must be 120 characters or fewer.", 400);
-  if (typeof description !== "string" || description.length > 1000) {
+  if (codePointLength(title) > 120) return error("Task title must be 120 characters or fewer.", 400);
+  if (typeof description !== "string" || codePointLength(description) > 1000) {
     return error("Description must be 1,000 characters or fewer.", 400);
   }
 
@@ -291,8 +295,8 @@ async function updateTask(request: Request, env: Env, user: SessionUser, id: str
   const description = body.description === undefined ? existing.description : body.description;
   const completed = body.completed === undefined ? Boolean(existing.completed) : body.completed;
   if (typeof title !== "string" || !title.trim()) return error("Enter a task title.", 400);
-  if (title.trim().length > 120) return error("Task title must be 120 characters or fewer.", 400);
-  if (typeof description !== "string" || description.length > 1000) {
+  if (codePointLength(title.trim()) > 120) return error("Task title must be 120 characters or fewer.", 400);
+  if (typeof description !== "string" || codePointLength(description) > 1000) {
     return error("Description must be 1,000 characters or fewer.", 400);
   }
   if (typeof completed !== "boolean") return error("Completion state must be true or false.", 400);

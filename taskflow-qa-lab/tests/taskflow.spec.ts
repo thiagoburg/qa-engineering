@@ -89,6 +89,38 @@ test("rejects incorrect credentials with a clear message", async ({ page }) => {
   await expect(page.getByRole("alert")).toContainText("incorrect");
 });
 
+test("reports when email confirmation is required during registration", async ({ page }) => {
+  await page.goto("/");
+  await page.getByRole("group", { name: "Account actions" }).getByRole("button", { name: "Create account" }).click();
+  const registration = page.locator("#register-panel");
+  await registration.getByLabel("Email address").fill(`qa-${crypto.randomUUID()}@confirm.example.test`);
+  await registration.getByLabel(/Password/).fill(password);
+  await registration.getByRole("button", { name: "Create account" }).click();
+  await expect(page.locator("#register-message")).toContainText("Check your email to confirm");
+  await expect(page.getByRole("heading", { name: "My tasks" })).toBeHidden();
+});
+
+test("normalizes registration email spaces and letter case", async ({ page }) => {
+  const email = uniqueEmail();
+  const registration = await page.request.post("/api/auth/register", {
+    data: { email: `  ${email.toUpperCase()}  `, password },
+  });
+  expect(registration.status()).toBe(201);
+  expect((await registration.json()).user.email).toBe(email);
+
+  const duplicate = await page.request.post("/api/auth/register", {
+    data: { email: ` ${email.toUpperCase()} `, password },
+  });
+  expect(duplicate.status()).toBe(409);
+
+  await page.request.post("/api/auth/logout");
+  const login = await page.request.post("/api/auth/login", {
+    data: { email: ` ${email.toUpperCase()} `, password },
+  });
+  expect(login.status()).toBe(200);
+  expect((await login.json()).user.email).toBe(email);
+});
+
 async function register(page: Page, email = uniqueEmail()): Promise<string> {
   await page.goto("/");
   await page.getByRole("group", { name: "Account actions" }).getByRole("button", { name: "Create account" }).click();
@@ -151,6 +183,57 @@ test("creates, completes, filters, edits, and deletes a task", async ({ page }) 
   await expect(page.getByText("No tasks match this filter.")).toBeVisible();
   await page.getByRole("button", { name: "All", exact: true }).click();
   await expect(page.getByText("0 active · 0 completed · 0 total")).toBeVisible();
+});
+
+test("counts title and description limits by Unicode code point for create and edit", async ({ page }) => {
+  await register(page);
+  const maximumTitle = "😀".repeat(120);
+  const maximumDescription = "🧪".repeat(1000);
+
+  const createdAtLimit = await page.request.post("/api/tasks", {
+    data: { title: maximumTitle, description: maximumDescription },
+  });
+  expect(createdAtLimit.status()).toBe(201);
+
+  const createdOverLimit = await page.request.post("/api/tasks", {
+    data: { title: `${maximumTitle}😀`, description: "" },
+  });
+  expect(createdOverLimit.status()).toBe(400);
+
+  const created = await page.request.post("/api/tasks", { data: { title: "Edit Unicode limits" } });
+  expect(created.status()).toBe(201);
+  const { task } = await created.json();
+  const editedAtLimit = await page.request.patch(`/api/tasks/${task.id}`, {
+    data: { title: maximumTitle, description: maximumDescription },
+  });
+  expect(editedAtLimit.status()).toBe(200);
+
+  const editedOverTitleLimit = await page.request.patch(`/api/tasks/${task.id}`, {
+    data: { title: `${maximumTitle}😀` },
+  });
+  expect(editedOverTitleLimit.status()).toBe(400);
+  const editedOverDescriptionLimit = await page.request.patch(`/api/tasks/${task.id}`, {
+    data: { description: `${maximumDescription}🧪` },
+  });
+  expect(editedOverDescriptionLimit.status()).toBe(400);
+});
+
+test("enforces Unicode code-point limits in the browser form", async ({ page }) => {
+  await register(page);
+  const title = page.getByLabel(/Title/);
+  const description = page.getByLabel(/Description/);
+
+  await title.fill("😀".repeat(121));
+  expect(await title.evaluate((input: HTMLInputElement) => input.validity.valid)).toBe(false);
+  await title.fill("😀".repeat(120));
+  expect(await title.evaluate((input: HTMLInputElement) => input.validity.valid)).toBe(true);
+
+  await description.fill("🧪".repeat(1001));
+  expect(await description.evaluate((input: HTMLTextAreaElement) => input.validity.valid)).toBe(false);
+  await description.fill("🧪".repeat(1000));
+  expect(await description.evaluate((input: HTMLTextAreaElement) => input.validity.valid)).toBe(true);
+  await page.getByRole("button", { name: "Add task" }).click();
+  await expect(page.locator("[data-task-id]")).toContainText("😀".repeat(120));
 });
 
 test("keeps task data after reload and returns a useful unauthenticated API response", async ({ page }) => {

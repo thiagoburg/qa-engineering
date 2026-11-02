@@ -57,6 +57,10 @@ const server = createServer(async (request, response) => {
       }
       const user = { id: randomUUID(), email };
       accounts.set(email, { ...user, password: body.password });
+      if (email.endsWith("@confirm.example.test")) {
+        send(response, 200, { user });
+        return;
+      }
       send(response, 200, session(user));
     } catch {
       send(response, 400, { message: "Invalid request body." });
