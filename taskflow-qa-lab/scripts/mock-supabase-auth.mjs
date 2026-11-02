@@ -4,6 +4,7 @@ import { createServer } from "node:http";
 const accounts = new Map();
 const sessions = new Map();
 const publishableKey = "taskflow-playwright-mock-key";
+let failNextLogout = false;
 
 function send(response, status, body) {
   response.writeHead(status, { "Content-Type": "application/json; charset=utf-8", "Cache-Control": "no-store" });
@@ -31,6 +32,11 @@ const server = createServer(async (request, response) => {
   const url = new URL(request.url ?? "/", "http://127.0.0.1");
   if (url.pathname === "/health" && request.method === "GET") {
     send(response, 200, { status: "ok" });
+    return;
+  }
+  if (url.pathname === "/__test/fail-next-logout" && request.method === "POST") {
+    failNextLogout = true;
+    send(response, 200, { ok: true });
     return;
   }
   if (request.headers.apikey !== publishableKey) {
@@ -86,6 +92,11 @@ const server = createServer(async (request, response) => {
   }
 
   if (url.pathname === "/auth/v1/logout" && request.method === "POST") {
+    if (failNextLogout) {
+      failNextLogout = false;
+      send(response, 503, { message: "Temporary auth service failure." });
+      return;
+    }
     const token = request.headers.authorization?.replace(/^Bearer\s+/i, "");
     if (token) sessions.delete(token);
     send(response, 204, null);

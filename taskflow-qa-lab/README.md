@@ -27,6 +27,16 @@ npm run db:reset:local
 
 The reset command is hard-coded to Wrangler's local database mode and does not accept a remote database or extra flags.
 
+## Read-only local D1 queries
+
+Run queries from this `taskflow-qa-lab` folder. The `DB` name below is the local D1 binding from `wrangler.jsonc`; `--local` ensures Wrangler uses the local training database. For example, to inspect a dummy account's tasks:
+
+```powershell
+npm exec wrangler -- d1 execute DB --local --command "SELECT id, title, completed, user_id FROM tasks WHERE user_id = (SELECT id FROM users WHERE email = 'qa@example.com');"
+```
+
+Replace `qa@example.com` with the invented email you used in TaskFlow. Use only `SELECT` queries in this lesson; never add `--remote` or `--preview`. The current schema is produced by applying the migrations in order: `0001_initial_schema.sql` shows the original account and task tables, and `0002_supabase_auth.sql` removes the password and session tables now managed by Supabase Auth. TaskFlow keeps the user's ID and email mapping plus tasks in D1.
+
 ## Run checks
 
 ```powershell
@@ -59,7 +69,7 @@ The API is same-origin, JSON-based, and defined by [Product Specification](#prod
 | GET | `/api/health` | No | `200 {"status":"ok"}` |
 | POST | `/api/auth/register` | No | `201 {"user":{"id":"…","email":"…"}}`; or `202 {"confirmationRequired":true}` |
 | POST | `/api/auth/login` | No | `200 {"user":{"id":"…","email":"…"}}` |
-| POST | `/api/auth/logout` | No | `200 {"ok":true}` |
+| POST | `/api/auth/logout` | No | `200 {"ok":true,"providerRevoked":true\|false}`; the TaskFlow cookie is cleared either way |
 | GET | `/api/auth/me` | Yes | `200 {"user":{"id":"…","email":"…"}}` |
 | GET | `/api/tasks?status=all\|active\|completed` | Yes | `200 {"tasks":[…]}` |
 | POST | `/api/tasks` | Yes | `201 {"task":…}` |
@@ -156,7 +166,7 @@ TaskFlow is a small practice app for QA learning. Users create invented accounts
 - Successful registration signs the user in when email confirmation is disabled. If confirmation is enabled, the API returns a confirmation-required response and the interface tells the user to confirm before signing in.
 - A user can sign in with the registered email and password.
 - Incorrect email/password returns a general authentication error without revealing which field was wrong.
-- Sign out asks Supabase Auth to end the session and clears the TaskFlow cookie. A subsequent protected request requires sign-in.
+- Sign out clears the TaskFlow cookie and asks Supabase Auth to end the session. The response says whether Supabase confirmed revocation; the interface reports if it could not. A subsequent protected request requires sign-in to TaskFlow.
 - The Supabase access token is held in an HTTP-only, same-site cookie for no longer than the token's lifetime. HTTPS responses mark the cookie Secure.
 
 ### Task behavior
@@ -179,7 +189,7 @@ All API responses use JSON except a successful delete, which returns `204 No Con
 | `GET /api/health` | `200` and `{ "status": "ok" }` |
 | `POST /api/auth/register` | Validate account input and create account through Supabase Auth; return `201` with a session or `202` when email confirmation is required |
 | `POST /api/auth/login` | Create a session, return `200`; invalid credentials return `401` |
-| `POST /api/auth/logout` | Ask Supabase Auth to end the session and clear cookie, return `200` |
+| `POST /api/auth/logout` | Clear the TaskFlow cookie and ask Supabase Auth to end the session; return `200` with `providerRevoked: true` when confirmed or `false` when the provider cannot confirm it |
 | `GET /api/auth/me` | Return current user or `401` |
 | `GET /api/tasks?status=all\|active\|completed` | List only current user's matching tasks |
 | `POST /api/tasks` | Validate and create a task, return `201` |

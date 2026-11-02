@@ -53,6 +53,33 @@ test("shows a message if the sign-out request cannot reach the server", async ({
   await expect(page.getByRole("heading", { name: "My tasks" })).toBeVisible();
 });
 
+test("reports when TaskFlow signs out locally but Supabase cannot confirm revocation", async ({ page }) => {
+  await register(page);
+  await page.request.post("http://127.0.0.1:8788/__test/fail-next-logout");
+  await page.getByRole("button", { name: "Sign out" }).click();
+  await expect(page.getByRole("heading", { name: "Sign in to TaskFlow" })).toBeVisible();
+  await expect(page.locator("#auth-status")).toContainText("could not confirm sign-out");
+  expect((await page.context().cookies()).some((cookie) => cookie.name === "taskflow_session")).toBe(false);
+  expect((await page.request.get("/api/tasks")).status()).toBe(401);
+});
+
+test("shows a retry when checking the current session temporarily fails", async ({ page }) => {
+  let failed = false;
+  await page.route("**/api/auth/me", async (route) => {
+    if (!failed) {
+      failed = true;
+      await route.fulfill({ status: 503, json: { error: "Authentication service is unavailable." } });
+    } else await route.continue();
+  });
+  await page.goto("/");
+  await expect(page.locator("#auth-status")).toContainText("Could not check your sign-in status");
+  await expect(page.getByRole("button", { name: "Try again" })).toBeVisible();
+  await page.getByRole("button", { name: "Try again" }).click();
+  await expect(page.locator("#auth-status")).toBeEmpty();
+  await expect(page.getByRole("button", { name: "Try again" })).toBeHidden();
+  await expect(page.getByRole("heading", { name: "Sign in to TaskFlow" })).toBeVisible();
+});
+
 test("rejects incorrect credentials with a clear message", async ({ page }) => {
   await page.goto("/");
   const login = page.locator("#login-panel");

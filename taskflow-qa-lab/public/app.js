@@ -12,6 +12,8 @@ const accountLabel = document.querySelector("#account-label");
 const listMessage = document.querySelector("#list-message");
 const retryTasks = document.querySelector("#retry-tasks");
 const loadingTasks = document.querySelector("#loading-tasks");
+const authStatus = document.querySelector("#auth-status");
+const retrySession = document.querySelector("#retry-session");
 let activeFilter = "all";
 
 async function api(path, options = {}) {
@@ -22,7 +24,11 @@ async function api(path, options = {}) {
   });
   if (response.status === 204) return null;
   const body = await response.json().catch(() => ({}));
-  if (!response.ok) throw new Error(body.error || `Request failed (${response.status}).`);
+  if (!response.ok) {
+    const error = new Error(body.error || `Request failed (${response.status}).`);
+    error.status = response.status;
+    throw error;
+  }
   return body;
 }
 
@@ -240,9 +246,12 @@ document.querySelector("#logout-button").addEventListener("click", async () => {
   const button = document.querySelector("#logout-button");
   button.disabled = true;
   try {
-    await api("/api/auth/logout", { method: "POST" });
+    const result = await api("/api/auth/logout", { method: "POST" });
     showAuth();
     selectAuthTab("login");
+    authStatus.textContent = result.providerRevoked
+      ? "You are signed out."
+      : "You are signed out of TaskFlow, but the authentication service could not confirm sign-out.";
   } catch (error) {
     listMessage.textContent = `Could not sign out. ${error.message}`;
   } finally {
@@ -283,10 +292,20 @@ document.querySelectorAll("[data-filter]").forEach((button) => {
   });
 });
 
-try {
-  const { user } = await api("/api/auth/me");
-  await showTasks(user);
-} catch {
-  showAuth();
+async function checkSession() {
+  retrySession.hidden = true;
+  authStatus.textContent = "";
+  try {
+    const { user } = await api("/api/auth/me");
+    await showTasks(user);
+  } catch (error) {
+    showAuth();
+    if (error.status === 401) return;
+    authStatus.textContent = `Could not check your sign-in status. ${error.message}`;
+    retrySession.hidden = false;
+  }
 }
+
+retrySession.addEventListener("click", checkSession);
+checkSession();
 

@@ -228,15 +228,18 @@ async function login(request: Request, env: Env): Promise<Response> {
 
 async function logout(request: Request, env: Env): Promise<Response> {
   const token = cookieValue(request);
+  let providerRevoked = true;
   if (token) {
     try {
-      await supabaseRequest(env, "/logout", { method: "POST", accessToken: token });
+      const response = await supabaseRequest(env, "/logout", { method: "POST", accessToken: token });
+      providerRevoked = response.ok;
     } catch {
       // Always clear the browser cookie, even if the auth service is unavailable.
+      providerRevoked = false;
     }
   }
   const headers = new Headers({ "Set-Cookie": cookieHeader(request, "", 0) });
-  return json({ ok: true }, 200, headers);
+  return json({ ok: true, providerRevoked }, 200, headers);
 }
 
 async function listTasks(request: Request, env: Env, user: SessionUser): Promise<Response> {
