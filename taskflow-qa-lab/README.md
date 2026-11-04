@@ -7,22 +7,29 @@ A small task manager used for manual and automated QA practice.
 - Node.js 20 or later
 - npm
 
-## Run locally
+## First-time local setup (Windows)
 
-From this folder:
+This is setup for the practice app, not a course lesson about the command line. You only need to follow these steps; you do not need to study PowerShell. No Cloudflare or Wrangler login is needed for local practice.
+
+1. Install Node.js 20 or later from [nodejs.org](https://nodejs.org/en/download/) if it is not already installed. Close and reopen your editor after installation.
+2. Open the `taskflow-qa-lab` folder in your code editor and open its integrated terminal (for example, in Visual Studio Code, choose **Terminal → New Terminal**). Make sure the terminal is in this folder.
+3. In Windows PowerShell, use `npm.cmd` for the commands below. This avoids changing Windows script security settings.
+4. Run each command separately and wait for it to finish:
 
 ```powershell
-npm ci
-npm run db:migrate:local
-npm run dev
+npm.cmd ci
+npm.cmd run db:migrate:local
+npm.cmd run dev
 ```
+
+Keep the last command running while you practice. Open the local address Wrangler prints (normally `http://localhost:8787`). If Node.js was just installed and a command is not recognized, reopen the editor and try again. If registration asks you to confirm an email, follow the [Supabase Auth setup notes](#supabase-auth-setup).
 
 The repository's `wrangler.jsonc` contains the public Supabase project URL and publishable key needed by the app. A `.dev.vars` file is optional; create one from `.dev.vars.example` only when you need local overrides, then replace both placeholder values. Never put a Supabase secret or service-role key in `.dev.vars`. Supabase Auth manages account credentials; TaskFlow D1 stores the account ID/email mapping and tasks. Open the local address printed by Wrangler (normally `http://localhost:8787`). The local D1 database is separate from the Cloudflare databases. Use invented training accounts; do not enter real credentials or personal information.
 
 To delete local training rows while keeping the schema, run:
 
 ```powershell
-npm run db:reset:local
+npm.cmd run db:reset:local
 ```
 
 The reset command is hard-coded to Wrangler's local database mode and does not accept a remote database or extra flags.
@@ -32,7 +39,7 @@ The reset command is hard-coded to Wrangler's local database mode and does not a
 Run queries from this `taskflow-qa-lab` folder. The `DB` name below is the local D1 binding from `wrangler.jsonc`; `--local` ensures Wrangler uses the local training database. For example, to inspect a dummy account's tasks:
 
 ```powershell
-npm exec wrangler -- d1 execute DB --local --command "SELECT id, title, completed, user_id FROM tasks WHERE user_id = (SELECT id FROM users WHERE email = 'qa@example.com');"
+npm.cmd exec wrangler -- d1 execute DB --local --command "SELECT id, title, completed, user_id FROM tasks WHERE user_id = (SELECT id FROM users WHERE email = 'qa@example.com');"
 ```
 
 Replace `qa@example.com` with the invented email you used in TaskFlow. Use only `SELECT` queries in this lesson; never add `--remote` or `--preview`. The current schema is produced by applying the migrations in order: `0001_initial_schema.sql` shows the original account and task tables, and `0002_supabase_auth.sql` removes the password and session tables now managed by Supabase Auth. TaskFlow keeps the user's ID and email mapping plus tasks in D1.
@@ -40,8 +47,8 @@ Replace `qa@example.com` with the invented email you used in TaskFlow. Use only 
 ## Run checks
 
 ```powershell
-npm run typecheck
-npm test
+npm.cmd run typecheck
+npm.cmd test
 ```
 
 The Playwright suite launches a local Worker, local D1 binding, and a test-only mock of the Supabase Auth API. It does not require Supabase credentials, deploy, or contact a production database. The mock is used only by the test stack.

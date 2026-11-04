@@ -14,7 +14,7 @@ Browser Developer Tools help you inspect the page. **Elements** shows its HTML a
 
 ## Practice
 
-1. Start TaskFlow locally by following the [app README](../taskflow-qa-lab/README.md#run-locally). Use an invented account and local D1; do not test destructive actions on Preview or production.
+1. Start TaskFlow locally by following the [app README](../taskflow-qa-lab/README.md#first-time-local-setup-windows). Use an invented account and local D1; do not test destructive actions on Preview or production.
 2. Open the app and open Developer Tools with F12.
 3. In **Network**, reload the page and select a request whose path contains /api/. Record its method, path, status, and one property from its JSON response. Use actual observed values.
 4. In **Elements**, find the main heading and record its HTML tag and one applied style. Do not edit the app.

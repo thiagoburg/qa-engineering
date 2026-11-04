@@ -20,7 +20,7 @@ The [TaskFlow Product Specification](../taskflow-qa-lab/README.md#product-specif
 
 ## Practice
 
-1. Start TaskFlow locally using the [app setup instructions](../taskflow-qa-lab/README.md#run-locally). Use local D1 and an invented account.
+1. Start TaskFlow locally using the [first-time setup instructions](../taskflow-qa-lab/README.md#first-time-local-setup-windows). These are copy-and-follow setup steps, not a command-line lesson. Use local D1 and an invented account.
 2. Read the task-title requirement in the [Product Specification](../taskflow-qa-lab/README.md#product-specification). Before using the form, write one question about anything it does not make clear.
 3. Create a task with a normal title, submit an empty title, submit spaces only, and try a title with spaces around real text. Use one account and record each attempt separately.
 4. For every attempt, write the input, expected behavior based on the specification, actual behavior, result (pass/fail/blocked), and evidence. If the result depends on an unanswered question, mark the question instead of calling it a defect.

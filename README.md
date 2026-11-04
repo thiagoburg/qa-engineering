@@ -50,7 +50,7 @@ TaskFlow is a fictional task manager for QA practice. Its [Product Specification
 
 The automation stack is TypeScript with Playwright Test; learn only the TypeScript needed to write, understand, debug, and maintain QA tests. No Python curriculum is used. Git and GitHub appear when code is introduced. Manual QA and API testing remain foundational. The app supports registration and sign-in, task creation/editing/completion/deletion, filters and counts, validation, an API, persistence, and account isolation. It uses a TypeScript Cloudflare Worker, D1 for tasks and account mapping, Supabase Auth for credentials and sessions, and Playwright Test. The test suite uses a local Worker, local D1, and a test-only Supabase Auth mock.
 
-Follow the app README for [local setup](taskflow-qa-lab/README.md#run-locally), commands, API behavior, product expectations, and environment/deployment notes. Use local D1 for exercises. Reset commands target local D1 only. Do not use Preview or production for destructive practice.
+Follow the app README for [first-time local setup](taskflow-qa-lab/README.md#first-time-local-setup-windows), commands, API behavior, product expectations, and environment/deployment notes. Use local D1 for exercises. Reset commands target local D1 only. Do not use Preview or production for destructive practice.
 
 ## Safety and privacy
 
@@ -78,7 +78,7 @@ The app, lessons, and templates were AI-assisted. Keep them distinct from learne
 
 ## Backup and recovery
 
-The public [GitHub repository](https://github.com/thiagoburg/qa-engineering) stores committed course files, app source, migrations, templates, and learner work after you commit it. To restore on a new device, use GitHub Desktop to clone `thiagoburg/qa-engineering` into the desired folder. Then follow the app's [local setup guide](taskflow-qa-lab/README.md#run-locally).
+The public [GitHub repository](https://github.com/thiagoburg/qa-engineering) stores committed course files, app source, migrations, templates, and learner work after you commit it. To restore on a new device, use GitHub Desktop to clone `thiagoburg/qa-engineering` into the desired folder. Then follow the app's [local setup guide](taskflow-qa-lab/README.md#first-time-local-setup-windows).
 
 Sign-in sessions, local databases, ignored runtime files, and Obsidian settings are not stored in GitHub. Recreate dependencies using the app setup guide. Pull the latest `main` before continuing. Commit learner work when ready for backup, after checking it contains no private information.
 

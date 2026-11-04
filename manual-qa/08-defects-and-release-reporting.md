@@ -15,10 +15,11 @@ Title: “Completed tasks reappear in Active filter after reload.” Steps ident
 1. Use a discrepancy you observed while testing TaskFlow. If you have not observed one, use a clearly labeled hypothetical example.
 2. Fill the [bug report template](templates/bug-report-template.md) with exact steps and expected/actual results.
 3. Rank severity and priority separately, with a short reason for each.
-4. Define the retest and the smallest adjacent regression set.
-5. Complete the [test execution template](templates/test-execution-template.csv) and summarize pass/fail/blocked/not-run counts.
+4. Treat the report like a team ticket: record its current status, a short triage decision, and what should happen before it can be retested and closed. Add a brief status history for New → Triaged → In Progress → Ready for Retest → Closed or Reopened. Mark future steps as planned or hypothetical unless you actually observed them; do not claim a fix happened when it did not.
+5. Define the retest and the smallest adjacent regression set.
+6. Complete the [test execution template](templates/test-execution-template.csv) and summarize pass/fail/blocked/not-run counts.
 
-Use Bug report and execution templates. Create `manual-qa/submissions/defect-and-release-report.md` with one report (observed or clearly marked hypothetical), severity/priority rationale, current defect status, retest/regression plan, and a one-page release summary that states scope, environment, counts, open defects, and residual risk.
+Use the bug report and execution templates; no Jira account or separate tool is needed. Create `manual-qa/submissions/defect-and-release-report.md` with one report (observed or clearly marked hypothetical), severity/priority rationale, ticket status history, retest/regression plan, and a one-page release summary that states scope, environment, counts, open defects, and residual risk.
 
 Save the deliverable in `manual-qa/submissions/`.
 
