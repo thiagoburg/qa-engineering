@@ -12,11 +12,9 @@ For example, a task-editing charter could ask whether a user can edit, cancel, a
 
 ## Practice
 
-1. Start local TaskFlow with a dummy account. Choose task editing or filtering and write a charter about one risk.
-2. Spend 20 minutes exploring. Try an ordinary sequence, a boundary or unusual sequence, and one recovery action such as cancel or reload. Record each action and observation.
-3. At a wide and narrow viewport, check whether the main controls remain visible and usable. Record both viewport sizes.
-4. Use only the keyboard for one task journey. Note the focus order, visible focus, labels, and any action you could not complete.
-5. Write one short smoke path for a critical TaskFlow journey. Identify one existing behavior you would check as regression after a change.
-6. Repeat the smoke path in a second browser if available; otherwise record the limitation. Capture sanitized screenshots or Network/Console evidence only when it helps explain an observation.
-
-Use a timer, browser Developer Tools, and the [test execution template](templates/test-execution-template.csv). Save your notes in manual-qa/submissions/exploratory-session.md with your charter, time box, environment/browser/viewport, actions and observations, smoke/regression path, responsive and keyboard findings, open questions, and remaining risks. For an observed mismatch, use the [bug report template](templates/bug-report-template.md); do not present a suspicion as a confirmed defect.
+1. **Choose a risk.** Start local TaskFlow with an invented account. Pick task editing or filtering and write a one-sentence exploration charter describing a risk to investigate.
+2. **Explore for 20 minutes.** Try an ordinary sequence, a boundary or unusual sequence, and a recovery action such as cancel or reload. Record actions and observations as you go. A charter keeps exploration focused; the time limit prevents one area from consuming the whole session.
+3. **Check responsive behavior.** At a wide and a narrow viewport, check whether the main controls remain visible and usable. Record both viewport sizes and any observed issue.
+4. **Check keyboard use.** Complete one task journey using only the keyboard. Note focus order, visible focus, labels, and any action you could not complete. Do not claim an accessibility standard violation unless you have checked its criteria.
+5. **Plan smoke and regression checks.** Write one short smoke path for a critical journey and one nearby existing behavior to check after a change. Smoke testing checks that a key path works; regression testing checks that a change did not break nearby behavior.
+6. **Submit your session.** Save `manual-qa/submissions/exploratory-session.md` with charter, time box, browser/viewport, actions and observations, smoke/regression path, responsive and keyboard findings, open questions, and remaining risks. Use the [test execution template](templates/test-execution-template.csv) for results; if you report a mismatch, use the [bug report template](templates/bug-report-template.md) and label assumptions clearly.

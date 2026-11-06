@@ -20,10 +20,8 @@ The [TaskFlow Product Specification](../taskflow-qa-lab/README.md#product-specif
 
 ## Practice
 
-1. Start TaskFlow locally using the [first-time setup instructions](../taskflow-qa-lab/README.md#first-time-local-setup-windows). These are copy-and-follow setup steps, not a command-line lesson. Use local D1 and an invented account.
-2. Read the task-title requirement in the [Product Specification](../taskflow-qa-lab/README.md#product-specification). Before using the form, write one question about anything it does not make clear.
-3. Create a task with a normal title, submit an empty title, submit spaces only, and try a title with spaces around real text. Use one account and record each attempt separately.
-4. For every attempt, write the input, expected behavior based on the specification, actual behavior, result (pass/fail/blocked), and evidence. If the result depends on an unanswered question, mark the question instead of calling it a defect.
-5. Do not change the app to make a check pass.
-
-Use the local TaskFlow app, a browser, the Product Specification, and a Markdown or CSV editor. Create `manual-qa/submissions/task-title-checks.csv` with columns `case_id,scenario,input,expected,actual,status,evidence`, and `manual-qa/submissions/review-notes.md` with the unanswered question from your requirement review. Save both files in `manual-qa/submissions/`. Make each actual result something you observed, and include enough evidence for someone to repeat any failed check.
+1. **Set up the app.** Follow [First-time local setup (Windows)](../taskflow-qa-lab/README.md#first-time-local-setup-windows), open the printed local address, and sign in with an invented account. Use local D1 only.
+2. **Review the expectation.** Read the title rules in [Product Specification](../taskflow-qa-lab/README.md#product-specification). The specification says an empty title is invalid but does not give the exact message. Write this open question before testing: “What message should TaskFlow show when a title is empty?”
+3. **Try four inputs.** Create a normal title, then try an empty title, spaces only, and real text with spaces around it. Do not change the app. Record the exact input and what the page does after each attempt.
+4. **Compare and classify.** For each attempt, write the expected behavior from the specification and the actual behavior you observed. Mark **Pass** when they match, **Fail** when they differ, or **Blocked** when you could not complete the check (for example, the local app would not start). If the specification does not answer the question, record it as an open question instead of guessing. Add exact steps or sanitized evidence for any failure.
+5. **Submit your work.** In `manual-qa/submissions/`, create `task-title-checks.csv` with columns `case_id,scenario,input,expected,actual,status,evidence`, and `review-notes.md` with your unanswered question. Put only observed behavior in `actual`; if setup prevents an observation, write `Not observed` and explain why.

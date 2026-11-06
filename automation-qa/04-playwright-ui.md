@@ -25,19 +25,9 @@ Adapt labels and setup to the current UI; the point is accessible selection and 
 
 ## Practice
 
-1. Read `playwright.config.ts` and `tests/taskflow.spec.ts`; note base URL, browsers, retries, and reporter.
-2. Run the existing suite locally following the app README so you understand its environment.
-3. Add a learner-authored test for a specified behavior in taskflow-qa-lab/tests/ and stay on main.
-4. Prefer role/label locators; verify the locator is unique and the accessible name matches the UI.
-5. Replace any fixed sleep with a locator action/assertion that waits for a meaningful state.
-6. Run the same test alone and with the suite; investigate any order dependency.
-
-Use Playwright Test, local TaskFlow, and a browser. Create taskflow-qa-lab/tests/learner-ui-smoke.spec.ts and save automation-qa/submissions/ui-smoke-notes.md with the requirement, setup, locator choices, assertion, and execution result. Cover one sign-in and one task journey with invented local account data.
-
-Save the deliverable in `automation-qa/submissions/`.
-
-Before saving, check that:
-- The test maps to a requirement in the [TaskFlow Product Specification](../taskflow-qa-lab/README.md#product-specification).
-- It uses user-facing locators and a meaningful awaited assertion.
-- Setup/data are repeatable and the test does not depend on another test.
-- The report records browser/environment and result without secrets.
+1. **Read the setup.** Open `taskflow-qa-lab/playwright.config.ts` and `tests/taskflow.spec.ts`. Record the base URL, browser, retry setting, and reporter you find; do not assume values.
+2. **Run the current suite.** Follow the app README's first-time setup if needed, then run `npm.cmd test` from `taskflow-qa-lab`. Note the browser and result.
+3. **Choose a requirement.** Pick one user-visible behavior from the [TaskFlow Product Specification](../taskflow-qa-lab/README.md#product-specification) and write its expected outcome before coding.
+4. **Add a UI check.** Create `taskflow-qa-lab/tests/learner-ui-smoke.spec.ts`. Use role/label locators that match the interface, and an awaited Playwright assertion that checks a meaningful visible outcome. Use invented local account data and keep the test independent.
+5. **Make it reliable.** Replace fixed sleeps with a locator action or assertion that waits for the expected state. Run the test alone and with the full suite; investigate any difference rather than hiding it.
+6. **Submit your notes.** Save `automation-qa/submissions/ui-smoke-notes.md` with the requirement, setup, locator choice, assertion, browser/environment, and both run results. Do not include secrets. Use the local app README for command and test setup details.

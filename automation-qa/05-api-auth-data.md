@@ -12,11 +12,9 @@ For example, an unauthenticated GET to the task list should return 401. For an a
 
 ## Practice
 
-1. Read the TaskFlow [API Reference](../taskflow-qa-lab/README.md#api-reference) and Product Specification. Choose a success case, a validation failure, and an access-control check.
-2. Write tests for the health route and unauthenticated task access using Playwright's request fixture. Assert status and useful response data.
-3. Test invalid task input and check the error status and response body.
-4. For the isolation check, create and sign in an invented account in the browser, use that page's request context to create and read a task, then sign in a second invented account and confirm it cannot see the first task.
-5. Use unique test data. Keep cleanup local. Check that any saved auth state is ignored by Git, and make sure reports and logs do not expose passwords, cookies, or tokens.
-6. Run each test alone and with the suite. Record the results and explain how the test data is created and removed.
-
-Use Playwright Test and local TaskFlow. Create taskflow-qa-lab/tests/learner-api-auth.spec.ts with health, unauthenticated access, invalid task input, and authenticated data-isolation checks. Save automation-qa/submissions/api-auth-notes.md explaining the test-data lifecycle and results.
+1. **Select cases.** Read the TaskFlow [API Reference](../taskflow-qa-lab/README.md#api-reference) and Product Specification. Choose one success case, one validation failure, and one account-isolation check.
+2. **Test public routes.** In `taskflow-qa-lab/tests/learner-api-auth.spec.ts`, use Playwright's request fixture to check the health route and unauthenticated task access. Assert status and useful response data.
+3. **Test validation.** Send invalid task input and assert both the error status and response body against the specification.
+4. **Test isolation.** Sign in an invented first account in a browser page, use that page's request context to create and read a task, then use a second invented account and confirm it cannot read the first task. Do not copy or print the session cookie.
+5. **Keep data safe.** Use unique test data and cleanup that targets only local test-created data. Check saved auth state is ignored by Git; keep passwords, cookies, and tokens out of reports/logs.
+6. **Run and submit.** Run each test alone and with the suite. Save `automation-qa/submissions/api-auth-notes.md` with test results and a simple explanation of how data was created, isolated, and removed.

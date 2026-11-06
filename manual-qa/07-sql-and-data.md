@@ -12,10 +12,9 @@ Use read-only SELECT queries and local D1 only. Do not run write queries or remo
 
 ## Practice
 
-1. Read `taskflow-qa-lab/migrations/0001_initial_schema.sql` and `0002_supabase_auth.sql` in order. Identify the final task table, its primary key, task fields, and owner field. The first migration created an earlier account design; the second removes its password and session storage because Supabase Auth manages accounts.
-2. Start the local app and create a task using a dummy account. From the `taskflow-qa-lab` folder, follow the [read-only local D1 query instructions](../taskflow-qa-lab/README.md#read-only-local-d1-queries).
-3. Use SELECT to check the task's ID, title, completion state, and owner. Add a WHERE condition for the test account.
-4. Complete, edit, and delete the task. Repeat the read-only query after each action and compare the result with the UI or API.
-5. Create a second dummy account. Check its task list and verify its data does not include the first account's task. Compare a read-only count with TaskFlow's statistics if the schema makes that check clear.
-
-Use PowerShell, Wrangler's local D1 command, and the migration SQL. Save your report in `manual-qa/submissions/data-validation.md` with each query, the linked UI/API action, sanitized expected and observed results, and a short explanation of why the owner condition matters. Include create, update/complete, delete, and second-user isolation checks. Keep every query read-only and local.
+1. **Read the schema history.** Open `taskflow-qa-lab/migrations/0001_initial_schema.sql` and then `0002_supabase_auth.sql`. Record the final task table, primary key, task fields, and owner field. The first migration is historical; the second removes password/session storage now managed by Supabase Auth.
+2. **Create test data.** Start local TaskFlow using its setup guide, sign in with an invented account, and create one task with a unique title. Follow the app README's [read-only local D1 query instructions](../taskflow-qa-lab/README.md#read-only-local-d1-queries).
+3. **Inspect the row.** From the `taskflow-qa-lab` folder, run a SELECT query for the task ID, title, completion state, and owner. Include a WHERE condition for your account. Compare the output with the UI; never query remote data or run a write query.
+4. **Compare changes.** Complete, edit, and delete the task one action at a time. Repeat the SELECT after each action and record what changed in the database and UI/API.
+5. **Check isolation.** Create a second invented account and confirm its task list does not show the first account's task. If you compare counts, use only that account's rows.
+6. **Submit your report.** Save `manual-qa/submissions/data-validation.md` with each read-only query, related UI/API action, sanitized expected/observed results, and why the owner condition matters. Include create, update/complete, delete, and second-user isolation checks.

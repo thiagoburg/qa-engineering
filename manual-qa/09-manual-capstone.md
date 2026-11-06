@@ -6,26 +6,15 @@ A capstone is a practical assessment, not a memory quiz. Start with the requirem
 
 For this checkpoint, a useful set covers critical user journeys and failure conditions: registration/sign-in, task lifecycle, validation, filters/statistics, API errors, persistence, and user isolation. Prioritize authentication, data loss, and cross-account exposure above minor presentation issues. Use local D1 and invented accounts. Avoid remote destructive testing or real credentials. Report observed mismatches against the Product Specification; “none observed” is acceptable when supported by the scope and evidence.
 
-The final report separates **executed**, **passed**, **failed**, **blocked**, and **not run**. Residual risk is specific: what behavior or environment remains untested and why it matters.
+The final report separates **executed**, **passed**, **failed**, **blocked**, and **not run**. A check is **Blocked** when something prevents completing it; it is **Not run** when it was deliberately not attempted. Residual risk is specific: what behavior or environment remains untested and why it matters.
 
 Journey: register → create task → complete → filter completed → reload → sign out → sign in → confirm persistence. Add invalid title and second-account isolation checks as separate cases; a happy path alone does not cover these risks.
 
 ## Practice
 
-1. Complete the earlier Manual QA lessons first. Start TaskFlow locally using the app README and record the app version, browser, and viewport.
-2. Create a one-page scope and prioritize risks; identify test data and reset boundaries.
-3. Design cases for every required feature area. Include positive, negative, boundary, state, API, persistence, and isolation checks.
-4. Execute the cases against local TaskFlow, recording exact actual results. Stop before any unsafe remote or irreversible action.
-5. Report any defect using the [bug report template](templates/bug-report-template.md); retest corrected behavior if a correction is available.
-6. Summarize coverage, defect status, and remaining risk for a product manager.
-
-Use TaskFlow on `main` with local D1, product specification, browser DevTools, Postman, local read-only D1 queries, and the [test plan](templates/test-plan-template.md), [test case](templates/test-case-template.csv), [execution](templates/test-execution-template.csv), and [bug report](templates/bug-report-template.md) templates. Create `manual-qa/submissions/capstone/` containing `test-plan.md`, `test-cases.csv`, `execution.csv`, `bug-reports/` (or an explicit “none observed” note), and `release-summary.md`. Include at least 20 well-chosen cases across the scope, but prioritize risk over raw count. This is an independent-practice assessment; lesson hints should not be needed during execution.
-
-Save the deliverables in `manual-qa/submissions/capstone/`.
-
-Before saving, check that:
-- All required TaskFlow areas are mapped to tests or clearly excluded with reasons.
-- At least 20 cases include a balanced mix of valid, invalid, boundary, API, persistence, and isolation scenarios.
-- Execution evidence is factual, sanitized, and reproducible.
-- Defects distinguish observed facts from impact assessment; “none observed” is not treated as proof of no defects.
-- The release summary includes execution counts, open findings, and residual risk.
+1. **Set the environment.** Complete earlier Manual QA lessons. Start TaskFlow on `main` with local D1 and invented accounts. Record app version, browser, and viewport in your plan.
+2. **Set scope and risks.** Use the [Product Specification](../taskflow-qa-lab/README.md#product-specification) and [test plan template](templates/test-plan-template.md). Prioritize risks and define test data and reset boundaries before execution.
+3. **Design coverage.** Use the [test case template](templates/test-case-template.csv) to create at least 20 risk-focused cases across registration/sign-in, task lifecycle, validation, filters/statistics, API errors, persistence, and user isolation. Include valid, invalid, boundary, state, API, persistence, and isolation checks; explain exclusions.
+4. **Execute safely.** Use browser DevTools, Postman, and local read-only D1 queries where useful. Record actual results and evidence. Do not use Preview/production for destructive actions. Mark **Blocked** if you cannot complete a check and **Not run** if you choose not to attempt it; explain both.
+5. **Report findings.** Use the [bug report template](templates/bug-report-template.md) for observed mismatches. If none are observed, say so and describe the tested scope; do not claim there are no defects. Retest a fix only if one is available.
+6. **Submit the capstone.** Create `manual-qa/submissions/capstone/` containing `test-plan.md`, `test-cases.csv`, `execution.csv`, `bug-reports/` (or an explicit “none observed” note), and `release-summary.md`. Include coverage, execution counts, open findings, and remaining risk in the summary. This capstone is independent practice; earlier lessons provide the methods, but not the answers.

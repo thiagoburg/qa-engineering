@@ -35,10 +35,8 @@ test("health API returns its expected status", async ({ request }) => {
 
 ## Practice
 
-1. Open taskflow-qa-lab/tests/taskflow.spec.ts. Find an import, a test name, a variable, a function, and an awaited browser or API operation. Explain what each one contributes to a QA check.
-2. From taskflow-qa-lab, create tests/learner-typescript-practice.spec.ts using the example above. Add a string array of TaskFlow filter names and check one value with an assertion.
-3. Change the declared type of one value so it conflicts with its value. Run the app's typecheck command, read the error, and then correct the type. A compiler error means the code needs fixing; it is not a product defect.
-4. From Windows PowerShell, run `npm.cmd run typecheck`, then `npm.cmd test -- tests/learner-typescript-practice.spec.ts` against the local test stack. Confirm the API status and response body assertions pass, and keep the learner-authored test in the TaskFlow test suite.
-5. Save automation-qa/submissions/typescript-notes.md with five annotated examples and identify the learner-authored test file: values/types, an array or object, a small function, an import, and an awaited API or browser operation. Include the compiler error you corrected and explain how the examples support QA testing.
-
-Use Node.js/npm, TypeScript, the existing Playwright project, and an editor. The app README explains how to run commands from taskflow-qa-lab. Do not add programming examples that are unrelated to reading, writing, or debugging QA tests.
+1. **Read an existing check.** Open `taskflow-qa-lab/tests/taskflow.spec.ts`. Find an import, test name, variable, function, and awaited browser/API operation. In your notes, explain the job each does in that QA check.
+2. **Create a focused test.** From `taskflow-qa-lab`, create `tests/learner-typescript-practice.spec.ts` using the theory example. Add a string array of TaskFlow filter names and an assertion for one value.
+3. **Observe a type error safely.** Change one declared type so it conflicts with its value. Run `npm.cmd run typecheck`, read the diagnostic, then restore a correct type. A type error is a code-checking problem before execution, not evidence of a product defect.
+4. **Run the test.** Run `npm.cmd test -- tests/learner-typescript-practice.spec.ts` from the app folder. Record whether it passes and the observed API status/body. Keep the test learner-authored and in the test suite.
+5. **Submit your notes.** Save `automation-qa/submissions/typescript-notes.md` with five annotated examples: values/types, array or object, small function, import, and awaited API/browser operation. Identify your test file, include the corrected compiler message in your own words, and explain how each example helps QA work.

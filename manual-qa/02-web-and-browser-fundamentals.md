@@ -14,10 +14,8 @@ Browser Developer Tools help you inspect the page. **Elements** shows its HTML a
 
 ## Practice
 
-1. Start TaskFlow locally by following the [app README](../taskflow-qa-lab/README.md#first-time-local-setup-windows). Use an invented account and local D1; do not test destructive actions on Preview or production.
-2. Open the app and open Developer Tools with F12.
-3. In **Network**, reload the page and select a request whose path contains /api/. Record its method, path, status, and one property from its JSON response. Use actual observed values.
-4. In **Elements**, find the main heading and record its HTML tag and one applied style. Do not edit the app.
-5. In your note, explain what the request response tells you, what the Console shows, and one thing this evidence does not prove about the full app.
-
-Use TaskFlow, a browser, Developer Tools, the [Product Specification](../taskflow-qa-lab/README.md#product-specification), and a Markdown editor. Save the observations in manual-qa/submissions/web-request-inspection.md. Keep the note factual and do not include personal or account information.
+1. **Open the local app.** Follow [First-time local setup (Windows)](../taskflow-qa-lab/README.md#first-time-local-setup-windows), open its local address, and sign in with an invented account.
+2. **Inspect a request.** Press F12 to open browser Developer Tools and select **Network**. Reload the page, choose a request whose path contains `/api/`, and record its method, path, status code, and one JSON response property. Use values you actually see.
+3. **Inspect the page structure.** In **Elements**, find the main heading. Record its HTML tag and one style shown in the Styles panel. Do not edit the page.
+4. **Explain the evidence.** Read one related behavior in the [Product Specification](../taskflow-qa-lab/README.md#product-specification). State what the request and Console show, and one thing these observations do not prove about the whole app.
+5. **Submit your note.** Save `manual-qa/submissions/web-request-inspection.md`. Include the browser, request details, heading tag/style, explanation, and sanitized evidence. Do not include account or personal information.

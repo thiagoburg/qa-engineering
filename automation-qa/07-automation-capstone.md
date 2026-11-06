@@ -10,19 +10,9 @@ An efficient suite may include health, unauthenticated access, title validation,
 
 ## Practice
 
-1. Use the completed Manual QA capstone and choose 8–12 automation candidates by risk.
-2. Mark each UI, API, or manual and define data isolation before coding.
-3. Implement the API cases first, then two high-value UI journeys in taskflow-qa-lab/tests/learner-capstone.spec.ts.
-4. Run each case alone and as a suite, then run typecheck and CI workflow.
-5. Investigate one failure or document why the suite is clean; capture trace/screenshot only on failure.
-6. Review artifacts and logs for leaked credentials or private data.
-
-Use TypeScript, Playwright Test, local Worker/D1, and GitHub Actions. Keep the executable suite in taskflow-qa-lab/tests/learner-capstone.spec.ts so Playwright and CI can run it. Save automation-qa/submissions/capstone/ with a strategy matrix linking to the suite, manual-only checks, run instructions, execution summary, and CI/reliability review. Include at least eight meaningful API/UI checks with no arbitrary sleeps.
-
-
-Before saving, check that:
-- Every automated case maps to a requirement and risk.
-- At least eight checks cover API and UI behavior, including validation and isolation.
-- Tests are independent, repeatable, and use safe test data.
-- Local run and CI evidence are recorded; failures are diagnosed rather than hidden.
-- Manual coverage and suite limitations are explicit.
+1. **Select candidates.** Use your completed Manual QA capstone and choose 8–12 checks by risk. Map each to a product requirement and classify it as API, UI, or manual.
+2. **Plan data and coverage.** For each automated check, define setup, unique data/isolation, assertion, and cleanup. Keep checks that require human judgment in a manual list.
+3. **Build the suite.** Add API checks first, then two high-value UI journeys in `taskflow-qa-lab/tests/learner-capstone.spec.ts`. Use TypeScript, Playwright Test, and local Worker/D1; avoid arbitrary sleeps.
+4. **Run and diagnose.** Run each check alone and as a suite, then run typecheck and the GitHub Actions workflow. Investigate a failure; if all are green, state exactly what you checked and what remains untested.
+5. **Review evidence.** Inspect reports/logs and remove any credential, cookie, token, or private data. Keep the test suite reproducible on another run.
+6. **Submit the portfolio package.** Save `automation-qa/submissions/capstone/` with a strategy matrix linked to the learner suite, manual-only checks, run instructions, execution summary, and CI/reliability review. Include at least eight meaningful API/UI checks across the suite and document limitations.

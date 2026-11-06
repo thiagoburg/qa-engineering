@@ -7,6 +7,7 @@ A small task manager used for manual and automated QA practice.
 - Node.js 20 or later
 - npm
 
+<a id="first-time-local-setup-windows"></a>
 ## First-time local setup (Windows)
 
 This is setup for the practice app, not a course lesson about the command line. You only need to follow these steps; you do not need to study PowerShell. No Cloudflare or Wrangler login is needed for local practice.
@@ -34,6 +35,7 @@ npm.cmd run db:reset:local
 
 The reset command is hard-coded to Wrangler's local database mode and does not accept a remote database or extra flags.
 
+<a id="read-only-local-d1-queries"></a>
 ## Read-only local D1 queries
 
 Run queries from this `taskflow-qa-lab` folder. The `DB` name below is the local D1 binding from `wrangler.jsonc`; `--local` ensures Wrangler uses the local training database. For example, to inspect a dummy account's tasks:
@@ -65,6 +67,7 @@ The Preview Worker is live at `https://taskflow-qa-lab-preview.taskflow-qa-lab.w
 
 ---
 
+<a id="api-reference"></a>
 ## API Reference
 
 The API is same-origin, JSON-based, and defined by [Product Specification](#product-specification). Protected routes require the HTTP-only access-token cookie set during registration or sign-in. Supabase Auth verifies the token; D1 stores only the Supabase user ID and email mapping. No CORS access is enabled.
@@ -160,6 +163,7 @@ Use the app from `main` with local D1 for all Manual QA exercises. Compare obser
 
 ---
 
+<a id="product-specification"></a>
 ### Product Specification
 
 This section is the source of truth for expected behavior. If the app and this document disagree, record the difference as a defect; do not silently change an expectation during execution.

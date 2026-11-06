@@ -12,18 +12,8 @@ If a test times out finding “Save,” inspect the page and accessible name. If
 
 ## Practice
 
-1. Run one UI check and intentionally make its expected text wrong in a temporary local edit.
-2. Inspect the failure output, screenshot, and trace; identify the first useful evidence.
-3. Restore the assertion and replace any fixed sleep or shared state you find.
-4. Open `.github/workflows/taskflow-qa.yml` and explain its trigger, environment, commands, and artifact retention.
-5. Review a successful and (if available) failed workflow run; write what each result proves and does not prove.
-
-Use Playwright CLI, trace viewer, GitHub Actions. Create `automation-qa/submissions/ci-investigation.md` with one diagnosed failure (intentional local failure is acceptable), its evidence, root-cause category, correction, rerun result, workflow summary, and one limitation of the CI suite.
-
-Save the deliverable in `automation-qa/submissions/`. Do not upload secrets or unredacted auth state.
-
-Before saving, check that:
-- Failure evidence supports the diagnosis.
-- The correction addresses the cause rather than masking it.
-- The rerun result and environment are stated.
-- CI conclusions are limited to configured tests and that run.
+1. **Create a controlled failure.** Run a UI check locally and temporarily change one expected text value so the assertion should fail. Do not commit this temporary change.
+2. **Read the evidence.** Inspect the failure output and, if created, screenshot/trace. Record the first useful clue and what it supports; a trace contains action/page/network details, while a screenshot captures one moment.
+3. **Restore and improve.** Restore the correct assertion. If you find a fixed sleep or shared state, explain why it is risky and describe a safer condition or isolated data. Do not change a correct requirement to get a green result.
+4. **Read the workflow.** Open `.github/workflows/taskflow-qa.yml`. Record its trigger, environment, commands, and saved artifacts. A CI result applies only to the checks configured for that run.
+5. **Review and submit.** Review one successful workflow run and a failed run if available. Save `automation-qa/submissions/ci-investigation.md` with the failure, evidence, likely category (product, test, data, or environment), correction, rerun result, workflow summary, and one limitation. If no real failed workflow is available, label your controlled local failure clearly.

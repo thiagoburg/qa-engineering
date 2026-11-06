@@ -22,18 +22,8 @@ This is readable as plain text and renders as a heading and three bullets on Git
 
 ## Practice
 
-1. Open the project in GitHub Desktop and confirm the repository is `qa-engineering` and the current branch is `main`.
-2. Make a small change to a copied practice Markdown note or a learner-authored test file; do not edit the stable product behavior.
-3. In **Changes**, inspect the diff and confirm that it contains only your intended edit. Select only that file.
-4. Enter a concise summary, such as `Document task filter check`, then create a commit on `main`.
-5. Confirm that the commit appears in **History**, then use **Push origin** to publish the reviewed change.
-
-Use GitHub Desktop, GitHub, an editor, and a practice test or Markdown artifact. Create `automation-qa/submissions/git-workflow.md` with a screenshot or written record of `main`, the reviewed diff, the local commit summary, and the push result. Explain why you included only the intended file and when a pull request is appropriate in a team workflow.
-
-Save the deliverable in `automation-qa/submissions/`.
-
-Before saving, check that:
-- The note is saved under `automation-qa/submissions/`.
-- The recorded diff contains only the intended file and no credentials or unrelated changes.
-- The local commit exists on `main` and has a clear summary.
-- The learner distinguishes a local commit from the later push that publishes it to GitHub.
+1. **Check the repository.** Open GitHub Desktop. Confirm the repository is `qa-engineering` and the current branch is `main`.
+2. **Make a safe edit.** Add one factual line to a copy of a practice Markdown note or a learner-authored test. Do not change stable app behavior for this exercise.
+3. **Review the change.** In **Changes**, read the diff (the before/after view). Confirm it contains only your intended edit, then select only that file.
+4. **Commit locally.** Enter a short summary such as `Document task filter check` and commit on `main`. A commit is a saved local snapshot; it is not online yet.
+5. **Push and record.** Use **Push origin**, then confirm the commit appears on GitHub. Save `automation-qa/submissions/git-workflow.md` with the branch, reviewed change, commit summary, push result, and why you selected only that file. Explain briefly that teams may use a pull request to request review before merging changes.

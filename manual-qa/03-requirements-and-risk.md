@@ -12,10 +12,8 @@ A useful plan states its feature scope, requirement source, environment, assumpt
 
 ## Practice
 
-1. Open the [TaskFlow Product Specification](../taskflow-qa-lab/README.md#product-specification) and focus on task creation.
-2. Write a short user story for task creation, then list observable acceptance criteria using only the specification. Copy the exact requirement text you will test. List unclear details as questions and say whether each question blocks the planned test.
-3. List at least five ways task creation could fail. For each, write a short reason, likelihood score, impact score, and multiplied score.
-4. Order your planned test areas by risk. Include an ordinary user-flow risk, an invalid-input risk, and an ownership or access-control risk. Explain the order.
-5. State what is in scope, what is out of scope, and which environment and dummy data you will use. Do not invent test results.
-
-Use a Markdown editor and the [test plan template](templates/test-plan-template.md). Save manual-qa/submissions/task-creation-test-plan.md with the user story and acceptance criteria, scope, source requirements, environment, questions, risk list, test order, and exclusions. Keep the plan small enough to run in one session.
+1. **Choose the source.** Open the [TaskFlow Product Specification](../taskflow-qa-lab/README.md#product-specification) and read the task-creation requirements. Copy the exact text you plan to use; do not add behavior that is not specified.
+2. **Write the story and checks.** Write one user story in the form “As a …, I want …, so that …”. List observable acceptance criteria beneath it. Add unanswered details as questions and say whether each question prevents a particular check from being planned.
+3. **List and score risks.** Write at least five ways task creation could fail. Give each likelihood and impact a score from 1 (low) to 3 (high), multiply the scores, and explain your reason. A risk score helps order investigation; it is not a precise prediction.
+4. **Set scope and order.** Order checks from highest to lowest score. Include a normal creation flow, invalid input, and ownership/access risk. State what is in scope, what is excluded, and that you will use the local app with invented data. Do not invent results.
+5. **Submit your plan.** Use the [test plan template](templates/test-plan-template.md) and save `manual-qa/submissions/task-creation-test-plan.md`. Include the story, criteria, source requirements, questions, risk scores/reasons, test order, scope, environment, and exclusions.

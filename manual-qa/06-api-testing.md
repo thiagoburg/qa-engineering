@@ -14,10 +14,8 @@ For example, GET /api/tasks?status=active should list only the signed-in user's 
 
 ## Practice
 
-1. Open Postman and create a collection named TaskFlow QA Lab local. Set a collection variable named baseUrl to the local TaskFlow address from the app README.
-2. Send GET to the health route. Record the request and response; use the response to confirm the local API is reachable.
-3. Use a dummy account and let Postman store the authentication cookie. Send requests for current user, create, list with filters, statistics, update, delete, invalid title, unknown filter, and unauthenticated access.
-4. For each request, compare method, URL, input, status, response body, and task state with the API Reference and Product Specification. Include successful and error cases.
-5. Save only sanitized request details. Do not export passwords, cookies, token-bearing headers, or real user information.
-
-Use Postman and TaskFlow's API documentation. Save your report in manual-qa/submissions/taskflow-api-checks.md with at least eight rows showing request, expected result, observed result, and pass/fail; include create/read/update/delete, validation, and unauthenticated behavior. Add a short conclusion about what direct API evidence helps you isolate.
+1. **Prepare Postman.** Open the local app using [First-time local setup (Windows)](../taskflow-qa-lab/README.md#first-time-local-setup-windows). In Postman, create a collection named `TaskFlow QA Lab local` and set `baseUrl` to the printed local address.
+2. **Check availability.** Send `GET {{baseUrl}}/api/health`. Record method, URL, status, and response. Compare with the health route in the [API Reference](../taskflow-qa-lab/README.md#api-reference).
+3. **Check authenticated behavior.** Create or sign in with an invented account and let Postman manage its cookie. Send requests for current user, create task, list/filter, statistics, update, and delete. For each, record input and observed status/body.
+4. **Check errors and access.** Try an invalid title and an unknown filter. Sign out, then request the protected task list. Compare each observed result with the API Reference and [Product Specification](../taskflow-qa-lab/README.md#product-specification). Include response bodies, not status codes alone.
+5. **Submit your report.** Save `manual-qa/submissions/taskflow-api-checks.md` with at least eight rows containing request, expected result, observed result, and Pass/Fail. Cover create/read/update/delete, validation, and unauthenticated behavior. Add what API evidence helps you isolate, and remove passwords, cookies, tokens, and personal information.

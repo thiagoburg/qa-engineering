@@ -14,11 +14,9 @@ Choose a small set that covers important partitions, limits, conditions, and sta
 
 ## Practice
 
-1. Use the [TaskFlow Product Specification](../taskflow-qa-lab/README.md#product-specification) to identify the title and description limits and the task status actions.
-2. Make an equivalence-partition table for title input and choose one representative input per group.
-3. Add title lengths 0, 1, 2, 119, 120, and 121. State how you will create a string of each exact length.
-4. Make a decision table for a valid/invalid title and a valid/too-long description. Record the expected outcome for each combination from the specification.
-5. Draw the task states and label the actions that create, complete, reopen, edit, delete, and reload a task.
-6. Turn the meaningful rows and transitions into cases with unique IDs, setup, action/input, and observable expected results. Mark any unanswered specification detail as a question.
-
-Use Markdown or CSV and the [test case template](templates/test-case-template.csv). Save at least 10 cases in manual-qa/submissions/task-validation-test-cases.csv. Add manual-qa/submissions/test-design-notes.md explaining which combinations you did not include and why. Base expected results on the specification.
+1. **Collect the rules.** Read title, description, and task-state rules in the [Product Specification](../taskflow-qa-lab/README.md#product-specification). Copy the exact limits and actions into your notes.
+2. **Group title inputs.** Make an equivalence-partition table: group inputs expected to behave alike, such as empty, valid length, and too long. Choose one representative input per group and explain why it represents that group.
+3. **Check boundaries.** Add title lengths 0, 1, 2, 119, 120, and 121. State how to create each exact length and the expected outcome. Boundary values test just below, at, and just above a limit.
+4. **Combine conditions.** Make a decision table for valid/invalid title and valid/too-long description. Write the expected outcome for each combination; mark missing rules as questions instead of inventing answers.
+5. **Map task states.** Draw task states and label create, complete, reopen, edit, delete, and reload actions. Show which actions change state and which should leave it unchanged.
+6. **Submit your cases.** Save `manual-qa/submissions/task-design.csv` with unique IDs, setup, input/action, expected result, and open question columns. Save `manual-qa/submissions/task-state-map.md` with your diagram and a short explanation.
