@@ -4,7 +4,7 @@ A beginner-friendly, practice-first path to junior QA skills, including remote o
 
 ## How to learn
 
-For each lesson, read and understand the theory, complete the practice, and save your work in the relevant section's submissions folder. Then ask an AI reviewer to review the saved work. The reviewer should explain what is correct, what needs correction, what to practice again, and whether you should reinforce this skill or move to the next lesson. Correct important gaps before moving on. Reading alone does not pass a competency checkpoint.
+For each lesson, read and understand the theory, then follow the Practice steps in order. **The first step creates the submission folder and all required work files** (and any learner test/code files). If a folder does not exist, create it with File Explorer or your code editor; you do not need the terminal just to create a folder or document. Start recording in those files immediately; later steps tell you what to add and where. Do not wait until the end to discover or create the deliverable. Then ask an AI reviewer to review the saved work. The reviewer should explain what is correct, what needs correction, what to practice again, and whether you should reinforce this skill or move to the next lesson. Correct important gaps before moving on. Reading alone does not pass a competency checkpoint.
 
 Support decreases as you progress: early lessons give more steps, while later lessons ask you to plan and work independently. A checkpoint is passed only after the learner's work has been reviewed and important gaps have been corrected. Do not claim skills or progress that the evidence does not support.
 
@@ -42,7 +42,7 @@ The Automation QA checkpoint is to build and debug an isolated suite, explain it
 
 ## Lesson format
 
-Each lesson has only two learning sections: **Theory** explains the important ideas in clear English with QA-focused examples; **Practice** says what to do, which tools to use, and what to save. Lessons are in English, with new terms explained before they are used heavily.
+Each lesson has only two learning sections: **Theory** explains the important ideas in clear English with QA-focused examples; **Practice** starts by preparing the files where work will be saved, then gives ordered tasks and says what to record in those files. Lessons are in English, with new terms explained before they are used heavily. Every important theory concept should be practiced naturally; if it does not fit, revise or move the concept rather than inventing an artificial task.
 
 ## TaskFlow QA Lab
 

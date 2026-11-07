@@ -22,8 +22,8 @@ This is readable as plain text and renders as a heading and three bullets on Git
 
 ## Practice
 
-1. **Check the repository.** Open GitHub Desktop. Confirm the repository is `qa-engineering` and the current branch is `main`.
-2. **Make a safe edit.** Add one factual line to a copy of a practice Markdown note or a learner-authored test. Do not change stable app behavior for this exercise.
-3. **Review the change.** In **Changes**, read the diff (the before/after view). Confirm it contains only your intended edit, then select only that file.
-4. **Commit locally.** Enter a short summary such as `Document task filter check` and commit on `main`. A commit is a saved local snapshot; it is not online yet.
-5. **Push and record.** Use **Push origin**, then confirm the commit appears on GitHub. Save `automation-qa/submissions/git-workflow.md` with the branch, reviewed change, commit summary, push result, and why you selected only that file. Explain briefly that teams may use a pull request to request review before merging changes.
+1. **Create your practice note.** Create `automation-qa/submissions/git-workflow.md` in Markdown with the heading `# Task filter check`, three bullets for `Page`, `Result`, and `Evidence`, and one filename in backticks. Use this file as both your Markdown practice and evidence log.
+2. **Check the repository.** Open GitHub Desktop. In the note, record the repository name and confirm it is `qa-engineering` on branch `main`.
+3. **Make a safe change.** Add one factual line about a TaskFlow check to your note. Do not change stable app behavior.
+4. **Review the diff.** In **Changes**, read the before/after view. Record what changed in your note, and make sure only your intended practice file is selected. Do not include credentials, test output, or unrelated files.
+5. **Commit and push.** Enter a short commit summary, commit on `main`, and use **Push origin**. Record the summary and confirm the commit appears on GitHub. Finish your note with why you selected only the intended file and when a team might use a pull request for review.

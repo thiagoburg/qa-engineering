@@ -2,7 +2,7 @@
 
 ## Theory
 
-Playwright Test has a request fixture for sending API calls. Use it to check API behavior without depending on page layout. Check both the status and response data: a 200 response containing another user's task is still a failure.
+Playwright Test provides **fixtures**, ready-to-use tools for each test. Its `request` fixture sends API calls without depending on page layout. Check both status and response data: a 200 response containing another user's task is still a failure.
 
 An authenticated API check also needs a session. TaskFlow stores its session in an HTTP-only cookie, which page JavaScript cannot read. To exercise a protected route, sign in an invented account in the test browser and use that page's request context so the browser's cookie is sent with the API request. Never extract, print, or copy the cookie into a report. A saved browser storageState can reuse a session, but it contains authentication data; keep it ignored by Git and never upload it. For early tests, signing in with a fresh account is easier to understand.
 
@@ -12,9 +12,9 @@ For example, an unauthenticated GET to the task list should return 401. For an a
 
 ## Practice
 
-1. **Select cases.** Read the TaskFlow [API Reference](../taskflow-qa-lab/README.md#api-reference) and Product Specification. Choose one success case, one validation failure, and one account-isolation check.
-2. **Test public routes.** In `taskflow-qa-lab/tests/learner-api-auth.spec.ts`, use Playwright's request fixture to check the health route and unauthenticated task access. Assert status and useful response data.
-3. **Test validation.** Send invalid task input and assert both the error status and response body against the specification.
-4. **Test isolation.** Sign in an invented first account in a browser page, use that page's request context to create and read a task, then use a second invented account and confirm it cannot read the first task. Do not copy or print the session cookie.
-5. **Keep data safe.** Use unique test data and cleanup that targets only local test-created data. Check saved auth state is ignored by Git; keep passwords, cookies, and tokens out of reports/logs.
-6. **Run and submit.** Run each test alone and with the suite. Save `automation-qa/submissions/api-auth-notes.md` with test results and a simple explanation of how data was created, isolated, and removed.
+1. **Create your code and report files.** From the repository root, create `taskflow-qa-lab/tests/learner-api-auth.spec.ts` with an empty Playwright test. Create `automation-qa/submissions/api-auth-notes.md` with headings `Cases`, `Account isolation`, and `Data lifecycle`.
+2. **Choose the expected behavior.** Read TaskFlow's [API Reference](../taskflow-qa-lab/README.md#api-reference) and Product Specification. Under `Cases`, list a health success, unauthenticated access, and invalid task input with expected status and useful response data.
+3. **Implement the public checks.** In the test file, use Playwright's request fixture for health and unauthenticated task access. Assert status and response data; record what each assertion checks under `Cases`.
+4. **Add validation and isolation.** Add an invalid task-input check. Copy `register`, `uniqueEmail`, and the practice password constant from `tests/taskflow.spec.ts`; also copy its `Page` type import. Sign in the first invented user in one browser context, create/read a task with that page's request context, then sign in a second invented user in a separate context and verify it cannot read the first task. Record setup and expected outcome under `Account isolation`; never copy or print session cookies.
+5. **Protect and run the data.** Use unique test data and cleanup that targets only test-created local data. Explain creation/isolation/cleanup under `Data lifecycle`. Check saved authentication state is ignored by Git and keep passwords, cookies, and tokens out of logs/reports.
+6. **Run the checks.** Run each test alone and with the suite. Add observed results to the notes. Keep the source test under `taskflow-qa-lab/tests/` so local runs and CI discover it.

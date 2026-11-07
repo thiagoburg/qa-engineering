@@ -6,13 +6,13 @@ A Playwright test has a name and an async callback. The built-in `page` fixture 
 
 `await page.getByRole('button', { name: 'Add task' }).click()` performs an action. `await expect(locator).toBeVisible()` waits for the expected state. These web-first assertions retry until success or timeout, reducing timing races. Avoid arbitrary sleeps; they slow tests and do not explain what state is expected.
 
-Fixtures provide fresh browser context/page for a test. Use a unique test account/data per test or a documented reset strategy. Tests should not depend on execution order. A `beforeEach` can repeat setup, but keep setup small and ensure cleanup does not delete anything outside local training data.
+Fixtures provide a fresh browser context and page for a test. Use a unique test account/data per test or a documented reset strategy so tests do not depend on order. A `beforeEach` block is a setup step Playwright runs before each test in its group; keep it small and ensure cleanup cannot delete anything outside local training data.
 
 
 ```ts
 import { test, expect } from '@playwright/test';
 
-// Assume the test fixture has already signed in an invented local account.
+// After test setup signs in an invented local account:
 test('signed-in user can add a task', async ({ page }) => {
   await page.goto('/');
   await page.getByLabel('Title').fill('Review release notes');
@@ -21,13 +21,12 @@ test('signed-in user can add a task', async ({ page }) => {
 });
 ```
 
-Adapt labels and setup to the current UI; the point is accessible selection and an observable assertion, not copying fixed credentials.
+The example shows only the task action and assertion; it assumes the test has already signed in. A full independent test needs its own account setup. Adapt labels and setup to the current UI; do not copy fixed credentials.
 
 ## Practice
 
-1. **Read the setup.** Open `taskflow-qa-lab/playwright.config.ts` and `tests/taskflow.spec.ts`. Record the base URL, browser, retry setting, and reporter you find; do not assume values.
-2. **Run the current suite.** Follow the app README's first-time setup if needed, then run `npm.cmd test` from `taskflow-qa-lab`. Note the browser and result.
-3. **Choose a requirement.** Pick one user-visible behavior from the [TaskFlow Product Specification](../taskflow-qa-lab/README.md#product-specification) and write its expected outcome before coding.
-4. **Add a UI check.** Create `taskflow-qa-lab/tests/learner-ui-smoke.spec.ts`. Use role/label locators that match the interface, and an awaited Playwright assertion that checks a meaningful visible outcome. Use invented local account data and keep the test independent.
-5. **Make it reliable.** Replace fixed sleeps with a locator action or assertion that waits for the expected state. Run the test alone and with the full suite; investigate any difference rather than hiding it.
-6. **Submit your notes.** Save `automation-qa/submissions/ui-smoke-notes.md` with the requirement, setup, locator choice, assertion, browser/environment, and both run results. Do not include secrets. Use the local app README for command and test setup details.
+1. **Create your work files.** Create `taskflow-qa-lab/tests/learner-ui-smoke.spec.ts` and copy the theory's sample UI test into it. Create `automation-qa/submissions/ui-smoke-notes.md` with headings `Requirement`, `Setup and locators`, `Assertion`, and `Run results`.
+2. **Inspect the project.** Open `taskflow-qa-lab/playwright.config.ts` and `tests/taskflow.spec.ts`. Record the base URL, browser, retry setting, and reporter under `Run results`; also find a use of `page`, `expect`, and any `beforeEach` setup. Explain what the setup repeats.
+3. **Choose one expectation.** Read a user-visible rule in the [TaskFlow Product Specification](../taskflow-qa-lab/README.md#product-specification). Write the expected outcome under `Requirement` before coding.
+4. **Implement the UI check.** Copy `register`, `uniqueEmail`, and the practice password constant from `tests/taskflow.spec.ts` into your test file; also import `type Page` from `@playwright/test`. Call `register(page)` before the task check so the test signs in with a unique invented account. Use the `page` fixture, a role/label locator matching the interface, and an awaited `expect` assertion for a visible outcome. Record your setup and why the locator matches the user's view under `Setup and locators`.
+5. **Run and improve reliability.** Follow the app README if setup is needed. Run your test alone and with `npm.cmd test`; record both results and browser. Replace fixed sleeps with a locator action/assertion that waits for the required state, and investigate any difference between runs.

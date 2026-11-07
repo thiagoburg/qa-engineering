@@ -12,8 +12,8 @@ A useful plan states its feature scope, requirement source, environment, assumpt
 
 ## Practice
 
-1. **Choose the source.** Open the [TaskFlow Product Specification](../taskflow-qa-lab/README.md#product-specification) and read the task-creation requirements. Copy the exact text you plan to use; do not add behavior that is not specified.
-2. **Write the story and checks.** Write one user story in the form “As a …, I want …, so that …”. List observable acceptance criteria beneath it. Add unanswered details as questions and say whether each question prevents a particular check from being planned.
-3. **List and score risks.** Write at least five ways task creation could fail. Give each likelihood and impact a score from 1 (low) to 3 (high), multiply the scores, and explain your reason. A risk score helps order investigation; it is not a precise prediction.
-4. **Set scope and order.** Order checks from highest to lowest score. Include a normal creation flow, invalid input, and ownership/access risk. State what is in scope, what is excluded, and that you will use the local app with invented data. Do not invent results.
-5. **Submit your plan.** Use the [test plan template](templates/test-plan-template.md) and save `manual-qa/submissions/task-creation-test-plan.md`. Include the story, criteria, source requirements, questions, risk scores/reasons, test order, scope, environment, and exclusions.
+1. **Create your plan file.** Copy `manual-qa/templates/test-plan-template.md` to `manual-qa/submissions/task-creation-test-plan.md`. Work in this copy from the start.
+2. **Read the source.** Open the [Product Specification](../taskflow-qa-lab/README.md#product-specification). In your plan, fill in the specification/story field with the task-creation requirement, quoting the exact rule you will use.
+3. **Write a story and criteria.** In `Objective and risks`, write one user story (“As a…, I want…, so that…”) and observable acceptance criteria. Under `Open questions and residual risk`, record unanswered details and say if each question prevents a planned check.
+4. **Score the risks.** List at least five ways task creation could fail in `Objective and risks`. Score likelihood and impact from 1 (low) to 3 (high), multiply them, and briefly justify the scores. Use the scores to order the checks; they help compare risks but are not precise predictions.
+5. **Complete the plan.** Fill `Scope`, `Approach`, `Entry and exit conditions`, and `Deliverables and reporting`. State the local environment and invented data, include ordinary, invalid-input, and ownership/access risks, and explain any exclusions. Do not write test results before testing.

@@ -14,8 +14,8 @@ Browser Developer Tools help you inspect the page. **Elements** shows its HTML a
 
 ## Practice
 
-1. **Open the local app.** Follow [First-time local setup (Windows)](../taskflow-qa-lab/README.md#first-time-local-setup-windows), open its local address, and sign in with an invented account.
-2. **Inspect a request.** Press F12 to open browser Developer Tools and select **Network**. Reload the page, choose a request whose path contains `/api/`, and record its method, path, status code, and one JSON response property. Use values you actually see.
-3. **Inspect the page structure.** In **Elements**, find the main heading. Record its HTML tag and one style shown in the Styles panel. Do not edit the page.
-4. **Explain the evidence.** Read one related behavior in the [Product Specification](../taskflow-qa-lab/README.md#product-specification). State what the request and Console show, and one thing these observations do not prove about the whole app.
-5. **Submit your note.** Save `manual-qa/submissions/web-request-inspection.md`. Include the browser, request details, heading tag/style, explanation, and sanitized evidence. Do not include account or personal information.
+1. **Create your observation file.** Create `manual-qa/submissions/web-request-inspection.md` with headings `Environment`, `Network request`, `Page structure`, `Console`, and `What this evidence does not show`.
+2. **Open the local app.** Follow [First-time local setup (Windows)](../taskflow-qa-lab/README.md#first-time-local-setup-windows), open its local address, and sign in with an invented account. Write your browser and viewport under `Environment`.
+3. **Inspect one request.** Press F12 and select **Network**. Reload, choose a request with `/api/` in its path, and record its method, path, status, and one JSON response property under `Network request`. Add one sentence describing what the browser requested and what the server returned. Use actual values, then compare the response with the related [Product Specification](../taskflow-qa-lab/README.md#product-specification) rule.
+4. **Inspect page content and style.** In **Elements**, find the main heading and record its HTML tag and one applied style under `Page structure`. In **Console**, record whether you saw a relevant message or error; do not guess at its cause.
+5. **Finish the note.** Under `What this evidence does not show`, explain what the request response tells you and one thing your observations do not prove about the full app. Keep the note factual and free of personal/account information.

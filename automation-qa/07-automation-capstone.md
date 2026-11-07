@@ -10,9 +10,9 @@ An efficient suite may include health, unauthenticated access, title validation,
 
 ## Practice
 
-1. **Select candidates.** Use your completed Manual QA capstone and choose 8–12 checks by risk. Map each to a product requirement and classify it as API, UI, or manual.
-2. **Plan data and coverage.** For each automated check, define setup, unique data/isolation, assertion, and cleanup. Keep checks that require human judgment in a manual list.
-3. **Build the suite.** Add API checks first, then two high-value UI journeys in `taskflow-qa-lab/tests/learner-capstone.spec.ts`. Use TypeScript, Playwright Test, and local Worker/D1; avoid arbitrary sleeps.
-4. **Run and diagnose.** Run each check alone and as a suite, then run typecheck and the GitHub Actions workflow. Investigate a failure; if all are green, state exactly what you checked and what remains untested.
-5. **Review evidence.** Inspect reports/logs and remove any credential, cookie, token, or private data. Keep the test suite reproducible on another run.
-6. **Submit the portfolio package.** Save `automation-qa/submissions/capstone/` with a strategy matrix linked to the learner suite, manual-only checks, run instructions, execution summary, and CI/reliability review. Include at least eight meaningful API/UI checks across the suite and document limitations.
+1. **Create your capstone files.** Create `taskflow-qa-lab/tests/learner-capstone.spec.ts`. Create `automation-qa/submissions/capstone/` with `strategy-matrix.md`, `manual-only-checks.md`, `run-instructions.md`, `execution-summary.md`, and `ci-reliability-review.md`. Add headings or tables before starting.
+2. **Select candidates.** Use your Manual QA capstone to choose 8–12 high-risk checks. Map each to a Product Specification requirement and mark API, UI, or manual in `strategy-matrix.md`.
+3. **Plan implementation and data.** For each automated check, record setup, unique data/isolation, assertion, and cleanup in the matrix. Explain checks kept manual and their human judgment in `manual-only-checks.md`.
+4. **Build the suite.** Implement API checks first, then two high-value UI journeys in `learner-capstone.spec.ts`. Use local Worker/D1, accessible locators, awaited assertions, and no arbitrary sleeps.
+5. **Run and diagnose.** Run each case alone and as a suite, then run typecheck and GitHub Actions. Record commands, environment, results, failures/diagnoses, and artifacts in `run-instructions.md`, `execution-summary.md`, and `ci-reliability-review.md` as appropriate. If all checks pass, state what was covered and what remains untested.
+6. **Review the portfolio evidence.** Ensure at least eight meaningful API/UI checks are present, each maps to a requirement/risk, and the suite is repeatable. Remove passwords, cookies, tokens, and personal data; link the submission docs to the learner-authored test file.

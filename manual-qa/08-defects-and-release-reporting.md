@@ -12,9 +12,8 @@ Title: “Completed tasks reappear in Active filter after reload.” Steps ident
 
 ## Practice
 
-1. **Choose a finding.** Use a mismatch you actually observed in local TaskFlow. If you found none, create a clearly labeled hypothetical example and do not describe it as an observed defect.
-2. **Write the report.** Fill the [bug report template](templates/bug-report-template.md) with environment, preconditions, exact steps, expected and actual results, and sanitized evidence.
-3. **Assess impact and urgency.** Give severity (impact on users/system) and priority (how soon the team should act) separately, with a short reason for each.
-4. **Show ticket progress honestly.** Record the current status and a short triage decision. Add a status history using New → Triaged → In Progress → Ready for Retest → Closed or Reopened. Mark steps that have not happened as planned or hypothetical; never claim a fix occurred when it did not.
-5. **Plan retesting and release reporting.** State how to retest the issue and the smallest nearby regression set. Use the [test execution template](templates/test-execution-template.csv) to count Pass, Fail, Blocked, and Not run cases. A retest repeats a failed check after a fix; regression checks nearby behavior for unintended change.
-6. **Submit your report.** Save `manual-qa/submissions/defect-and-release-report.md` with the report, severity/priority reasons, honest status history, retest/regression plan, and a one-page release summary stating scope, environment, result counts, open findings, and remaining risk.
+1. **Create both work files.** Copy `manual-qa/templates/bug-report-template.md` to `manual-qa/submissions/defect-and-release-report.md`. Copy `manual-qa/templates/test-execution-template.csv` to `manual-qa/submissions/defect-release-execution.csv`. Start with these files and fill them as you go.
+2. **Choose a finding.** Use a mismatch you actually observed in local TaskFlow. If you found none, label a hypothetical example clearly; do not describe it as observed. Fill the bug report with environment, preconditions, exact steps, expected/actual results, and sanitized evidence.
+3. **Assess impact and urgency.** In the report, give severity (impact on users/system) and priority (how soon the team should act) separately, with a reason for each.
+4. **Describe triage and status.** Record a suggested triage decision and the finding's current status. Add a history using New → Triaged → In Progress → Ready for Retest → Closed or Reopened. Mark future steps as planned/hypothetical; never claim a fix occurred if it did not.
+5. **Plan retest and release summary.** Describe the retest and smallest nearby regression set in the report. Use the CSV to record execution results and count Pass, Fail, Blocked, and Not run; Blocked means unable to complete, Not run means deliberately not attempted. Add a release summary to the report with scope, environment, counts, open findings, and remaining risk.

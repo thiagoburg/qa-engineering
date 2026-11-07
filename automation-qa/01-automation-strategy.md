@@ -12,8 +12,8 @@ Automate that an unauthenticated `GET /api/tasks` returns `401` as an API check.
 
 ## Practice
 
-1. **Choose behaviors.** Read the [TaskFlow Product Specification](../taskflow-qa-lab/README.md#product-specification) and list eight behaviors that matter to users or data safety.
-2. **Compare options.** For each behavior, record risk, how often it repeats, how stable the expected result is, the likely layer (manual, API, or UI), and the effort to maintain an automated check. API checks call the service directly; UI checks exercise the browser; some checks need human judgment and should stay manual.
-3. **Set priorities.** Choose three checks to automate first and explain the value. Name two checks to keep manual and the human judgment they need.
-4. **Plan isolation.** State how each automated run will use unique test data or safe local cleanup. Identify coverage gaps and one limitation for each selected check.
-5. **Submit your strategy.** Save `automation-qa/submissions/automation-strategy.md` with an eight-row decision table, top-three backlog, manual-only reasons, data-isolation plan, coverage gaps, and limitations.
+1. **Create your strategy file.** Create `automation-qa/submissions/automation-strategy.md` with a decision table headed `behavior | requirement/risk | repeat frequency | stability | layer | value/cost | possible false alarm | possible missed risk`. Add headings `First three to automate`, `Keep manual`, and `Coverage gaps`.
+2. **Choose behaviors.** Read the [TaskFlow Product Specification](../taskflow-qa-lab/README.md#product-specification). Add eight important behaviors to the table, each tied to a user or data risk.
+3. **Compare candidates.** For each row, consider how often it repeats, whether the result is stable, and whether manual, API, or UI testing gives the best evidence. Note a possible false alarm (test fails while product is correct) and a possible missed risk (test passes but misses a problem) for each candidate.
+4. **Prioritize.** Choose three checks to automate first and explain their value and maintenance cost under `First three to automate`. Choose two manual checks under `Keep manual` and explain what human judgment they require.
+5. **Review coverage.** Under `Coverage gaps`, list important behavior your candidates do not check and how you would keep an eye on it. Include test-data isolation for selected checks. The test pyramid is a reminder to use fast lower-level checks where useful while retaining a few user-level checks; do not treat it as a required ratio.

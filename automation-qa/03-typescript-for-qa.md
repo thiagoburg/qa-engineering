@@ -6,7 +6,7 @@ TypeScript is JavaScript with type checking. You do not need to become a general
 
 A **variable** gives a value a name. Use const when you will not assign a different value to that name; use let when you need to assign it again. Common values are strings for text, numbers for counts, and booleans for true/false. Arrays hold several values, such as a list of valid task filters. An object groups related values, such as a task title and completion state.
 
-A **type** describes what kind of value is expected. TypeScript can infer many types from the value, but you can also write them: a title is a string, a count is a number, and a list of titles can be string[]. An object type explains its fields. Types help catch mistakes before the test runs; they do not prove that the product behaves correctly.
+A **type** describes what kind of value is expected. TypeScript can infer many types from the value, but you can also write them: a title is a string, a count is a number, and a list of titles can be `string[]`. An object type lists the fields the object should have, for example `{ status: string; expectedLabel: string }`. Types help catch mistakes before the test runs; they do not prove that the product behaves correctly.
 
 A **function** is a named, reusable step. Its parameters describe the input, and its return type describes the value it gives back. A helper that creates a unique task title can reduce repeated test setup. An if statement runs different code depending on whether a condition is true. Use simple helpers only when they make tests easier to read and maintain.
 
@@ -24,19 +24,26 @@ function makeTitle(run: number): string {
 }
 
 test("health API returns its expected status", async ({ request }) => {
+  const filterCase: { status: string; expectedLabel: string } = {
+    status: "active",
+    expectedLabel: "Active",
+  };
+  const filters: string[] = ["all", "active", "completed"];
   const response = await request.get("/api/health");
   const body: { status: string } = await response.json();
 
   expect(response.status()).toBe(200);
   expect(body.status).toBe("ok");
+  expect(filters).toContain(filterCase.status);
+  expect(filterCase.expectedLabel).toBe("Active");
   expect(makeTitle(1)).toBe("qa-title-1");
 });
 ```
 
 ## Practice
 
-1. **Read an existing check.** Open `taskflow-qa-lab/tests/taskflow.spec.ts`. Find an import, test name, variable, function, and awaited browser/API operation. In your notes, explain the job each does in that QA check.
-2. **Create a focused test.** From `taskflow-qa-lab`, create `tests/learner-typescript-practice.spec.ts` using the theory example. Add a string array of TaskFlow filter names and an assertion for one value.
-3. **Observe a type error safely.** Change one declared type so it conflicts with its value. Run `npm.cmd run typecheck`, read the diagnostic, then restore a correct type. A type error is a code-checking problem before execution, not evidence of a product defect.
-4. **Run the test.** Run `npm.cmd test -- tests/learner-typescript-practice.spec.ts` from the app folder. Record whether it passes and the observed API status/body. Keep the test learner-authored and in the test suite.
-5. **Submit your notes.** Save `automation-qa/submissions/typescript-notes.md` with five annotated examples: values/types, array or object, small function, import, and awaited API/browser operation. Identify your test file, include the corrected compiler message in your own words, and explain how each example helps QA work.
+1. **Create your files first.** From the repository root, create `taskflow-qa-lab/tests/learner-typescript-practice.spec.ts` and paste in the theory code example. Create `automation-qa/submissions/typescript-notes.md` with headings `Existing code`, `Test`, and `Type error and correction`.
+2. **Study real examples.** Open `taskflow-qa-lab/tests/taskflow.spec.ts` and `taskflow-qa-lab/package.json`. Under `Existing code`, annotate an import, test name, `const`/`let`, an inferred type, an array or object, a function, an `if`, and an awaited browser/API operation. Find the test/typecheck commands and a Playwright dependency in `package.json`. Explain each in plain English and how it helps a QA check.
+3. **Adapt the example.** In your test file, keep imported Playwright `test` and `expect`, the typed array of TaskFlow filters, the typed object that groups a filter with an expected label, the helper function with its parameter and return type, and the awaited health API check. Add an assertion that the chosen filter appears in the array. Use `const` for values you do not reassign; keep the code focused on this QA check.
+4. **See and fix a type error.** Temporarily give one value a type that conflicts with its value. Run `npm.cmd run typecheck` from `taskflow-qa-lab`, note the compiler message in `Type error and correction`, then restore the correct type. Do not leave the broken version in the file.
+5. **Run and finish.** From the app folder, run `npm.cmd test -- tests/learner-typescript-practice.spec.ts`. In the `Test` section record the result and explain how the types, helper, import, and awaited assertion support the QA check. Keep the authored test in the suite.

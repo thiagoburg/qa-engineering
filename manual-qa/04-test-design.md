@@ -14,9 +14,8 @@ Choose a small set that covers important partitions, limits, conditions, and sta
 
 ## Practice
 
-1. **Collect the rules.** Read title, description, and task-state rules in the [Product Specification](../taskflow-qa-lab/README.md#product-specification). Copy the exact limits and actions into your notes.
-2. **Group title inputs.** Make an equivalence-partition table: group inputs expected to behave alike, such as empty, valid length, and too long. Choose one representative input per group and explain why it represents that group.
-3. **Check boundaries.** Add title lengths 0, 1, 2, 119, 120, and 121. State how to create each exact length and the expected outcome. Boundary values test just below, at, and just above a limit.
-4. **Combine conditions.** Make a decision table for valid/invalid title and valid/too-long description. Write the expected outcome for each combination; mark missing rules as questions instead of inventing answers.
-5. **Map task states.** Draw task states and label create, complete, reopen, edit, delete, and reload actions. Show which actions change state and which should leave it unchanged.
-6. **Submit your cases.** Save `manual-qa/submissions/task-design.csv` with unique IDs, setup, input/action, expected result, and open question columns. Save `manual-qa/submissions/task-state-map.md` with your diagram and a short explanation.
+1. **Create your case files.** In `manual-qa/submissions/`, create `task-design.csv` with columns `case_id,scenario,preconditions,steps,test_data,expected_result,open_question` and `task-state-map.md` with headings `Task states` and `Actions`. Work in these files as you go.
+2. **Copy the rules.** Read the title, description, and task-state rules in the [Product Specification](../taskflow-qa-lab/README.md#product-specification). Record the exact limits in `task-state-map.md`.
+3. **Build input groups and boundaries.** In `task-design.csv`, create representative cases for empty/space-only, valid, and too-long titles. Add title lengths 0, 1, 2, 119, 120, and 121. For each, write a sample input with exactly that many non-space characters (for example, repeat `a`), and the expected outcome. These values check just below, at, and just above the limits.
+4. **Combine conditions.** Add cases to compare valid/invalid titles with valid/too-long descriptions. Record expected results from the specification and mark any unanswered rule as an open question, not an assumption.
+5. **Map the task states.** In `task-state-map.md`, draw Active and Completed states and show how create, complete, reopen, edit, delete, and reload affect them. Link each useful transition to a case ID in the CSV. Give each case enough setup to run without depending on another case.
