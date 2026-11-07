@@ -12,8 +12,8 @@ A useful plan states its feature scope, requirement source, environment, assumpt
 
 ## Practice
 
-1. **Create your plan file.** Copy `manual-qa/templates/test-plan-template.md` to `manual-qa/submissions/task-creation-test-plan.md`. Work in this copy from the start.
-2. **Read the source.** Open the [Product Specification](../taskflow-qa-lab/README.md#product-specification). In your plan, fill in the specification/story field with the task-creation requirement, quoting the exact rule you will use.
-3. **Write a story and criteria.** In `Objective and risks`, write one user story (“As a…, I want…, so that…”) and observable acceptance criteria. Under `Open questions and residual risk`, record unanswered details and say if each question prevents a planned check.
-4. **Score the risks.** List at least five ways task creation could fail in `Objective and risks`. Score likelihood and impact from 1 (low) to 3 (high), multiply them, and briefly justify the scores. Use the scores to order the checks; they help compare risks but are not precise predictions.
-5. **Complete the plan.** Fill `Scope`, `Approach`, `Entry and exit conditions`, and `Deliverables and reporting`. State the local environment and invented data, include ordinary, invalid-input, and ownership/access risks, and explain any exclusions. Do not write test results before testing.
+1. **Create the plan.** Copy `manual-qa/templates/test-plan-template.md` to `manual-qa/submissions/task-creation-test-plan.md`. Fill this copy only; the template remains unchanged.
+2. **Set the source requirement.** Open the [Product Specification](../taskflow-qa-lab/README.md#product-specification). In the plan’s `**Specification or story:**` field, quote the exact task-creation rule you will test.
+3. **Describe purpose and questions.** Under `## Objective and risks`, write one user story (“As a…, I want…, so that…”) and observable acceptance criteria. Under `## Open questions and residual risk`, list unanswered details and say whether each one prevents a planned check.
+4. **Rank task-creation risks.** Still under `## Objective and risks`, list at least five possible failures. For each, score likelihood and impact from 1 (low) to 3 (high), multiply the scores, and briefly explain them. Use the scores to order your planned checks; they are comparisons, not precise predictions.
+5. **Finish the plan sections.** Complete `## Scope`, `## Approach`, `## Entry and exit conditions`, and `## Deliverables and reporting`. Name local TaskFlow, invented data, ordinary and invalid inputs, ownership/access risks, and exclusions. Do not enter test results before execution.

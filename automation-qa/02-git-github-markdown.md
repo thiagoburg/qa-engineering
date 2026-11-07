@@ -22,8 +22,8 @@ This is readable as plain text and renders as a heading and three bullets on Git
 
 ## Practice
 
-1. **Create your practice note.** Create `automation-qa/submissions/git-workflow.md` in Markdown with the heading `# Task filter check`, three bullets for `Page`, `Result`, and `Evidence`, and one filename in backticks. Use this file as both your Markdown practice and evidence log.
-2. **Check the repository.** Open GitHub Desktop. In the note, record the repository name and confirm it is `qa-engineering` on branch `main`.
-3. **Make a safe change.** Add one factual line about a TaskFlow check to your note. Do not change stable app behavior.
-4. **Review the diff.** In **Changes**, read the before/after view. Record what changed in your note, and make sure only your intended practice file is selected. Do not include credentials, test output, or unrelated files.
-5. **Commit and push.** Enter a short commit summary, commit on `main`, and use **Push origin**. Record the summary and confirm the commit appears on GitHub. Finish your note with why you selected only the intended file and when a team might use a pull request for review.
+1. **Create the Markdown note.** Create `automation-qa/submissions/git-workflow.md`. Add heading `# Task filter check`, then bullets `- Page:`, `- Result:`, and `- Evidence:`. In `Evidence`, include one filename surrounded by backticks. Add headings `## Repository check`, `## Change summary`, `## Diff review`, `## Commit`, and `## Review` below the bullets.
+2. **Confirm the repository.** Open GitHub Desktop and select `qa-engineering`. Confirm the current branch is `main`. Under the note’s `## Repository check` heading (add it below the bullets), record the repository name and branch. If either differs, stop and report it rather than switching branches.
+3. **Make a safe note change.** Add one factual line about a TaskFlow check to `git-workflow.md`; do not change TaskFlow app behavior. Under `## Change summary`, describe the line you added.
+4. **Review the diff.** In GitHub Desktop’s **Changes** view, open the before/after diff. Under `## Diff review`, record the file changed and confirm only the intended practice note is selected. Do not include credentials, test output, or unrelated files.
+5. **Commit and push the practice note.** Enter a short commit summary, commit on `main`, and select **Push origin**. Under `## Commit`, record the summary and confirm the commit appears on GitHub. Under `## Review`, explain why you selected only the intended file and when a team may use a pull request for review.
